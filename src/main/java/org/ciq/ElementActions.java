@@ -1,10 +1,14 @@
+package org.ciq;
+
 import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public interface ElementActions {
 
     WebElement locateElement(String locator, String value);
 
-    WebElement locateElements(String locator, String value);
+    List<WebElement> locateElements(String locator, String value);
 
     WebElement locateElementByXpath(String value);
 
