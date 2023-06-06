@@ -1,4 +1,4 @@
-package org.ciq;
+package utils;
 
 import org.openqa.selenium.WebElement;
 

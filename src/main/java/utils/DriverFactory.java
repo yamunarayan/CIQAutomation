@@ -1,4 +1,4 @@
-package org.ciq;
+package utils;
 
 import org.openqa.selenium.WebDriver;
 
@@ -20,7 +20,7 @@ public class DriverFactory {
         tlWebDriver.set(driver);
     }
 
-    public WebDriver getDriver(){
+    public static WebDriver getDriver(){
         return tlWebDriver.get();
     }
 }
