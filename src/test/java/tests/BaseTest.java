@@ -1,12 +1,15 @@
 package tests;
 
 import io.qameta.allure.Step;
+import org.testng.annotations.BeforeSuite;
+import utils.AllureConfigurator;
 import utils.DriverFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 
+import java.io.IOException;
 import java.time.Duration;
 
 public class BaseTest {
@@ -24,7 +27,13 @@ public class BaseTest {
         return DriverFactory.getInstance().getDriver();
     }
 
+    @BeforeSuite
+    public void configuringLog4j() throws IOException {
+        AllureConfigurator.configure();
+    }
+
     @AfterMethod(alwaysRun = true)
+    @Step("closing the browser")
     public void tearDownBrowser(){
         DriverFactory.getInstance().getDriver().close();
     }

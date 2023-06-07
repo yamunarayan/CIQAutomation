@@ -10,7 +10,7 @@ import java.util.Properties;
 
 public class ConfigLoader {
 
-    public String getConfigValue(String key) {
+    public static String getConfigValue(String key) {
 
         String configValue="";
 
