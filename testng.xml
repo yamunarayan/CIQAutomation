@@ -3,17 +3,13 @@
 <suite name="All Test Suite">
     
     <listeners>
-        <listener class-name="listeners.ReportListener"></listener>
-        <listener class-name="listeners.RetryListener"></listener>
+        <listener class-name="org.ciq.listeners.ReportListener"></listener>
+        <listener class-name="org.ciq.listeners.RetryListener"></listener>
     </listeners>
 
-    <test verbose="2" preserve-order="true" name="C:/Users/satya/CIQAutomation/src/test/java/tests/UserLogin.java">
-        <classes>
-            <class name="tests.UserLogin">
-                <methods>
-                    <include name="test"/>
-                </methods>
-            </class>
-        </classes>
+    <test verbose="2" preserve-order="true" name="test">
+        <packages>
+            <package name="tests"></package>
+        </packages>
     </test>
 </suite>

@@ -1,4 +1,4 @@
-package utils;
+package org.ciq.utils;
 
 import org.openqa.selenium.WebDriver;
 

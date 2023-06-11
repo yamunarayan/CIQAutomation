@@ -1,4 +1,4 @@
-package utils;
+package org.ciq.utils;
 
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.json.Json;

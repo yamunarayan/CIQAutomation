@@ -1,27 +1,26 @@
-package pages;
+package org.ciq.pages;
 
-import io.qameta.allure.Description;
 import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
-import utils.ElementActionsImpl;
-import utils.WebDriverImpl;
+import org.ciq.utils.ElementActionsImpl;
+import org.ciq.utils.WebDriverMethods;
 
 public class RegisterPage {
 
     public WebDriver driver;
-    public ElementActionsImpl elementActions;
-    public WebDriverImpl webDriverImpl;
+
+    public WebDriverMethods webDriverMethods;
+
 
 
 
     public RegisterPage(WebDriver driver) {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver,15), this);
-        elementActions=new ElementActionsImpl(driver);
-        webDriverImpl=new WebDriverImpl(driver);
+        webDriverMethods =new WebDriverMethods(driver);
     }
 
     @FindBy(xpath = "//input[@type='text']")
@@ -32,12 +31,12 @@ public class RegisterPage {
 
     @Step("entering first name")
     public void enterFirstName() {
-        webDriverImpl.enterText(firstName,"first name");
+        webDriverMethods.enterText(firstName,"first name");
     }
 
     @Step("entering last name")
     public void enterLastName() {
-        webDriverImpl.enterText(lastName,"first name");
+        webDriverMethods.enterText(lastName,"first name");
 
     }
 }

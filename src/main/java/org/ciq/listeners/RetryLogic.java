@@ -1,4 +1,4 @@
-package listeners;
+package org.ciq.listeners;
 
 import org.testng.IRetryAnalyzer;
 import org.testng.ITestResult;

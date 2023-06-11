@@ -1,49 +1,17 @@
-package utils;
+package org.ciq.utils;
 
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
 
-public class WebDriverImpl implements WebDriverMethods{
+public class ElementActionsImpl implements ElementActions{
+
 
     WebDriver driver;
 
-    public WebDriverImpl(WebDriver driver){
+    public ElementActionsImpl(WebDriver driver){
         this.driver=driver;
-    }
-
-
-    @Override
-    public void enterText(WebElement ele, String text) {
-        try {
-            ele.sendKeys(text);
-        }
-        catch (NoSuchElementException exception){
-            System.out.println("No such element was found");
-        }
-        catch (StaleElementReferenceException exception){
-            System.out.println("stale element reference exception-->element wouldn't have been attached to DOM");
-        }
-        catch (Exception e){
-            System.out.println("unknown exception occurred");
-        }
-    }
-
-    @Override
-    public void click(WebElement ele) {
-        try {
-            ele.click();
-        }
-        catch (NoSuchElementException exception){
-            System.out.println("No such element was found");
-        }
-        catch (StaleElementReferenceException exception){
-            System.out.println("stale element reference exception-->element wouldn't have been attached to DOM");
-        }
-        catch (Exception e){
-            System.out.println("unknown exception occurred");
-        }
     }
 
     @Override
@@ -98,7 +66,7 @@ public class WebDriverImpl implements WebDriverMethods{
     @Override
     public WebElement locateElementByXpath(String value) {
         try{
-            return driver.findElement(By.xpath(value));
+               return driver.findElement(By.xpath(value));
         }
         catch (NoSuchElementException exception){
             System.out.println(exception.getCause()+"element can't be found");
