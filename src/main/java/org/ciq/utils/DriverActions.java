@@ -28,6 +28,7 @@ public interface DriverActions {
     void selectDropDownByText(WebElement element, String text);
 
     WebElement waitForElementTobeClickable(String element);
+    WebElement waitForElementVisibility(String locator);
 
 
 

@@ -1,7 +1,9 @@
 package org.ciq.pages;
 
+import com.google.inject.internal.ExposureBuilder;
 import io.cucumber.java.sl.In;
 import io.qameta.allure.Step;
+import org.apache.poi.hssf.record.SubRecord;
 import org.ciq.utils.WebDriverMethods;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Keys;
@@ -53,11 +55,11 @@ public class SurveyPage {
     @FindBy(xpath = "(//div[@class='col-md-6 col-xs-12'])[3]")
     WebElement jewish;
 
-    @FindBy(xpath = "//div[@class='col-xs-6 ng-scope']//label[contains(text(),'Mother')]")
+/*    @FindBy(xpath = "//div[@class='col-xs-6 ng-scope']//label[contains(text(),'Mother')]")
     WebElement mother;
 
     @FindBy(xpath = "//div[@class='col-xs-6 ng-scope']//label[contains(text(),'Father')]")
-    WebElement father;
+    WebElement father;*/
 
     @FindBy(xpath = "//div[@class='col-md-offset-5 col-md-2 center-question']//input")
     WebElement weight;
@@ -65,94 +67,117 @@ public class SurveyPage {
     @FindBy(xpath = "//span[@class='ng-scope']//button")
     WebElement submit;
 
-   /* @FindBy(xpath = "//select[@name='selectBox']")
-    WebElement typeOfCancer;
-
-    @FindBy(xpath = "//div[@class='col-sm-2 col-xs-2']//input")
-    WebElement age;*/
+    @FindBy(xpath = "//div[@class='col-xs-3 right-button']//span[text()[normalize-space()='Next']]")
+    WebElement rightNext;
 
 
     @Step("starting the survey")
-    public void startSurvey() {
+    public SurveyPage startSurvey() {
         webDriverMethods.click(startSurvey);
+        return this;
     }
 
     @Step("entering first name")
-    public void enterFirstName(String fName) {
+    public SurveyPage enterFirstName(String fName) {
         webDriverMethods.enterText(firstName, fName);
+        return this;
     }
 
     @Step("entering last name")
-    public void enterLastName(String lName) {
+    public SurveyPage enterLastName(String lName) {
         webDriverMethods.enterText(firstName, lName);
+        return this;
     }
 
     @Step("clicking,next button")
-    public void clickNext() {
+    public SurveyPage clickNext() {
         try {
             Thread.sleep(2000);
             webDriverMethods.waitForElementTobeClickable(next).click();
         } catch (Exception e) {
             System.out.println("element can't be clicked");
         }
+        return this;
 
+    }
+
+    @Step("clicking,right next button")
+    public SurveyPage clickRightNext(int buttonCount) {
+        try {
+            Thread.sleep(2000);
+            webDriverMethods.waitForElementVisibility("(//div[@class='col-xs-3 right-button']//span[text()[normalize-space()='Next']])["+buttonCount+"]").click();
+        } catch (Exception e) {
+            System.out.println("element can't be clicked");
+        }
+        return this;
     }
 
     @Step("entering DOB")
-    public void enterDob(String dob) {
+    public SurveyPage enterDob(String dob) {
         webDriverMethods.enterText(dobEle, dob, Keys.ALT);
+        return this;
     }
 
     @Step("choosing the gender")
-    public void choosingGender(String gender) {
+    public SurveyPage choosingGender(String gender) {
         if (gender.toLowerCase().equals("male")) webDriverMethods.click(male);
         else webDriverMethods.click(feMale);
+        return this;
     }
 
     @Step("choosing the ancestry")
-    public void choosingAncestry(String ancestry) {
+    public SurveyPage choosingAncestry(String ancestry) {
         if (ancestry.toLowerCase().equals("yes"))
             webDriverMethods.waitForElementTobeClickable(yes).click();
         else if (ancestry.toLowerCase().equals("no"))
             webDriverMethods.waitForElementTobeClickable(no).click();
         else
             webDriverMethods.click(jewish);
+        return this;
     }
 
     @Step("Were you adopted?")
-    public void choosingAdoption(String adopted) {
+    public SurveyPage choosingAdoption(String adopted) {
         if (adopted.toLowerCase().equals("yes"))
             webDriverMethods.waitForElementTobeClickable(yes).click();
         else
             webDriverMethods.waitForElementTobeClickable(no).click();
+
+        return this;
     }
 
     @Step("confirmation on biological information about family ")
-    public void biologicalInfo(String biologicalInfo) {
+    public SurveyPage biologicalInfo(String biologicalInfo) {
         if (biologicalInfo.toLowerCase().equals("yes"))
             webDriverMethods.waitForElementTobeClickable(yes).click();
         else
             webDriverMethods.waitForElementTobeClickable(no).click();
+
+        return this;
     }
 
     @Step("Do you currently have or have you ever had cancer (includes DCIS)?")
-    public void isCancerous(String isCancerous) {
+    public SurveyPage isCancerous(String isCancerous) {
         if (isCancerous.toLowerCase().equals("yes"))
             webDriverMethods.waitForElementTobeClickable(yes).click();
         else
             webDriverMethods.waitForElementTobeClickable(no).click();
+
+        return this;
     }
 
     @Step("Have you been diagnosed with a cancer in the past 12 months?")
-    public void cancerInRecentTimes(String cancerInRecentTimes) {
+    public SurveyPage cancerInRecentTimes(String cancerInRecentTimes) {
         if (cancerInRecentTimes.toLowerCase().equals("yes"))
             webDriverMethods.waitForElementTobeClickable(yes).click();
         else
             webDriverMethods.waitForElementTobeClickable(no).click();
+
+        return this;
     }
 
     @Step("What type of cancers have you been diagnosed with and at what age??")
-    public void setTypeOfCancerAndAge(String typeOfCancerAndAge) {
+    public SurveyPage setTypeOfCancerAndAge(String typeOfCancerAndAge) {
 
         String[] split = typeOfCancerAndAge.split(",");
         int index = 1;
@@ -166,158 +191,197 @@ public class SurveyPage {
                 webDriverMethods.click(iHadAnother);
             index++;
         }
+        return this;
     }
 
     @Step("Have you ever had 10 or more polyps cumulatively from colon screenings?")
-    public void colonScreening(String colonSCreening) {
+    public SurveyPage colonScreening(String colonSCreening) {
         if (colonSCreening.toLowerCase().equals("yes"))
             webDriverMethods.waitForElementTobeClickable(yes).click();
         else if (colonSCreening.toLowerCase().equals("no"))
             webDriverMethods.waitForElementTobeClickable(no).click();
         else
             webDriverMethods.waitForElementTobeClickable(iDontKnow).click();
+
+        return this;
     }
 
     @Step("Did the colorectal cancer happen more than once?")
-    public void colorectalMoreThanOnce(String colonSCreening) {
+    public SurveyPage colorectalMoreThanOnce(String colonSCreening) {
         if (colonSCreening.toLowerCase().equals("yes"))
             webDriverMethods.waitForElementTobeClickable(yes).click();
         else if (colonSCreening.toLowerCase().equals("no"))
             webDriverMethods.waitForElementTobeClickable(no).click();
         else
             webDriverMethods.waitForElementTobeClickable(iDontKnow).click();
+
+        return this;
     }
 
     @Step("Have any of the following blood relatives in your family developed cancer?")
-    public void cancerInBloodRelatives(String cancerInBloodRelatives) {
+    public SurveyPage cancerInBloodRelatives(String cancerInBloodRelatives) {
         if (cancerInBloodRelatives.toLowerCase().equals("yes"))
             webDriverMethods.waitForElementTobeClickable(yes).click();
         else
             webDriverMethods.waitForElementTobeClickable(no).click();
+
+        return this;
     }
 
     @Step("Has anyone in your family been diagnosed with prostate cancer?")
-    public void diagnosedWithCancer(String diagnosedWithCancer) {
+    public SurveyPage diagnosedWithCancer(String diagnosedWithCancer) {
         if (diagnosedWithCancer.toLowerCase().equals("yes"))
             webDriverMethods.waitForElementTobeClickable(yes).click();
         else
             webDriverMethods.waitForElementTobeClickable(no).click();
+
+        return this;
     }
 
     @Step("Prostate Cancer Education")
-    public void cancerEducation() {
+    public SurveyPage cancerEducation() {
         try {
             Thread.sleep(2000);
             webDriverMethods.waitForElementTobeClickable(next).click();
         } catch (Exception e) {
             System.out.println("element can't be clicked");
         }
-
+        return this;
     }
 
     @Step("Who in your family (blood relatives only) has a history of cancer? (Select all that apply)")
-    public void whoElseHasCancerInFamily(String familyMembers) {
+    public SurveyPage whoElseHasCancerInFamily(String familyMembers) {
         String[] members = familyMembers.split(",");
         for (String eachMem : members) {
-            WebElement typeOfCancer = webDriverMethods.waitForElementTobeClickable("//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='" + eachMem + "']]");
-            webDriverMethods.click(typeOfCancer);
+            WebElement typeOfCancer;
+            if (eachMem.contains("'")) {
+                typeOfCancer = webDriverMethods.waitForElementTobeClickable("//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()=" + eachMem + "]]");
+                webDriverMethods.click(typeOfCancer);
+
+            }else{
+                typeOfCancer = webDriverMethods.waitForElementTobeClickable("//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='" + eachMem + "']]");
+                webDriverMethods.click(typeOfCancer);
+            }
+
         }
+        return this;
     }
 
     @Step("Which of your parents had cancer?")
-    public void parentsHistory(String parent) {
-        if (parent.toLowerCase().equals("father"))
-            webDriverMethods.click(father);
-        else
-            webDriverMethods.click(mother);
+    public SurveyPage parentsHistory(String parent, int parentCount) {
+        WebElement parents = webDriverMethods.waitForElementTobeClickable( "(//div[@class='col-xs-6 ng-scope']//label[text()[normalize-space()='" + parent + "']])["+parentCount+"]");
+        webDriverMethods.click(parents);
+        return this;
     }
 
     @Step("What types of cancer did (S)he have?")
-    public void typeOfCancers(String cancerType) {
-        WebElement typeOfCancer = webDriverMethods.waitForElementTobeClickable("//div[@class='col-xs-4 ng-scope']//label[text()[normalize-space()='" + cancerType + "']]");
-        webDriverMethods.click(typeOfCancer);
+    public SurveyPage typeOfCancers(String cancerType, int parentNumber) {
+        String[] cancerTypes = cancerType.split(",");
+        for (String eachType: cancerTypes){
+            WebElement typeOfCancer = webDriverMethods.waitForElementTobeClickable("(//div[@class='col-xs-4 ng-scope']//label[text()[normalize-space()='" + eachType.trim() + "']])["+parentNumber+"]");
+            webDriverMethods.click(typeOfCancer);
+        }
+        return this;
     }
 
     @Step("What age was he diagnosed with prostate (metastatic) cancer?")
-    public void diagnosedAge(String age) {
-        WebElement typeOfCancer = webDriverMethods.waitForElementTobeClickable("//div[@class='col-md-4 col-xs-6']//label[text()[normalize-space()='"+age+"']]");
+    public SurveyPage diagnosedAge(String age, int parentCount) {
+        WebElement typeOfCancer = webDriverMethods.waitForElementTobeClickable("(//div[@class='col-md-4 col-xs-6']//label[text()[normalize-space()='" + age + "']])["+parentCount+"]");
         webDriverMethods.click(typeOfCancer);
+
+        return this;
     }
 
     @Step("Do you have other parents who had cancer?")
-    public void otherParentInfo(String otherParent) {
-        WebElement typeOfCancer = webDriverMethods.waitForElementTobeClickable("//div[text()[normalize-space()='"+otherParent+"']]");
+    public SurveyPage otherParentInfo(String otherParent) {
+        WebElement typeOfCancer = webDriverMethods.waitForElementTobeClickable("//div[text()[normalize-space()='" + otherParent + "']]");
         webDriverMethods.click(typeOfCancer);
+
+        return this;
     }
 
     @Step("Which of your first cousins had cancer?")
-    public void cousinThatHadCancer(String cousin) {
+    public SurveyPage cousinThatHadCancer(String cousin) {
         HashMap<String, Integer> map = new HashMap<>();
-        map.put("Female First Cousin (Mother's Side)",1);
-        map.put("Female First Cousin (Father's Side)",2);
-        map.put("Male First Cousin (Mother's Side)",3);
-        map.put("Male First Cousin (Father's Side)",4);
+        map.put("Female First Cousin (Mother's Side)", 1);
+        map.put("Female First Cousin (Father's Side)", 2);
+        map.put("Male First Cousin (Mother's Side)", 3);
+        map.put("Male First Cousin (Father's Side)", 4);
         Integer integer = map.get(cousin);
-        WebElement typeOfCancer = webDriverMethods.waitForElementTobeClickable("(//div[@class='col-xs-6 ng-scope']//label)["+integer+"]");
+        WebElement typeOfCancer = webDriverMethods.waitForElementTobeClickable("(//div[@class='col-xs-6 ng-scope']//label)["+cousin+"]");
         webDriverMethods.click(typeOfCancer);
+
+        return this;
     }
 
     @Step("What is your current height?")
-    public void enterHeight(String height) {
-            WebElement heightEle = webDriverMethods.waitForElementTobeClickable("//select[@name='selectBox']");
-            webDriverMethods.selectDropDownByText(heightEle, height);
+    public SurveyPage enterHeight(String height) {
+        WebElement heightEle = webDriverMethods.waitForElementTobeClickable("//select[@name='selectBox']");
+        webDriverMethods.selectDropDownByText(heightEle, height);
+
+        return this;
     }
 
     @Step("What is your current weight? (lbs)")
-    public void enterWeight(String weightText) {
-        webDriverMethods.enterText(weight,weightText);
+    public SurveyPage enterWeight(String weightText) {
+        webDriverMethods.enterText(weight, weightText);
+        return this;
     }
 
     @Step("Have you ever/do you currently smoke cigarettes?")
-    public void doYouSmoke(String doSmoke) {
-        webDriverMethods.locateElement("xpath","//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='"+doSmoke+"']]").click();
+    public SurveyPage doYouSmoke(String doSmoke) {
+        webDriverMethods.locateElement("xpath", "//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='" + doSmoke + "']]").click();
+        return this;
     }
 
     @Step("For how many years did you smoke/have you been smoking? (Fill in the blank with the number of years.)")
-    public void yearsOfSmoke(String yearsOfSmoke) {
+    public SurveyPage yearsOfSmoke(String yearsOfSmoke) {
         WebElement webElement = webDriverMethods.waitForElementTobeClickable("//div[@class='col-md-offset-5 col-md-2 center-question']//input");
         webDriverMethods.enterText(webElement, yearsOfSmoke);
+        return this;
     }
 
     @Step("On average, how many packs of cigarettes did/do you smoke per day?")
-    public void cigarettesPerDay(String noOfCigarettes) {
-        WebElement webElement = webDriverMethods.waitForElementTobeClickable("//div[@class='col-md-2 col-xs-3']//div[text()[normalize-space()='"+noOfCigarettes+"']]");
+    public SurveyPage cigarettesPerDay(String noOfCigarettes) {
+        WebElement webElement = webDriverMethods.waitForElementTobeClickable("//div[@class='col-md-2 col-xs-3']//div[text()[normalize-space()='" + noOfCigarettes + "']]");
         webDriverMethods.click(webElement);
+        return this;
     }
 
     @Step("Have you been screened for colorectal cancer?")
-    public void screenColorectalCancer(String screen) {
-        webDriverMethods.locateElement("xpath","//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='"+screen+"']]").click();
+    public SurveyPage screenColorectalCancer(String screen) {
+        webDriverMethods.locateElement("xpath", "//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='" + screen + "']]").click();
+        return this;
     }
 
     @Step("How were you screened for colorectal cancer during your most recent screening?")
-    public void colorectalRecentScreening(String screen) {
-        webDriverMethods.locateElement("xpath","//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='"+screen+"']]").click();
+    public SurveyPage colorectalRecentScreening(String screen) {
+        webDriverMethods.locateElement("xpath", "//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='" + screen + "']]").click();
+        return this;
     }
 
     @Step("When was your most recent colorectal cancer screening?")
-    public void whenWasLastColorectalScreening(String duration) {
-        webDriverMethods.locateElement("xpath","//div[@class='col-md-2 col-xs-3']//div[text()[normalize-space()='"+duration+"']]").click();
+    public SurveyPage whenWasLastColorectalScreening(String duration) {
+        webDriverMethods.waitForElementTobeClickable("//div[@class='col-md-2 col-xs-3']//div[text()[normalize-space()='" + duration + "']]").click();
+        return this;
     }
 
     @Step("Have you ever had 10 or more polyps cumulatively from colon screenings?")
-    public void cumulativeScreening(String cumulativeScreening) {
-        webDriverMethods.locateElement("xpath","//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='"+cumulativeScreening+"']]").click();
+    public SurveyPage cumulativeScreening(String cumulativeScreening) {
+        webDriverMethods.locateElement("xpath", "//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='" + cumulativeScreening + "']]").click();
+        return this;
     }
 
     @Step("Have you ever had a screening test for prostate cancer called a PSA (Prostate-Specific Antigen) test?")
-    public void psaTest(String pas) {
-        webDriverMethods.locateElement("xpath","//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='"+pas+"']]").click();
+    public SurveyPage psaTest(String pas) {
+        webDriverMethods.locateElement("xpath", "//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='" + pas + "']]").click();
+        return this;
     }
 
     @Step("When was your last PSA (Prostate-Specific Antigen) test?")
-    public void lastPsaTest(String lastPsatest) {
-        webDriverMethods.locateElement("xpath","//div[@class='col-md-2 col-xs-3']//div[text()[normalize-space()='"+lastPsatest+"']]").click();
+    public SurveyPage lastPsaTest(String lastPsatest) {
+        webDriverMethods.locateElement("xpath", "//div[@class='col-md-2 col-xs-3']//div[text()[normalize-space()='" + lastPsatest + "']]").click();
+        return this;
     }
 
     @Step("Click submit")

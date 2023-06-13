@@ -56,7 +56,7 @@ public class ExcelUtils {
         return stringCellValue;
     }
 
-    public Map getData(String testCaseName, String testCaseSheetName, String path) {
+    public Map<String, String> getData(String testCaseName, String testCaseSheetName, String path) {
 
         LinkedHashMap<String, String> map = new LinkedHashMap<>();
         try {

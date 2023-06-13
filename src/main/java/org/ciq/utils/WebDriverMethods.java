@@ -25,11 +25,11 @@ public class WebDriverMethods implements DriverActions, ElementActions {
         try {
             ele.sendKeys(text);
         } catch (NoSuchElementException exception) {
-            System.out.println("No such element was found");
+            System.out.println(ele+" No such element was found");
         } catch (StaleElementReferenceException exception) {
-            System.out.println("stale element reference exception-->element wouldn't have been attached to DOM");
+            System.out.println(ele+" stale element reference exception-->element wouldn't have been attached to DOM");
         } catch (Exception e) {
-            System.out.println("unknown exception occurred");
+            System.out.println(ele+" unknown exception occurred");
         }
     }
 
@@ -38,11 +38,11 @@ public class WebDriverMethods implements DriverActions, ElementActions {
         try {
             ele.sendKeys(text,keys.ALT);
         } catch (NoSuchElementException exception) {
-            System.out.println("No such element was found");
+            System.out.println(ele+" No such element was found");
         } catch (StaleElementReferenceException exception) {
-            System.out.println("stale element reference exception-->element wouldn't have been attached to DOM");
+            System.out.println(ele+" stale element reference exception-->element wouldn't have been attached to DOM");
         } catch (Exception e) {
-            System.out.println("unknown exception occurred");
+            System.out.println(ele+" unknown exception occurred");
         }
     }
 
@@ -51,12 +51,12 @@ public class WebDriverMethods implements DriverActions, ElementActions {
         try {
             ele.click();
         } catch (NoSuchElementException exception) {
-            System.out.println("No such element was found");
+            System.out.println(ele+" No such element was found");
         } catch (StaleElementReferenceException exception) {
-            System.out.println("stale element reference exception-->element wouldn't have been attached to DOM");
-        } catch (Exception e) {
+            System.out.println(ele+" stale element reference exception-->element wouldn't have been attached to DOM");
+        } /*catch (Exception e) {
             System.out.println("unknown exception occurred");
-        }
+        }*/
     }
 
     @Override
@@ -179,6 +179,13 @@ public class WebDriverMethods implements DriverActions, ElementActions {
         FluentWait<WebDriver> webDriverWait = new WebDriverWait(driver,
                 Duration.ofSeconds(Integer.parseInt(ConfigLoader.getConfigValue("webDriverWait")))).ignoring(StaleElementReferenceException.class);
         return webDriverWait.until(ExpectedConditions.elementToBeClickable(By.xpath(locator)));
+    }
+
+    @Override
+    public WebElement waitForElementVisibility(String locator) {
+        FluentWait<WebDriver> webDriverWait = new WebDriverWait(driver,
+                Duration.ofSeconds(Integer.parseInt(ConfigLoader.getConfigValue("webDriverWait")))).ignoring(StaleElementReferenceException.class);
+        return webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
     }
 
 
