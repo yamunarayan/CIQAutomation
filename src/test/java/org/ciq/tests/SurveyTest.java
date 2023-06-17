@@ -2,6 +2,7 @@ package org.ciq.tests;
 
 import com.github.javafaker.Faker;
 import io.cucumber.java.eo.Se;
+import io.qameta.allure.Description;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.ciq.pages.RegisterPage;
 import org.ciq.pages.SurveyPage;
@@ -200,6 +201,7 @@ public class SurveyTest extends BaseTest {
     }
 
     @Test
+    @Description("goal of the test")
     public void maleGenericSurvey() throws InterruptedException {
 
         ExcelUtils excelUtils = new ExcelUtils();
@@ -289,178 +291,901 @@ public class SurveyTest extends BaseTest {
     }
 
 
-  /*  ////div[@class='col-md-6 col-xs-12']//i
+    @Test
+    public void maleSurveyWithNoCancer() throws InterruptedException {
+
+        ExcelUtils excelUtils = new ExcelUtils();
+        Map<String, String> data = excelUtils.getData("maleSurvey-6", "male", "./src/test/resources/testdata.xlsx");
+
+        WebDriver driver = launchAppAndSurveyLogin();
+        SurveyPage surveyPage = new SurveyPage(driver);
+        DataGenerationUtils dataGenerationUtils=new DataGenerationUtils(new Faker());
+
+        surveyPage.startSurvey()
+                .enterFirstName(dataGenerationUtils.randomFirstName())
+                .clickNext()
+                .enterLastName(dataGenerationUtils.randomLastName())
+                .clickNext()
+                .enterDob(data.get("DOB"))
+                .clickNext()
+                .choosingGender(data.get("Sex"))
+                .clickNext()
+                .choosingAncestry(data.get("Ashkenazi or Eastern European Jewish ancestry"))
+                .clickNext()
+                .choosingAdoption(data.get("Adopted"))
+                .clickNext()
+                .isCancerous(data.get("Ever had Cancer"))
+                .clickNext()
+                .colonScreening(data.get("10 or more colon polyps"))
+                .clickNext()
+                .cancerInBloodRelatives(data.get("Any family developed cancer"))
+                .clickNext()
+                .enterHeight(data.get("Height"))
+                .clickNext()
+                .enterWeight(data.get("Weight"))
+                .clickNext()
+                .doYouSmoke(data.get("have a habit of smoke?"))
+                .clickNext()
+                .colonScreening(data.get("Screened for colorectal cancer"))
+                .clickNext()
+                .colorectalRecentScreening(data.get("Colorectal screenings"))
+                .clickNext()
+                .whenWasLastColorectalScreening(data.get("most recent colorectal cancer screening?"))
+                .clickNext()
+                .cumulativeScreening(data.get("Have you ever had 10 or more polyps cumulatively from colon screenings?"))
+                .clickNext()
+                .psaTest(data.get("ever had a screening test for prostate cancer called a PSA"))
+                .clickSubmit();
+    }
 
 
-        Thread.sleep(5000);
+    @Test
+    public void maleGenericWithNoAncestry() throws InterruptedException {
 
-        driver.findElement(By.xpath("//button[text()='Start Assessment']")).click();
-    //  Thread.sleep(15000);
-    //  WebElement firstName = driver.findElement(By.xpath("//input[@class='ciq-text-box ng-pristine ng-isolate-scope ng-invalid ng-invalid-required ng-touched']"));
-    WebElement firstName = driver.findElement(By.xpath("//div[@class='col-xs-12']//input"));
-    WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(firstName)).sendKeys("totto");
-        driver.findElement(By.xpath("(//div[@class='center-button']//button)[2]")).click();
+        ExcelUtils excelUtils = new ExcelUtils();
+        Map<String, String> data = excelUtils.getData("maleSurvey-7", "male", "./src/test/resources/testdata.xlsx");
 
-    WebElement lastName = driver.findElement(By.xpath("//div[@class='col-xs-12']//input"));
-    wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(lastName)).sendKeys("t");
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("(//div[@class='center-button']//button)[2]")).click();
+        WebDriver driver = launchAppAndSurveyLogin();
+        SurveyPage surveyPage = new SurveyPage(driver);
+        DataGenerationUtils dataGenerationUtils=new DataGenerationUtils(new Faker());
 
-    //  driver.findElement(By.xpath("//input[@class='ciq-text-box ng-isolate-scope ng-valid-mask ng-invalid ng-invalid-required ng-valid-pattern ng-touched ng-dirty ng-valid-parse']")).sendKeys("08/06/2023");
-    WebElement date = driver.findElement(By.xpath("//input[@class='ciq-text-box ng-isolate-scope ng-valid-mask ng-invalid ng-invalid-required ng-valid-pattern ng-touched ng-dirty ng-valid-parse']"));
-    //  WebElement date = driver.findElement(By.xpath("//div[@class='col-xs-12']//input"));
-    wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.elementToBeClickable(date)).sendKeys("06/06/1994");
-        driver.findElement(By.xpath("(//div[@class='center-button']//button)[2]")).click();
+        surveyPage.startSurvey()
+                .enterFirstName(dataGenerationUtils.randomFirstName())
+                .clickNext()
+                .enterLastName(dataGenerationUtils.randomLastName())
+                .clickNext()
+                .enterDob(data.get("DOB"))
+                .clickNext()
+                .choosingGender(data.get("Sex"))
+                .clickNext()
+                .choosingAncestry(data.get("Ashkenazi or Eastern European Jewish ancestry"))
+                .clickNext()
+                .choosingAdoption(data.get("Adopted"))
+                .clickNext()
+                .biologicalInfo(data.get("Medical information about your biological family"))
+                .clickNext()
+                .isCancerous(data.get("Ever had Cancer"))
+                .clickNext()
+                .colonScreening(data.get("10 or more colon polyps"))
+                .clickNext()
+                .cancerInBloodRelatives(data.get("Any family developed cancer"))
+                .clickNext()
+                .diagnosedWithCancer(data.get("Has anyone in family with prostate"))
+                .clickNext()
+                .enterHeight(data.get("Height"))
+                .clickNext()
+                .enterWeight(data.get("Weight"))
+                .clickNext()
+                .doYouSmoke(data.get("have a habit of smoke?"))
+                .clickNext()
+                .doYouSmoke(data.get("Do you currently smoke"))
+                .clickNext()
+                .yearsOfSmoke(data.get("For how many years did you smoke/have you been smoking?"))
+                .clickNext()
+                .cigarettesPerDay(data.get("how many packs of cigarettes"))
+                .clickNext()
+                .whenDidYouQuitSmoking(data.get("How long ago did you quit smoking?"))
+                .clickNext()
+                .colonScreening(data.get("Screened for colorectal cancer"))
+                .clickNext()
+                .colorectalRecentScreening(data.get("Colorectal screenings"))
+                .clickNext()
+                .whenWasLastColorectalScreening(data.get("most recent colorectal cancer screening?"))
+                .clickNext()
+                .cumulativeScreening(data.get("Have you ever had 10 or more polyps cumulatively from colon screenings?"))
+                .clickNext()
+                .psaTest(data.get("ever had a screening test for prostate cancer called a PSA"))
+                .clickNext()
+                .lastPsaTest(data.get("last PSA (Prostate-Specific Antigen) test"))
+                .clickSubmit();
+    }
 
-    //  driver.findElement(By.xpath("//input[@class='ciq-text-box ng-pristine ng-isolate-scope ng-invalid ng-invalid-required ng-touched']")).sendKeys("titto");
-    //   driver.findElement(By.xpath("(//div[@class='center-button']//button)[2]")).click();
-    //  Thread.sleep(14000);
+    @Test
+    public void maleGenericSurveyJewish() throws InterruptedException {
 
-    //   driver.findElement(By.xpath("//input[@class='ciq-text-box ng-pristine ng-isolate-scope ng-invalid ng-invalid-required ng-touched']")).sendKeys("d");
-    //   driver.findElement(By.xpath("(//div[@class='center-button']//button)[2]")).click();
-        Thread.sleep(5000);
-        driver.findElement(By.xpath("//input[@class='ciq-text-box ng-isolate-scope ng-valid-mask ng-invalid ng-invalid-required ng-valid-pattern ng-touched ng-dirty ng-valid-parse']")).sendKeys("08/06/2023");
-        driver.findElement(By.xpath("(//div[@class='center-button']//button)[2]")).click();
-        Thread.sleep(3000);
+        ExcelUtils excelUtils = new ExcelUtils();
+        Map<String, String> data = excelUtils.getData("maleSurvey-8", "male", "./src/test/resources/testdata.xlsx");
 
-    // for male
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("(//div[@class='row']/div/div/div)[1]")).click();
+        WebDriver driver = launchAppAndSurveyLogin();
+        SurveyPage surveyPage = new SurveyPage(driver);
+        DataGenerationUtils dataGenerationUtils=new DataGenerationUtils(new Faker());
 
-    // for female
-    //  Thread.sleep(3000);
-    //  driver.findElement(By.xpath("(//div[@class='row']/div/div/div)[3]")).click();
+        surveyPage.startSurvey()
+                .enterFirstName(dataGenerationUtils.randomFirstName())
+                .clickNext()
+                .enterLastName(dataGenerationUtils.randomLastName())
+                .clickNext()
+                .enterDob(data.get("DOB"))
+                .clickNext()
+                .choosingGender(data.get("Sex"))
+                .clickNext()
+                .choosingAncestry(data.get("Ashkenazi or Eastern European Jewish ancestry"))
+                .clickNext()
+                .choosingAdoption(data.get("Adopted"))
+                .clickNext()
+                .biologicalInfo(data.get("Medical information about your biological family"))
+                .clickNext()
+                .isCancerous(data.get("Ever had Cancer"))
+                .clickNext()
+                .cancerInRecentTimes(data.get("Cancer in the past 12 months"))
+                .clickNext()
+                .setTypeOfCancerAndAge(data.get("Type of Cancer"))
+                .clickNext()
+                .colonScreening(data.get("10 or more colon polyps"))
+                .clickNext()
+                .cancerInBloodRelatives(data.get("Any family developed cancer"))
+                .clickNext()
+                .diagnosedWithCancer(data.get("Has anyone in family with prostate"))
+                .clickNext()
+              //  .cancerEducation()
+                .enterHeight(data.get("Height"))
+                .clickNext()
+                .enterWeight(data.get("Weight"))
+                .clickNext()
+                .doYouSmoke(data.get("have a habit of smoke?"))
+                .clickNext()
+                .colonScreening(data.get("Screened for colorectal cancer"))
+                .clickNext()
+              /*  .colorectalRecentScreening(data.get("Colorectal screenings"))
+                .clickNext()
+                .whenWasLastColorectalScreening(data.get("most recent colorectal cancer screening?"))
+                .clickNext()
+                .cumulativeScreening(data.get("Have you ever had 10 or more polyps cumulatively from colon screenings?"))
+                .clickNext()
+                .psaTest(data.get("ever had a screening test for prostate cancer called a PSA"))
+                .clickNext()
+                .lastPsaTest(data.get("last PSA (Prostate-Specific Antigen) test"))*/
+                .clickSubmit();
+    }
 
-    // for Ashkenzi yes
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("(//div[@class='row']/div/div/div)[1]")).click();
+    @Test
+    public void maleGenericSurveyWithNoOneInFamilyHasCancer() throws InterruptedException {
 
-    // adopted - yes
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("(//div[@class='row']/div/div/div)[1]")).click();
+        ExcelUtils excelUtils = new ExcelUtils();
+        Map<String, String> data = excelUtils.getData("maleSurvey-9", "male", "./src/test/resources/testdata.xlsx");
 
-    // bilogical family - yes
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("(//div[@class='row']/div/div/div)[1]")).click();
+        WebDriver driver = launchAppAndSurveyLogin();
+        SurveyPage surveyPage = new SurveyPage(driver);
+        DataGenerationUtils dataGenerationUtils=new DataGenerationUtils(new Faker());
 
-    // dcis - yes
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("(//div[@class='row']/div/div/div)[1]")).click();
+        surveyPage.startSurvey()
+                .enterFirstName(dataGenerationUtils.randomFirstName())
+                .clickNext()
+                .enterLastName(dataGenerationUtils.randomLastName())
+                .clickNext()
+                .enterDob(data.get("DOB"))
+                .clickNext()
+                .choosingGender(data.get("Sex"))
+                .clickNext()
+                .choosingAncestry(data.get("Ashkenazi or Eastern European Jewish ancestry"))
+                .clickNext()
+                .choosingAdoption(data.get("Adopted"))
+                .clickNext()
+                .biologicalInfo(data.get("Medical information about your biological family"))
+                .clickNext()
+                .isCancerous(data.get("Ever had Cancer"))
+                .clickNext()
+                .cancerInRecentTimes(data.get("Cancer in the past 12 months"))
+                .clickNext()
+                .setTypeOfCancerAndAge(data.get("Type of Cancer"))
+                .clickNext()
+                .colorectalMoreThanOnce(data.get("Did the colorectal cancer happen more than once?"))
+                .clickNext()
+                .colonScreening(data.get("10 or more colon polyps"))
+                .clickNext()
+                .cancerInBloodRelatives(data.get("Any family developed cancer"))
+                .clickNext()
+                .enterHeight(data.get("Height"))
+                .clickNext()
+                .enterWeight(data.get("Weight"))
+                .clickNext()
+                .doYouSmoke(data.get("have a habit of smoke?"))
+                .clickNext()
+                .doYouSmoke(data.get("Do you currently smoke"))
+                .clickNext()
+                .yearsOfSmoke(data.get("For how many years did you smoke/have you been smoking?"))
+                .clickNext()
+                .cigarettesPerDay(data.get("how many packs of cigarettes"))
+                .clickNext()
+                .colonScreening(data.get("Screened for colorectal cancer"))
+                .clickNext()
+                .psaTest(data.get("ever had a screening test for prostate cancer called a PSA"))
+                .clickNext()
+                .lastPsaTest(data.get("last PSA (Prostate-Specific Antigen) test"))
+                .clickSubmit();
+    }
 
-    // diagnoised with cancer
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("(//div[@class='row']/div/div/div)[1]")).click();
+    @Test
+    public void maleGenericSurveyWithAllNo() throws InterruptedException {
 
-    // type of cancers
-        Thread.sleep(3000);
-    WebElement cancerType = driver.findElement(By.xpath("//select[@name='selectBox']"));
-    Select s=new Select(cancerType);
-        s.selectByIndex(1);
+        ExcelUtils excelUtils = new ExcelUtils();
+        Map<String, String> data = excelUtils.getData("maleSurvey-10", "male", "./src/test/resources/testdata.xlsx");
 
-    // age at diagnosis
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("//div[@class='col-sm-2 col-xs-2']//input")).sendKeys("35");
-        driver.findElement(By.xpath("(//div[@class='center-button']//button)[2]")).click();
+        WebDriver driver = launchAppAndSurveyLogin();
+        SurveyPage surveyPage = new SurveyPage(driver);
+        DataGenerationUtils dataGenerationUtils=new DataGenerationUtils(new Faker());
 
-        driver.findElement(By.xpath("(//div[@class='center-button']//button)[2]")).click();
+        surveyPage.startSurvey()
+                .enterFirstName(dataGenerationUtils.randomFirstName())
+                .clickNext()
+                .enterLastName(dataGenerationUtils.randomLastName())
+                .clickNext()
+                .enterDob(data.get("DOB"))
+                .clickNext()
+                .choosingGender(data.get("Sex"))
+                .clickNext()
+                .choosingAncestry(data.get("Ashkenazi or Eastern European Jewish ancestry"))
+                .clickNext()
+                .choosingAdoption(data.get("Adopted"))
+                .clickNext()
+                .isCancerous(data.get("Ever had Cancer"))
+                .clickNext()
+                .colonScreening(data.get("10 or more colon polyps"))
+                .clickNext()
+                .cancerInBloodRelatives(data.get("Any family developed cancer"))
+                .clickNext()
+                .enterHeight(data.get("Height"))
+                .clickNext()
+                .enterWeight(data.get("Weight"))
+                .clickNext()
+                .doYouSmoke(data.get("have a habit of smoke?"))
+                .clickNext()
+                .doYouSmoke(data.get("Do you currently smoke"))
+                .clickNext()
+                .yearsOfSmoke(data.get("For how many years did you smoke/have you been smoking?"))
+                .clickNext()
+                .cigarettesPerDay(data.get("how many packs of cigarettes"))
+                .clickNext()
+                .colonScreening(data.get("Screened for colorectal cancer"))
+                .clickNext()
+                .colorectalRecentScreening(data.get("Colorectal screenings"))
+                .clickNext()
+                .whenWasLastColorectalScreening(data.get("most recent colorectal cancer screening?"))
+                .clickNext()
+                .cumulativeScreening(data.get("Have you ever had 10 or more polyps cumulatively from colon screenings?"))
+                .clickNext()
+                .psaTest(data.get("ever had a screening test for prostate cancer called a PSA"))
+                .clickSubmit();
+    }
 
-    //10 or more polyps cumulatively from colon
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("(//div[@class='row']/div/div/div)[1]")).click();
+    @Test
+    public void maleGenericSurveyWithNoFamilyNoCancer() throws InterruptedException {
 
-    //of the following blood relatives in your family developed cancer?
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("(//div[@class='row']/div/div/div)[1]")).click();
+        ExcelUtils excelUtils = new ExcelUtils();
+        Map<String, String> data = excelUtils.getData("maleSurvey-11", "male", "./src/test/resources/testdata.xlsx");
 
-    //family been diagnosed with prostate cancer
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("(//div[@class='row']/div/div/div)[1]")).click();
+        WebDriver driver = launchAppAndSurveyLogin();
+        SurveyPage surveyPage = new SurveyPage(driver);
+        DataGenerationUtils dataGenerationUtils=new DataGenerationUtils(new Faker());
 
-    // prostate cancer education
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("(//div[@class='row']/div/div/div)[1]")).click();
+        surveyPage.startSurvey()
+                .enterFirstName(dataGenerationUtils.randomFirstName())
+                .clickNext()
+                .enterLastName(dataGenerationUtils.randomLastName())
+                .clickNext()
+                .enterDob(data.get("DOB"))
+                .clickNext()
+                .choosingGender(data.get("Sex"))
+                .clickNext()
+                .choosingAncestry(data.get("Ashkenazi or Eastern European Jewish ancestry"))
+                .clickNext()
+                .choosingAdoption(data.get("Adopted"))
+                .clickNext()
+                .isCancerous(data.get("Ever had Cancer"))
+                .clickNext()
+                .colonScreening(data.get("10 or more colon polyps"))
+                .clickNext()
+                .cancerInBloodRelatives(data.get("Any family developed cancer"))
+                .clickNext()
+                .enterHeight(data.get("Height"))
+                .clickNext()
+                .enterWeight(data.get("Weight"))
+                .clickNext()
+                .doYouSmoke(data.get("have a habit of smoke?"))
+                .clickNext()
+                .colonScreening(data.get("Screened for colorectal cancer"))
+                .clickNext()
+                .psaTest(data.get("ever had a screening test for prostate cancer called a PSA"))
+                .clickNext()
+                .lastPsaTest(data.get("last PSA (Prostate-Specific Antigen) test"))
+                .clickSubmit();
+    }
 
-    //Who in your family (blood relatives only) has a history of cancer?
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("(//div[@class='col-md-6 col-xs-12']//div//i)[1]")).click();
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("(//div[@class='center-button']//button)[2]")).click();
+    @Test
+    public void maleGenericSurveyWithLungCancer() throws InterruptedException {
 
-    //Please tell us about your parent's history of cancer- father
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("//div[@class='col-xs-6 ng-scope']//label")).click();
+        ExcelUtils excelUtils = new ExcelUtils();
+        Map<String, String> data = excelUtils.getData("maleSurvey-12", "male", "./src/test/resources/testdata.xlsx");
 
-    // adrenile
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("//div[@class='col-xs-4 ng-scope']//label//i")).click();
+        WebDriver driver = launchAppAndSurveyLogin();
+        SurveyPage surveyPage = new SurveyPage(driver);
+        DataGenerationUtils dataGenerationUtils=new DataGenerationUtils(new Faker());
 
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("//div[@class='col-xs-3 right-button']//span")).click();
+        surveyPage.startSurvey()
+                .enterFirstName(dataGenerationUtils.randomFirstName())
+                .clickNext()
+                .enterLastName(dataGenerationUtils.randomLastName())
+                .clickNext()
+                .enterDob(data.get("DOB"))
+                .clickNext()
+                .choosingGender(data.get("Sex"))
+                .clickNext()
+                .choosingAncestry(data.get("Ashkenazi or Eastern European Jewish ancestry"))
+                .clickNext()
+                .choosingAdoption(data.get("Adopted"))
+                .clickNext()
+                .isCancerous(data.get("Ever had Cancer"))
+                .clickNext()
+                .cancerInRecentTimes(data.get("Cancer in the past 12 months"))
+                .clickNext()
+                .setTypeOfCancerAndAge(data.get("Type of Cancer"))
+                .clickNext()
+                .colonScreening(data.get("10 or more colon polyps"))
+                .clickNext()
+                .cancerInBloodRelatives(data.get("Any family developed cancer"))
+                .clickNext()
+                .enterHeight(data.get("Height"))
+                .clickNext()
+                .enterWeight(data.get("Weight"))
+                .clickNext()
+                .doYouSmoke(data.get("have a habit of smoke?"))
+                .clickNext()
+                .doYouSmoke(data.get("Do you currently smoke"))
+                .clickNext()
+                .yearsOfSmoke(data.get("For how many years did you smoke/have you been smoking?"))
+                .clickNext()
+                .cigarettesPerDay(data.get("how many packs of cigarettes"))
+                .clickNext()
+                .whenDidYouQuitSmoking(data.get("How long ago did you quit smoking?"))
+                .clickNext()
+                .colonScreening(data.get("Screened for colorectal cancer"))
+                .clickNext()
+                .colorectalRecentScreening(data.get("Colorectal screenings"))
+                .clickNext()
+                .whenWasLastColorectalScreening(data.get("most recent colorectal cancer screening?"))
+                .clickNext()
+                .cumulativeScreening(data.get("Have you ever had 10 or more polyps cumulatively from colon screenings?"))
+                .clickNext()
+                .psaTest(data.get("ever had a screening test for prostate cancer called a PSA"))
+                .clickNext()
+                .lastPsaTest(data.get("last PSA (Prostate-Specific Antigen) test"))
+                .clickSubmit();
+    }
 
-    // what age he diagnoised
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("//div[@class='col-md-4 col-xs-6']//label")).click();
 
-    //Do you have other parents who had cancer?
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("//div[@class='col-xs-12']//div[2]//div[2]")).click();
+    @Test
+    public void maleGenericSurveyWithBreastCancer() {
 
-        Thread.sleep(3000);
-    WebElement height = driver.findElement(By.xpath("//select[@name='selectBox']"));
-    Select select = new Select(height);
-        select.selectByIndex(2);
+        ExcelUtils excelUtils = new ExcelUtils();
+        Map<String, String> data = excelUtils.getData("maleSurvey-14", "male", "./src/test/resources/testdata.xlsx");
 
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("(//div[@class='center-button']//button)[2]")).click();
+        WebDriver driver = launchAppAndSurveyLogin();
+        SurveyPage surveyPage = new SurveyPage(driver);
+        DataGenerationUtils dataGenerationUtils=new DataGenerationUtils(new Faker());
 
-    // current weight
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("//div[@class='col-md-offset-5 col-md-2 center-question']//input")).sendKeys("57");
+        surveyPage.startSurvey()
+                .enterFirstName(dataGenerationUtils.randomFirstName())
+                .clickNext()
+                .enterLastName(dataGenerationUtils.randomLastName())
+                .clickNext()
+                .enterDob(data.get("DOB"))
+                .clickNext()
+                .choosingGender(data.get("Sex"))
+                .clickNext()
+                .choosingAncestry(data.get("Ashkenazi or Eastern European Jewish ancestry"))
+                .clickNext()
+                .choosingAdoption(data.get("Adopted"))
+                .clickNext()
+                .isCancerous(data.get("Ever had Cancer"))
+                .clickNext()
+                .cancerInRecentTimes(data.get("Cancer in the past 12 months"))
+                .clickNext()
+                .setTypeOfCancerAndAge(data.get("Type of Cancer"))
+                .clickNext()
+                .cancerInBothBreasts("yes")
+                .clickNext()
+                .breastCancerHappenedMoreThanOnce("yes")
+                .clickNext()
+                .tripleNegativeBreast("yes")
+                .clickNext()
+                .enterHeight(data.get("Height"))
+                .clickNext()
+                .enterWeight(data.get("Weight"))
+                .clickNext()
+                .doYouSmoke(data.get("have a habit of smoke?"))
+                .clickNext()
+                .colonScreening(data.get("Screened for colorectal cancer"))
+                .clickNext()
+                .colorectalRecentScreening(data.get("Colorectal screenings"))
+                .clickNext()
+                .psaTest(data.get("ever had a screening test for prostate cancer called a PSA"))
+                .clickNext()
+                .clickSubmit();
+    }
 
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("(//div[@class='center-button']//button)[2]")).click();
 
-    // Have you ever/do you currently smoke cigarettes?
-        Thread.sleep(3000);
-        driver.findElement(By.xpath("(//div[@class='row']/div/div/div)[1]")).click();
 
-    //Do you currently smoke cigarettes?
-        driver.findElement(By.xpath("(//div[@class='row']/div/div/div)[1]")).click();
 
-    //  For how many years did you smoke/have you been smoking?
-        driver.findElement(By.xpath("//div[@class='col-md-offset-5 col-md-2 center-question']//input")).sendKeys("5");
+    /**female survey scenarios*/
 
-        driver.findElement(By.xpath("(//div[@class='center-button']//button)[2]")).click();
+    @Test
+    public void feMaleGenericSurvey() {
 
-    //On average, how many packs of cigarettes did/do you smoke per day?
-        driver.findElement(By.xpath("(//div[@class='col-md-2 col-xs-3'])[3]//div[1]")).click();
+        ExcelUtils excelUtils = new ExcelUtils();
+        Map<String, String> data = excelUtils.getData("femaleSurvey-1", "female", "./src/test/resources/testdata.xlsx");
 
-    //Have you been screened for colorectal cancer?
-        driver.findElement(By.xpath("(//div[@class='row']/div/div/div)[1]")).click();
+        WebDriver driver = launchAppAndSurveyLogin();
+        SurveyPage surveyPage = new SurveyPage(driver);
+        DataGenerationUtils dataGenerationUtils=new DataGenerationUtils(new Faker());
 
-    //How were you screened for colorectal cancer during your most recent screening?
-        driver.findElement(By.xpath("(//div[@class='col-md-6 col-xs-12'])[1]/div[1]")).click();
+        surveyPage.startSurvey()
+                .enterFirstName(dataGenerationUtils.randomFirstName())
+                .clickNext()
+                .enterLastName(dataGenerationUtils.randomLastName())
+                .clickNext()
+                .enterDob(data.get("DOB"))
+                .clickNext()
+                .choosingGender(data.get("Sex"))
+                .clickNext()
+                .choosingAncestry(data.get("Ashkenazi or Eastern European Jewish ancestry"))
+                .clickNext()
+                .choosingAdoption(data.get("Adopted"))
+                .clickNext()
+                .biologicalInfo(data.get("Medical information about your biological family"))
+                .clickNext()
+                .isCancerous(data.get("Ever had Cancer"))
+                .clickNext()
+                .cancerInRecentTimes(data.get("Cancer in the past 12 months"))
+                .clickNext()
+                .setTypeOfCancerAndAge(data.get("Type of Cancer"))
+                .clickNext()
+                .cancerInBothBreasts(data.get("Breast cancer in both breast"))
+                .clickNext()
+                .breastCancerHappenedMoreThanOnce(data.get("Breast Cancer happen more than once"))
+                .clickNext()
+                .tripleNegativeBreast(data.get("Triple negative breast cancer"))
+                .clickNext()
+                .colonScreening(data.get("10 or more colon polyps"))
+                .clickNext()
+                .cancerInBloodRelatives(data.get("Any family developed cancer"))
+                .clickNext()
+                .diagnosedWithCancer(data.get("Has anyone in family with prostate"))
+                .clickNext()
+                .cancerEducation()
+                .whoElseHasCancerInFamily(data.get("Who in Family has cancer"))
+                .clickNext()
+                .parentsHistory(data.get("Family1"), 1)
+                .typeOfCancers(data.get("Type of Cancer Parent"), 1)
+                .clickRightNext(1)
+                .diagnosedAge(data.get("Age of Diagnosis parent"), 1)
+                .otherParentInfo(data.get("Do you have other parents who had cancer-1?"))
+                .parentsHistory(data.get("Family 2"), 1)
+                .clickNext()
+                .typeOfCancers(data.get("Type of cancer sibling"), 1)
+                .clickRightNext(1)
+                .diagnosedAge(data.get("Age of Diagnosis sibling"), 1)
+                .clickNext()
+                .otherParentInfo(data.get("Do you have other siblings who had cancer-2?"))
+                .cousinThatHadCancer(data.get("Family 3"))
+                .clickNext()
+                .typeOfCancers(data.get("Type of cancer cousin"), 1)
+                .clickRightNext(1)
+                .diagnosedAge(data.get("Age of diagnosis cousin"), 1)
+                .clickNext()
+                .otherParentInfo(data.get("Do you have other cousins who had cancer-3?"))
+                .clickNext()
+                .ageWhenFirstMenstrualPeriod(data.get("Menstrual period"))
+                .clickNext()
+                .goneThroughMenoPause(data.get("Menopause"))
+                .clickNext()
+                .howManyTimesPregnant(data.get("Pregnant"))
+                .clickNext()
+                .timesGivenBirth(data.get("Times given birth"))
+                .clickNext()
+                .ageWhenFirstBirth(data.get("Age at first birth"))
+                .clickNext()
+                .enterHeight(data.get("Height"))
+                .clickNext()
+                .enterWeight(data.get("Weight"))
+                .clickNext()
+                .doYouSmoke(data.get("have a habit of smoke?"))
+                .clickNext()
+                .doYouSmoke(data.get("Do you currently smoke"))
+                .clickNext()
+                .yearsOfSmoke(data.get("For how many years did you smoke/have you been smoking?"))
+                .clickNext()
+                .cigarettesPerDay(data.get("how many packs of cigarettes"))
+                .clickNext()
+                .colonScreening(data.get("Screened for colorectal cancer"))
+                .clickNext()
+                .colorectalRecentScreening(data.get("Colorectal screenings"))
+                .clickNext()
+                .whenWasLastColorectalScreening(data.get("most recent colorectal cancer screening?"))
+                .clickNext()
+                .cumulativeScreening(data.get("Have you ever had 10 or more polyps cumulatively from colon screenings?"))
+                .clickNext()
+                .mammogramForBreastCancerScreening(data.get("Prior Mammogram"))
+                .clickNext()
+                .lastMammogram(data.get("Last mamogram"))
+                .clickNext()
+                .everHadPapSmear(data.get("Pap smear"))
+                .clickNext()
+                .lastPapSmear(data.get("Last Papsmear"))
+                .clickSubmit();
+    }
 
-    //When was your most recent colorectal cancer screening?
-        driver.findElement(By.xpath("(//div[@class='col-md-2 col-xs-3'])[1]/div[1]")).click();
+    @Test
+    public void feMaleGenericSurveyAdoptedNo() {
 
-    // Have you ever had 10 or more polyps cumulatively from colon screenings?
-        driver.findElement(By.xpath("(//div[@class='row']/div/div/div)[1]")).click();
+        ExcelUtils excelUtils = new ExcelUtils();
+        Map<String, String> data = excelUtils.getData("femaleSurvey-2", "female", "./src/test/resources/testdata.xlsx");
 
-    //Have you ever had a screening test for prostate cancer called a PSA (Prostate-Specific Antigen) test?
-        driver.findElement(By.xpath("(//div[@class='row']/div/div/div)[1]")).click();
+        WebDriver driver = launchAppAndSurveyLogin();
+        SurveyPage surveyPage = new SurveyPage(driver);
+        DataGenerationUtils dataGenerationUtils=new DataGenerationUtils(new Faker());
 
-    //When was your last PSA (Prostate-Specific Antigen) test?
-        driver.findElement(By.xpath("(//div[@class='col-md-2 col-xs-3'])[1]/div[1]")).click();
+        surveyPage.startSurvey()
+                .enterFirstName(dataGenerationUtils.randomFirstName())
+                .clickNext()
+                .enterLastName(dataGenerationUtils.randomLastName())
+                .clickNext()
+                .enterDob(data.get("DOB"))
+                .clickNext()
+                .choosingGender(data.get("Sex"))
+                .clickNext()
+                .choosingAncestry(data.get("Ashkenazi or Eastern European Jewish ancestry"))
+                .clickNext()
+                .choosingAdoption(data.get("Adopted"))
+                .clickNext()
+                .isCancerous(data.get("Ever had Cancer"))
+                .clickNext()
+                .cancerInRecentTimes(data.get("Cancer in the past 12 months"))
+                .clickNext()
+                .setTypeOfCancerAndAge(data.get("Type of Cancer"))
+                .clickNext()
+                .colonScreening(data.get("10 or more colon polyps"))
+                .clickNext()
+                .cancerInBloodRelatives(data.get("Any family developed cancer"))
+                .clickNext()
+                .diagnosedWithCancer(data.get("Has anyone in family with prostate"))
+                .clickNext()
+                .cancerEducation()
+                .whoElseHasCancerInFamily(data.get("Who in Family has cancer"))
+                .clickNext()
+                .parentsHistory(data.get("Family1"), 1)
+                .typeOfCancers(data.get("Type of Cancer Parent"), 1)
+                .clickRightNext(1)
+                .diagnosedAge(data.get("Age of Diagnosis parent"), 1)
+                .otherParentInfo(data.get("Do you have other parents who had cancer-1?"))
+                .parentsHistory(data.get("Family 2"), 1)
+                .clickNext()
+                .typeOfCancers(data.get("Type of cancer sibling"), 1)
+                .clickRightNext(1)
+                .diagnosedAge(data.get("Age of Diagnosis sibling"), 1)
+                .clickNext()
+                .otherParentInfo(data.get("Do you have other siblings who had cancer-2?"))
+                .cousinThatHadCancer(data.get("Family 3"))
+                .clickNext()
+                .typeOfCancers(data.get("Type of cancer cousin"), 1)
+                .clickRightNext(1)
+                .diagnosedAge(data.get("Age of diagnosis cousin"), 1)
+                .clickNext()
+                .otherParentInfo(data.get("Do you have other cousins who had cancer-3?"))
+                .clickNext()
+                .ageWhenFirstMenstrualPeriod(data.get("Menstrual period"))
+                .clickNext()
+                .goneThroughMenoPause(data.get("Menopause"))
+                .clickNext()
+                .howManyTimesPregnant(data.get("Pregnant"))
+                .clickNext()
+                .timesGivenBirth(data.get("Times given birth"))
+                .clickNext()
+                .ageWhenFirstBirth(data.get("Age at first birth"))
+                .clickNext()
+                .enterHeight(data.get("Height"))
+                .clickNext()
+                .enterWeight(data.get("Weight"))
+                .clickNext()
+                .doYouSmoke(data.get("have a habit of smoke?"))
+                .clickNext()
+                .doYouSmoke(data.get("Do you currently smoke"))
+                .clickNext()
+                .yearsOfSmoke(data.get("For how many years did you smoke/have you been smoking?"))
+                .clickNext()
+                .cigarettesPerDay(data.get("how many packs of cigarettes"))
+                .clickNext()
+                .colonScreening(data.get("Screened for colorectal cancer"))
+                .clickNext()
+                .colorectalRecentScreening(data.get("Colorectal screenings"))
+                .clickNext()
+                .whenWasLastColorectalScreening(data.get("most recent colorectal cancer screening?"))
+                .clickNext()
+                .cumulativeScreening(data.get("Have you ever had 10 or more polyps cumulatively from colon screenings?"))
+                .clickNext()
+                .mammogramForBreastCancerScreening(data.get("Prior Mammogram"))
+                .clickNext()
+                .lastMammogram(data.get("Last mamogram"))
+                .clickNext()
+                .everHadPapSmear(data.get("Pap smear"))
+                .clickNext()
+                .lastPapSmear(data.get("Last Papsmear"))
+                .clickSubmit();
+    }
 
-    //submit
-        driver.findElement(By.xpath("//div[@class='center-button']//span/span/button")).click();
+    @Test
+    public void feMaleGenericSurveyAdoptedNoAncestryNo() {
 
-    // continue
-        driver.findElement(By.xpath("//button[text()='Continue']")).click();*/
+        ExcelUtils excelUtils = new ExcelUtils();
+        Map<String, String> data = excelUtils.getData("femaleSurvey-3", "female", "./src/test/resources/testdata.xlsx");
+
+        WebDriver driver = launchAppAndSurveyLogin();
+        SurveyPage surveyPage = new SurveyPage(driver);
+        DataGenerationUtils dataGenerationUtils=new DataGenerationUtils(new Faker());
+
+        surveyPage.startSurvey()
+                .enterFirstName(dataGenerationUtils.randomFirstName())
+                .clickNext()
+                .enterLastName(dataGenerationUtils.randomLastName())
+                .clickNext()
+                .enterDob(data.get("DOB"))
+                .clickNext()
+                .choosingGender(data.get("Sex"))
+                .clickNext()
+                .choosingAncestry(data.get("Ashkenazi or Eastern European Jewish ancestry"))
+                .clickNext()
+                .choosingAdoption(data.get("Adopted"))
+                .clickNext()
+                .isCancerous(data.get("Ever had Cancer"))
+                .clickNext()
+                .colonScreening(data.get("10 or more colon polyps"))
+                .clickNext()
+                .cancerInBloodRelatives(data.get("Any family developed cancer"))
+                .clickNext()
+                .diagnosedWithCancer(data.get("Has anyone in family with prostate"))
+                .clickNext()
+                .cancerEducation()
+                .whoElseHasCancerInFamily(data.get("Who in Family has cancer"))
+                .clickNext()
+                .parentsHistory(data.get("Family1"), 1)
+                .typeOfCancers(data.get("Type of Cancer Parent"), 1)
+                .clickRightNext(1)
+                .diagnosedAge(data.get("Age of Diagnosis parent"), 1)
+                .otherParentInfo(data.get("Do you have other parents who had cancer-1?"))
+                .parentsHistory(data.get("Family 2"), 1)
+                .clickNext()
+                .typeOfCancers(data.get("Type of cancer sibling"), 1)
+                .clickRightNext(1)
+                .diagnosedAge(data.get("Age of Diagnosis sibling"), 1)
+                .clickNext()
+                .otherParentInfo(data.get("Do you have other siblings who had cancer-2?"))
+                .parentsHistory(data.get("Family 3"),1)
+                .clickNext()
+                .typeOfCancers(data.get("Type of cancer cousin"), 1)
+                .clickRightNext(1)
+                .diagnosedAge(data.get("Age of diagnosis cousin"), 1)
+                .clickNext()
+                .otherParentInfo(data.get("Do you have other cousins who had cancer-3?"))
+                .clickNext()
+                .parentsHistory(data.get("Family 4"),1)
+                .clickNext()
+                .typeOfCancers(data.get("Type of Cancer family-4"), 1)
+                .clickRightNext(1)
+                .diagnosedAge(data.get("Age of diagnosis family-4"), 1)
+                .clickNext()
+                .otherParentInfo(data.get("Do you have other cousins who had cancer-4?"))
+                .clickNext()
+                .ageWhenFirstMenstrualPeriod(data.get("Menstrual period"))
+                .clickNext()
+                .goneThroughMenoPause(data.get("Menopause"))
+                .clickNext()
+                .howManyTimesPregnant(data.get("Pregnant"))
+                .clickNext()
+                .timesGivenBirth(data.get("Times given birth"))
+                .clickNext()
+                .ageWhenFirstBirth(data.get("Age at first birth"))
+                .clickNext()
+                .enterHeight(data.get("Height"))
+                .clickNext()
+                .enterWeight(data.get("Weight"))
+                .clickNext()
+                .doYouSmoke(data.get("have a habit of smoke?"))
+                .clickNext()
+                .colonScreening(data.get("Screened for colorectal cancer"))
+                .clickNext()
+                .colorectalRecentScreening(data.get("Colorectal screenings"))
+                .clickNext()
+                .whenWasLastColorectalScreening(data.get("most recent colorectal cancer screening?"))
+                .clickNext()
+                .cumulativeScreening(data.get("Have you ever had 10 or more polyps cumulatively from colon screenings?"))
+                .clickNext()
+                .mammogramForBreastCancerScreening(data.get("Prior Mammogram"))
+                .clickNext()
+                .everHadPapSmear(data.get("Pap smear"))
+                .clickSubmit();
+    }
+
+    @Test
+    public void feMaleGenericSurveyNoCancer() {
+
+        ExcelUtils excelUtils = new ExcelUtils();
+        Map<String, String> data = excelUtils.getData("femaleSurvey-4", "female", "./src/test/resources/testdata.xlsx");
+
+        WebDriver driver = launchAppAndSurveyLogin();
+        SurveyPage surveyPage = new SurveyPage(driver);
+        DataGenerationUtils dataGenerationUtils=new DataGenerationUtils(new Faker());
+
+        surveyPage.startSurvey()
+                .enterFirstName(dataGenerationUtils.randomFirstName())
+                .clickNext()
+                .enterLastName(dataGenerationUtils.randomLastName())
+                .clickNext()
+                .enterDob(data.get("DOB"))
+                .clickNext()
+                .choosingGender(data.get("Sex"))
+                .clickNext()
+                .choosingAncestry(data.get("Ashkenazi or Eastern European Jewish ancestry"))
+                .clickNext()
+                .choosingAdoption(data.get("Adopted"))
+                .clickNext()
+                .isCancerous(data.get("Ever had Cancer"))
+                .clickNext()
+                .colonScreening(data.get("10 or more colon polyps"))
+                .clickNext()
+                .cancerInBloodRelatives(data.get("Any family developed cancer"))
+                .clickNext()
+                .cancerEducation()
+                .ageWhenFirstMenstrualPeriod(data.get("Menstrual period"))
+                .clickNext()
+                .goneThroughMenoPause(data.get("Menopause"))
+                .clickNext()
+                .howManyTimesPregnant(data.get("Pregnant"))
+                .clickNext()
+                .timesGivenBirth(data.get("Times given birth"))
+                .clickNext()
+                .ageWhenFirstBirth(data.get("Age at first birth"))
+                .clickNext()
+                .enterHeight(data.get("Height"))
+                .clickNext()
+                .enterWeight(data.get("Weight"))
+                .clickNext()
+                .doYouSmoke(data.get("have a habit of smoke?"))
+                .clickNext()
+                .doYouSmoke(data.get("Do you currently smoke"))
+                .clickNext()
+                .yearsOfSmoke(data.get("For how many years did you smoke/have you been smoking?"))
+                .clickNext()
+                .cigarettesPerDay(data.get("how many packs of cigarettes"))
+                .clickNext()
+                .whenDidYouQuitSmoking(data.get("How long ago did you quit smoking?"))
+                .clickNext()
+                .colonScreening(data.get("Screened for colorectal cancer"))
+                .clickNext()
+                .mammogramForBreastCancerScreening(data.get("Prior Mammogram"))
+                .clickNext()
+                .everHadPapSmear(data.get("Pap smear"))
+                .clickSubmit();
+    }
+
+    @Test
+    public void feMaleGenericSurveyJewish() {
+
+        ExcelUtils excelUtils = new ExcelUtils();
+        Map<String, String> data = excelUtils.getData("femaleSurvey-5", "female", "./src/test/resources/testdata.xlsx");
+
+        WebDriver driver = launchAppAndSurveyLogin();
+        SurveyPage surveyPage = new SurveyPage(driver);
+        DataGenerationUtils dataGenerationUtils=new DataGenerationUtils(new Faker());
+
+        surveyPage.startSurvey()
+                .enterFirstName(dataGenerationUtils.randomFirstName())
+                .clickNext()
+                .enterLastName(dataGenerationUtils.randomLastName())
+                .clickNext()
+                .enterDob(data.get("DOB"))
+                .clickNext()
+                .choosingGender(data.get("Sex"))
+                .clickNext()
+                .choosingAncestry(data.get("Ashkenazi or Eastern European Jewish ancestry"))
+                .clickNext()
+                .choosingAdoption(data.get("Adopted"))
+                .clickNext()
+                .biologicalInfo(data.get("Medical information about your biological family"))
+                .clickNext()
+                .isCancerous(data.get("Ever had Cancer"))
+                .clickNext()
+                .cancerInRecentTimes(data.get("Cancer in the past 12 months"))
+                .clickNext()
+                .setTypeOfCancerAndAge(data.get("Type of Cancer"))
+                .clickNext()
+                .colonScreening(data.get("10 or more colon polyps"))
+                .clickNext()
+                .cancerInBloodRelatives(data.get("Any family developed cancer"))
+                .clickNext()
+                .diagnosedWithCancer(data.get("Has anyone in family with prostate"))
+                .clickNext()
+                .cancerEducation()
+                .whoElseHasCancerInFamily(data.get("Who in Family has cancer"))
+                .clickNext()
+                .parentsHistory(data.get("Family1"), 1)
+                .typeOfCancers(data.get("Type of Cancer Parent"), 1)
+                .clickRightNext(1)
+                .diagnosedAge(data.get("Age of Diagnosis parent"), 1)
+                .otherParentInfo(data.get("Do you have other parents who had cancer-1?"))
+                .parentsHistory(data.get("Family 2"), 1)
+                .clickNext()
+                .typeOfCancers(data.get("Type of cancer sibling"), 1)
+                .clickRightNext(1)
+                .diagnosedAge(data.get("Age of Diagnosis sibling"), 1)
+                .diagnosedAge(data.get("Age of Diagnosis sibling"), 1)
+                .clickNext()
+                .otherParentInfo(data.get("Do you have other siblings who had cancer-2?"))
+                .cousinThatHadCancer(data.get("Family 3"))
+                .clickNext()
+                .typeOfCancers(data.get("Type of cancer cousin"), 1)
+                .clickRightNext(1)
+                .diagnosedAge(data.get("Age of diagnosis cousin"), 1)
+                .clickNext()
+                .otherParentInfo(data.get("Do you have other cousins who had cancer-3?"))
+                .clickNext()
+                .ageWhenFirstMenstrualPeriod(data.get("Menstrual period"))
+                .clickNext()
+                .goneThroughMenoPause(data.get("Menopause"))
+                .clickNext()
+                .howManyTimesPregnant(data.get("Pregnant"))
+                .clickNext()
+                .timesGivenBirth(data.get("Times given birth"))
+                .clickNext()
+                .ageWhenFirstBirth(data.get("Age at first birth"))
+                .clickNext()
+                .enterHeight(data.get("Height"))
+                .clickNext()
+                .enterWeight(data.get("Weight"))
+                .clickNext()
+                .doYouSmoke(data.get("have a habit of smoke?"))
+                .clickNext()
+                .doYouSmoke(data.get("Do you currently smoke"))
+                .clickNext()
+                .yearsOfSmoke(data.get("For how many years did you smoke/have you been smoking?"))
+                .clickNext()
+                .cigarettesPerDay(data.get("how many packs of cigarettes"))
+                .clickNext()
+                .colonScreening(data.get("Screened for colorectal cancer"))
+                .clickNext()
+                .colorectalRecentScreening(data.get("Colorectal screenings"))
+                .clickNext()
+                .whenWasLastColorectalScreening(data.get("most recent colorectal cancer screening?"))
+                .clickNext()
+                .cumulativeScreening(data.get("Have you ever had 10 or more polyps cumulatively from colon screenings?"))
+                .clickNext()
+                .mammogramForBreastCancerScreening(data.get("Prior Mammogram"))
+                .clickNext()
+                .lastMammogram(data.get("Last mamogram"))
+                .clickNext()
+                .everHadPapSmear(data.get("Pap smear"))
+                .clickNext()
+                .lastPapSmear(data.get("Last Papsmear"))
+                .clickSubmit();
+    }
 
 }
 

@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import org.ciq.pages.LoginPage;
 import org.ciq.pages.NavigatorHomePage;
 import org.ciq.utils.ConfigLoader;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.ciq.utils.AllureConfigurator;
 import org.ciq.utils.DriverFactory;
@@ -52,6 +53,7 @@ public class BaseTest {
         loginPage.submit();
         return driver;
     }
+
 
     public WebDriver launchAppAndSurveyLogin(){
         WebDriver driver = launchBrowser();

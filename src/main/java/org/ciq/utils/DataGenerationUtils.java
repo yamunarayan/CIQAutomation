@@ -2,6 +2,7 @@ package org.ciq.utils;
 
 import com.github.javafaker.Faker;
 
+import java.util.Random;
 import java.util.random.RandomGenerator;
 
 public class DataGenerationUtils {

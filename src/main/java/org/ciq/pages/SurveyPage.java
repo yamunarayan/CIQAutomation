@@ -255,11 +255,11 @@ public class SurveyPage {
         for (String eachMem : members) {
             WebElement typeOfCancer;
             if (eachMem.contains("'")) {
-                typeOfCancer = webDriverMethods.waitForElementTobeClickable("//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()=" + eachMem + "]]");
+                typeOfCancer = webDriverMethods.waitForElementTobeClickable("//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()=" + eachMem.trim() + "]]");
                 webDriverMethods.click(typeOfCancer);
 
             }else{
-                typeOfCancer = webDriverMethods.waitForElementTobeClickable("//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='" + eachMem + "']]");
+                typeOfCancer = webDriverMethods.waitForElementTobeClickable("//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='" + eachMem.trim() + "']]");
                 webDriverMethods.click(typeOfCancer);
             }
 
@@ -269,8 +269,15 @@ public class SurveyPage {
 
     @Step("Which of your parents had cancer?")
     public SurveyPage parentsHistory(String parent, int parentCount) {
-        WebElement parents = webDriverMethods.waitForElementTobeClickable( "(//div[@class='col-xs-6 ng-scope']//label[text()[normalize-space()='" + parent + "']])["+parentCount+"]");
-        webDriverMethods.click(parents);
+        if (parent.contains("'") || parent.contains("’")){
+            WebElement parents = webDriverMethods.waitForElementTobeClickable( "(//div[@class='col-xs-6 ng-scope']//label[text()[normalize-space()=" + parent + "]])["+parentCount+"]");
+            webDriverMethods.click(parents);
+        }
+        else {
+            WebElement parents = webDriverMethods.waitForElementTobeClickable( "(//div[@class='col-xs-6 ng-scope']//label[text()[normalize-space()='" + parent + "']])["+parentCount+"]");
+            webDriverMethods.click(parents);
+        }
+
         return this;
     }
 
@@ -341,6 +348,13 @@ public class SurveyPage {
         return this;
     }
 
+    @Step("How long ago did you quit smoking?")
+    public SurveyPage whenDidYouQuitSmoking(String yearsOfQuitSmoke) {
+        WebElement webElement = webDriverMethods.waitForElementTobeClickable("//div[@class='col-md-2 col-xs-3']//div[text()[normalize-space()='"+yearsOfQuitSmoke+"']]");
+        webDriverMethods.click(webElement);
+        return this;
+    }
+
     @Step("On average, how many packs of cigarettes did/do you smoke per day?")
     public SurveyPage cigarettesPerDay(String noOfCigarettes) {
         WebElement webElement = webDriverMethods.waitForElementTobeClickable("//div[@class='col-md-2 col-xs-3']//div[text()[normalize-space()='" + noOfCigarettes + "']]");
@@ -350,13 +364,13 @@ public class SurveyPage {
 
     @Step("Have you been screened for colorectal cancer?")
     public SurveyPage screenColorectalCancer(String screen) {
-        webDriverMethods.locateElement("xpath", "//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='" + screen + "']]").click();
+        webDriverMethods.waitForElementTobeClickable( "//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='" + screen + "']]").click();
         return this;
     }
 
     @Step("How were you screened for colorectal cancer during your most recent screening?")
     public SurveyPage colorectalRecentScreening(String screen) {
-        webDriverMethods.locateElement("xpath", "//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='" + screen + "']]").click();
+        webDriverMethods.waitForElementTobeClickable( "//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='" + screen + "']]").click();
         return this;
     }
 
@@ -368,19 +382,105 @@ public class SurveyPage {
 
     @Step("Have you ever had 10 or more polyps cumulatively from colon screenings?")
     public SurveyPage cumulativeScreening(String cumulativeScreening) {
-        webDriverMethods.locateElement("xpath", "//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='" + cumulativeScreening + "']]").click();
+        webDriverMethods.waitForElementTobeClickable( "//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='" + cumulativeScreening + "']]").click();
         return this;
     }
 
     @Step("Have you ever had a screening test for prostate cancer called a PSA (Prostate-Specific Antigen) test?")
     public SurveyPage psaTest(String pas) {
-        webDriverMethods.locateElement("xpath", "//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='" + pas + "']]").click();
+        webDriverMethods.waitForElementTobeClickable( "//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='" + pas + "']]").click();
         return this;
     }
 
     @Step("When was your last PSA (Prostate-Specific Antigen) test?")
     public SurveyPage lastPsaTest(String lastPsatest) {
-        webDriverMethods.locateElement("xpath", "//div[@class='col-md-2 col-xs-3']//div[text()[normalize-space()='" + lastPsatest + "']]").click();
+        webDriverMethods.waitForElementTobeClickable( "//div[@class='col-md-2 col-xs-3']//div[text()[normalize-space()='" + lastPsatest + "']]").click();
+        return this;
+    }
+
+    @Step("Did you develop breast cancer in both breasts?")
+    public SurveyPage cancerInBothBreasts(String lastPsatest) {
+        webDriverMethods.waitForElementTobeClickable( "//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='" + lastPsatest + "']]").click();
+        return this;
+    }
+
+    @Step("Did the breast cancer happen more than once?")
+    public SurveyPage breastCancerHappenedMoreThanOnce(String timesOccurred) {
+        webDriverMethods.waitForElementTobeClickable( "//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='" + timesOccurred + "']]").click();
+        return this;
+    }
+
+    @Step("Was the breast cancer a triple negative breast cancer?")
+    public SurveyPage tripleNegativeBreast(String tripleNegative) {
+        webDriverMethods.waitForElementTobeClickable( "//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='"+tripleNegative+"']]").click();
+        return this;
+    }
+
+    @Step("How old were you the first time you had a menstrual period?")
+    public SurveyPage ageWhenFirstMenstrualPeriod(String age) {
+        webDriverMethods.waitForElementTobeClickable( "//div[@class='col-md-2 col-xs-3']//div[text()[normalize-space()='"+age+"']]").click();
+        return this;
+    }
+
+    @Step("Have you gone through menopause?")
+    public SurveyPage goneThroughMenoPause(String throughMenoPause) {
+        webDriverMethods.waitForElementTobeClickable( "//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='"+throughMenoPause+"']]").click();
+        return this;
+    }
+
+    @Step("At what age did you begin menopause?")
+    public SurveyPage ageWhenMenoPauseBegan(String age) {
+        WebElement enterAge = webDriverMethods.waitForElementVisibility("//div[@class='col-md-offset-5 col-md-2 center-question']//input");
+        webDriverMethods.enterText(enterAge,age);
+        return this;
+    }
+
+    @Step("What was the reason for menopause?")
+    public SurveyPage reasonForMenoPause(String reason) {
+        webDriverMethods.waitForElementTobeClickable( "//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='"+reason+"']]").click();
+        return this;
+    }
+
+    @Step("How many times have you been pregnant?")
+    public SurveyPage howManyTimesPregnant(String timesPregnant) {
+        webDriverMethods.waitForElementTobeClickable( "//div[@class='col-md-2 col-xs-3']//div[text()[normalize-space()='"+timesPregnant+"']]").click();
+        return this;
+    }
+
+    @Step("How many times have you given birth?")
+    public SurveyPage timesGivenBirth(String timesPregnant) {
+        webDriverMethods.waitForElementTobeClickable( "//div[@class='col-md-2 col-xs-3']//div[text()[normalize-space()='"+timesPregnant+"']]").click();
+        return this;
+    }
+
+    @Step("How old were you the first time you gave birth?")
+    public SurveyPage ageWhenFirstBirth(String age) {
+        WebElement enterAge = webDriverMethods.waitForElementVisibility("//div[@class='col-md-offset-5 col-md-2 center-question']//input");
+        webDriverMethods.enterText(enterAge,age);
+        return this;
+    }
+
+    @Step("Have you ever had a prior mammogram for breast cancer screening?")
+    public SurveyPage mammogramForBreastCancerScreening(String screen) {
+        webDriverMethods.waitForElementTobeClickable( "//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='" + screen + "']]").click();
+        return this;
+    }
+
+    @Step("When was your last mammogram?")
+    public SurveyPage lastMammogram(String lastMammogram) {
+        webDriverMethods.waitForElementTobeClickable( "//div[@class='col-md-2 col-xs-3']//div[text()[normalize-space()='" + lastMammogram + "']]").click();
+        return this;
+    }
+
+    @Step("Have you ever had a screening test for cervical cancer called a Pap smear?")
+    public SurveyPage everHadPapSmear(String papSmear) {
+        webDriverMethods.waitForElementTobeClickable( "//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='" + papSmear + "']]").click();
+        return this;
+    }
+
+    @Step("When was your last Pap smear?")
+    public SurveyPage lastPapSmear(String lastPapSmear) {
+        webDriverMethods.waitForElementTobeClickable( "//div[@class='col-md-2 col-xs-3']//div[text()[normalize-space()='" + lastPapSmear + "']]").click();
         return this;
     }
 
