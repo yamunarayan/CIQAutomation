@@ -11,11 +11,372 @@ import java.util.Map;
 
 public class SurveyTest extends BaseTest {
 
-    @Test
+    @Test(groups = {"survey","male","maleGenericSurvey"})
     public void maleGenericSurvey()  {
 
+
         ExcelUtils excelUtils = new ExcelUtils();
-        Map<String, String> data = excelUtils.getData("maleSurvey", "male", "./src/test/resources/testdata.xlsx");
+        Map<String, String> data = excelUtils.getData("maleSurvey-1", "male", "./src/test/resources/testdata.xlsx");
+
+        WebDriver driver = launchAppAndSurveyLogin();
+        SurveyPage surveyPage = new SurveyPage(driver);
+        DataGenerationUtils dataGenerationUtils=new DataGenerationUtils(new Faker());
+
+        surveyPage.startSurvey()
+                .enterFirstName(dataGenerationUtils.randomFirstName())
+                .clickNext()
+                .enterLastName(dataGenerationUtils.randomLastName())
+                .clickNext()
+                .enterDob(data.get("DOB"))
+                .clickNext()
+                .choosingGender(data.get("Sex"))
+                .clickNext()
+                .choosingAncestry(data.get("Ashkenazi or Eastern European Jewish ancestry"))
+                .clickNext()
+                .choosingAdoption(data.get("Adopted"))
+                .clickNext()
+                .biologicalInfo(data.get("Medical information about your biological family"))
+                .clickNext()
+                .isCancerous(data.get("Ever had Cancer"))
+                .clickNext()
+                .cancerInRecentTimes(data.get("Cancer in the past 12 months"))
+                .clickNext()
+                .setTypeOfCancerAndAge(data.get("Type of Cancer"))
+                .clickNext()
+                .colorectalMoreThanOnce(data.get("Did the colorectal cancer happen more than once?"))
+                .clickNext()
+                .colonScreening(data.get("10 or more colon polyps"))
+                .clickNext()
+                .cancerInBloodRelatives(data.get("Any family developed cancer"))
+                .clickNext()
+                .diagnosedWithCancer(data.get("Has anyone in family with prostate"))
+                .clickNext()
+                .cancerEducation()
+                .whoElseHasCancerInFamily(data.get("Who in Family has cancer"))
+                .clickNext()
+                .parentsHistory(data.get("Family1"), 1)
+                .typeOfCancers(data.get("Type of Cancer Father"), 1)
+                .clickRightNext(1)
+                .diagnosedAge(data.get("Age of Diagnosis Father"), 1)
+                .otherParentInfo(data.get("Do you have other parents who had cancer-1?"))
+                .parentsHistory(data.get("Family 2"), 2)
+                .clickNext()
+                .typeOfCancers(data.get("Type of cancer Mother"), 2)
+                .clickRightNext(2)
+                .diagnosedAge(data.get("Age of diagnosis Mother"), 2)
+                .clickNext()
+                .otherParentInfo(data.get("Do you have other parents who had cancer-2?"))
+                .cousinThatHadCancer(data.get("Family 3"))
+                .clickNext()
+                .typeOfCancers(data.get("Type of cancer cousin"), 1)
+                .clickRightNext(1)
+                .diagnosedAge(data.get("Age of diagnosis cousin"), 1)
+                .diagnosedAge(data.get("Age of diagnosis cousin"), 2)
+                .clickNext()
+                .otherParentInfo(data.get("Do you have other first cousins who had cancer?"))
+                .clickNext()
+                .enterHeight(data.get("Height"))
+                .clickNext()
+                .enterWeight(data.get("Weight"))
+                .clickNext()
+                .doYouSmoke(data.get("have a habit of smoke?"))
+                .clickNext()
+                .doYouSmoke(data.get("Do you currently smoke"))
+                .clickNext()
+                .yearsOfSmoke(data.get("For how many years did you smoke/have you been smoking?"))
+                .clickNext()
+                .cigarettesPerDay(data.get("how many packs of cigarettes"))
+                .clickNext()
+                .colonScreening(data.get("Screened for colorectal cancer"))
+                .clickNext()
+                .colorectalRecentScreening(data.get("Colorectal screenings"))
+                .clickNext()
+                .whenWasLastColorectalScreening(data.get("most recent colorectal cancer screening?"))
+                .clickNext()
+                .cumulativeScreening(data.get("Have you ever had 10 or more polyps cumulatively from colon screenings?"))
+                .clickNext()
+                .psaTest(data.get("ever had a screening test for prostate cancer called a PSA"))
+                .clickNext()
+                .lastPsaTest(data.get("last PSA (Prostate-Specific Antigen) test"))
+                .clickSubmit();
+    }
+
+    @Test(groups = {"survey","male","maleGenericSurvey2"})
+    public void maleGenericSurvey2()  {
+
+
+        ExcelUtils excelUtils = new ExcelUtils();
+        Map<String, String> data = excelUtils.getData("maleSurvey-2", "male", "./src/test/resources/testdata.xlsx");
+
+        WebDriver driver = launchAppAndSurveyLogin();
+        SurveyPage surveyPage = new SurveyPage(driver);
+        DataGenerationUtils dataGenerationUtils=new DataGenerationUtils(new Faker());
+
+        surveyPage.startSurvey()
+                .enterFirstName(dataGenerationUtils.randomFirstName())
+                .clickNext()
+                .enterLastName(dataGenerationUtils.randomLastName())
+                .clickNext()
+                .enterDob(data.get("DOB"))
+                .clickNext()
+                .choosingGender(data.get("Sex"))
+                .clickNext()
+                .choosingAncestry(data.get("Ashkenazi or Eastern European Jewish ancestry"))
+                .clickNext()
+                .choosingAdoption(data.get("Adopted"))
+                .clickNext()
+                .biologicalInfo(data.get("Medical information about your biological family"))
+                .clickNext()
+                .isCancerous(data.get("Ever had Cancer"))
+                .clickNext()
+                .cancerInRecentTimes(data.get("Cancer in the past 12 months"))
+                .clickNext()
+                .setTypeOfCancerAndAge(data.get("Type of Cancer"))
+                .clickNext()
+                .colorectalMoreThanOnce(data.get("Did the colorectal cancer happen more than once?"))
+                .clickNext()
+                .colonScreening(data.get("10 or more colon polyps"))
+                .clickNext()
+                .cancerInBloodRelatives(data.get("Any family developed cancer"))
+                .clickNext()
+                .diagnosedWithCancer(data.get("Has anyone in family with prostate"))
+                .clickNext()
+                .cancerEducation()
+                .whoElseHasCancerInFamily(data.get("Who in Family has cancer"))
+                .clickNext()
+                .parentsHistory(data.get("Family1"), 1)
+                .typeOfCancers(data.get("Type of Cancer Father"), 1)
+                .clickRightNext(1)
+                .diagnosedAge(data.get("Age of Diagnosis Father"), 1)
+                .otherParentInfo(data.get("Do you have other parents who had cancer-1?"))
+                .parentsHistory(data.get("Family 2"), 2)
+                .clickNext()
+                .typeOfCancers(data.get("Type of cancer Mother"), 2)
+                .clickRightNext(2)
+                .diagnosedAge(data.get("Age of diagnosis Mother"), 2)
+                .clickNext()
+                .otherParentInfo(data.get("Do you have other parents who had cancer-2?"))
+                .cousinThatHadCancer(data.get("Family 3"))
+                .clickNext()
+                .typeOfCancers(data.get("Type of cancer cousin"), 1)
+                .clickRightNext(1)
+                .diagnosedAge(data.get("Age of diagnosis cousin"), 1)
+                .diagnosedAge(data.get("Age of diagnosis cousin"), 2)
+                .clickNext()
+                .otherParentInfo(data.get("Do you have other first cousins who had cancer?"))
+                .clickNext()
+                .enterHeight(data.get("Height"))
+                .clickNext()
+                .enterWeight(data.get("Weight"))
+                .clickNext()
+                .doYouSmoke(data.get("have a habit of smoke?"))
+                .clickNext()
+                .doYouSmoke(data.get("Do you currently smoke"))
+                .clickNext()
+                .yearsOfSmoke(data.get("For how many years did you smoke/have you been smoking?"))
+                .clickNext()
+                .cigarettesPerDay(data.get("how many packs of cigarettes"))
+                .clickNext()
+                .colonScreening(data.get("Screened for colorectal cancer"))
+                .clickNext()
+                .colorectalRecentScreening(data.get("Colorectal screenings"))
+                .clickNext()
+                .whenWasLastColorectalScreening(data.get("most recent colorectal cancer screening?"))
+                .clickNext()
+                .cumulativeScreening(data.get("Have you ever had 10 or more polyps cumulatively from colon screenings?"))
+                .clickNext()
+                .psaTest(data.get("ever had a screening test for prostate cancer called a PSA"))
+                .clickNext()
+                .lastPsaTest(data.get("last PSA (Prostate-Specific Antigen) test"))
+                .clickSubmit();
+    }
+
+    @Test(groups = {"survey","male","maleGenericSurvey3"})
+    public void maleGenericSurvey3()  {
+
+
+        ExcelUtils excelUtils = new ExcelUtils();
+        Map<String, String> data = excelUtils.getData("maleSurvey-3", "male", "./src/test/resources/testdata.xlsx");
+
+        WebDriver driver = launchAppAndSurveyLogin();
+        SurveyPage surveyPage = new SurveyPage(driver);
+        DataGenerationUtils dataGenerationUtils=new DataGenerationUtils(new Faker());
+
+        surveyPage.startSurvey()
+                .enterFirstName(dataGenerationUtils.randomFirstName())
+                .clickNext()
+                .enterLastName(dataGenerationUtils.randomLastName())
+                .clickNext()
+                .enterDob(data.get("DOB"))
+                .clickNext()
+                .choosingGender(data.get("Sex"))
+                .clickNext()
+                .choosingAncestry(data.get("Ashkenazi or Eastern European Jewish ancestry"))
+                .clickNext()
+                .choosingAdoption(data.get("Adopted"))
+                .clickNext()
+                .biologicalInfo(data.get("Medical information about your biological family"))
+                .clickNext()
+                .isCancerous(data.get("Ever had Cancer"))
+                .clickNext()
+                .cancerInRecentTimes(data.get("Cancer in the past 12 months"))
+                .clickNext()
+                .setTypeOfCancerAndAge(data.get("Type of Cancer"))
+                .clickNext()
+                .colorectalMoreThanOnce(data.get("Did the colorectal cancer happen more than once?"))
+                .clickNext()
+                .colonScreening(data.get("10 or more colon polyps"))
+                .clickNext()
+                .cancerInBloodRelatives(data.get("Any family developed cancer"))
+                .clickNext()
+                .diagnosedWithCancer(data.get("Has anyone in family with prostate"))
+                .clickNext()
+                .cancerEducation()
+                .whoElseHasCancerInFamily(data.get("Who in Family has cancer"))
+                .clickNext()
+                .parentsHistory(data.get("Family1"), 1)
+                .typeOfCancers(data.get("Type of Cancer Father"), 1)
+                .clickRightNext(1)
+                .diagnosedAge(data.get("Age of Diagnosis Father"), 1)
+                .otherParentInfo(data.get("Do you have other parents who had cancer-1?"))
+                .parentsHistory(data.get("Family 2"), 2)
+                .clickNext()
+                .typeOfCancers(data.get("Type of cancer Mother"), 2)
+                .clickRightNext(2)
+                .diagnosedAge(data.get("Age of diagnosis Mother"), 2)
+                .clickNext()
+                .otherParentInfo(data.get("Do you have other parents who had cancer-2?"))
+                .cousinThatHadCancer(data.get("Family 3"))
+                .clickNext()
+                .typeOfCancers(data.get("Type of cancer cousin"), 1)
+                .clickRightNext(1)
+                .diagnosedAge(data.get("Age of diagnosis cousin"), 1)
+                .diagnosedAge(data.get("Age of diagnosis cousin"), 2)
+                .clickNext()
+                .otherParentInfo(data.get("Do you have other first cousins who had cancer?"))
+                .clickNext()
+                .enterHeight(data.get("Height"))
+                .clickNext()
+                .enterWeight(data.get("Weight"))
+                .clickNext()
+                .doYouSmoke(data.get("have a habit of smoke?"))
+                .clickNext()
+                .doYouSmoke(data.get("Do you currently smoke"))
+                .clickNext()
+                .yearsOfSmoke(data.get("For how many years did you smoke/have you been smoking?"))
+                .clickNext()
+                .cigarettesPerDay(data.get("how many packs of cigarettes"))
+                .clickNext()
+                .colonScreening(data.get("Screened for colorectal cancer"))
+                .clickNext()
+                .colorectalRecentScreening(data.get("Colorectal screenings"))
+                .clickNext()
+                .whenWasLastColorectalScreening(data.get("most recent colorectal cancer screening?"))
+                .clickNext()
+                .cumulativeScreening(data.get("Have you ever had 10 or more polyps cumulatively from colon screenings?"))
+                .clickNext()
+                .psaTest(data.get("ever had a screening test for prostate cancer called a PSA"))
+                .clickNext()
+                .lastPsaTest(data.get("last PSA (Prostate-Specific Antigen) test"))
+                .clickSubmit();
+    }
+
+    @Test(groups = {"survey","male","maleGenericSurvey4"})
+    public void maleGenericSurvey4()  {
+
+
+        ExcelUtils excelUtils = new ExcelUtils();
+        Map<String, String> data = excelUtils.getData("maleSurvey-4", "male", "./src/test/resources/testdata.xlsx");
+
+        WebDriver driver = launchAppAndSurveyLogin();
+        SurveyPage surveyPage = new SurveyPage(driver);
+        DataGenerationUtils dataGenerationUtils=new DataGenerationUtils(new Faker());
+
+        surveyPage.startSurvey()
+                .enterFirstName(dataGenerationUtils.randomFirstName())
+                .clickNext()
+                .enterLastName(dataGenerationUtils.randomLastName())
+                .clickNext()
+                .enterDob(data.get("DOB"))
+                .clickNext()
+                .choosingGender(data.get("Sex"))
+                .clickNext()
+                .choosingAncestry(data.get("Ashkenazi or Eastern European Jewish ancestry"))
+                .clickNext()
+                .choosingAdoption(data.get("Adopted"))
+                .clickNext()
+                .biologicalInfo(data.get("Medical information about your biological family"))
+                .clickNext()
+                .isCancerous(data.get("Ever had Cancer"))
+                .clickNext()
+                .cancerInRecentTimes(data.get("Cancer in the past 12 months"))
+                .clickNext()
+                .setTypeOfCancerAndAge(data.get("Type of Cancer"))
+                .clickNext()
+                .colorectalMoreThanOnce(data.get("Did the colorectal cancer happen more than once?"))
+                .clickNext()
+                .colonScreening(data.get("10 or more colon polyps"))
+                .clickNext()
+                .cancerInBloodRelatives(data.get("Any family developed cancer"))
+                .clickNext()
+                .diagnosedWithCancer(data.get("Has anyone in family with prostate"))
+                .clickNext()
+                .cancerEducation()
+                .whoElseHasCancerInFamily(data.get("Who in Family has cancer"))
+                .clickNext()
+                .parentsHistory(data.get("Family1"), 1)
+                .typeOfCancers(data.get("Type of Cancer Father"), 1)
+                .clickRightNext(1)
+                .diagnosedAge(data.get("Age of Diagnosis Father"), 1)
+                .otherParentInfo(data.get("Do you have other parents who had cancer-1?"))
+                .parentsHistory(data.get("Family 2"), 2)
+                .clickNext()
+                .typeOfCancers(data.get("Type of cancer Mother"), 2)
+                .clickRightNext(2)
+                .diagnosedAge(data.get("Age of diagnosis Mother"), 2)
+                .clickNext()
+                .otherParentInfo(data.get("Do you have other parents who had cancer-2?"))
+                .cousinThatHadCancer(data.get("Family 3"))
+                .clickNext()
+                .typeOfCancers(data.get("Type of cancer cousin"), 1)
+                .clickRightNext(1)
+                .diagnosedAge(data.get("Age of diagnosis cousin"), 1)
+                .diagnosedAge(data.get("Age of diagnosis cousin"), 2)
+                .clickNext()
+                .otherParentInfo(data.get("Do you have other first cousins who had cancer?"))
+                .clickNext()
+                .enterHeight(data.get("Height"))
+                .clickNext()
+                .enterWeight(data.get("Weight"))
+                .clickNext()
+                .doYouSmoke(data.get("have a habit of smoke?"))
+                .clickNext()
+                .doYouSmoke(data.get("Do you currently smoke"))
+                .clickNext()
+                .yearsOfSmoke(data.get("For how many years did you smoke/have you been smoking?"))
+                .clickNext()
+                .cigarettesPerDay(data.get("how many packs of cigarettes"))
+                .clickNext()
+                .colonScreening(data.get("Screened for colorectal cancer"))
+                .clickNext()
+                .colorectalRecentScreening(data.get("Colorectal screenings"))
+                .clickNext()
+                .whenWasLastColorectalScreening(data.get("most recent colorectal cancer screening?"))
+                .clickNext()
+                .cumulativeScreening(data.get("Have you ever had 10 or more polyps cumulatively from colon screenings?"))
+                .clickNext()
+                .psaTest(data.get("ever had a screening test for prostate cancer called a PSA"))
+                .clickNext()
+                .lastPsaTest(data.get("last PSA (Prostate-Specific Antigen) test"))
+                .clickSubmit();
+    }
+
+    @Test(groups = {"survey","male","maleGenericSurvey5"})
+    public void maleGenericSurvey5()  {
+
+
+        ExcelUtils excelUtils = new ExcelUtils();
+        Map<String, String> data = excelUtils.getData("maleSurvey-5", "male", "./src/test/resources/testdata.xlsx");
 
         WebDriver driver = launchAppAndSurveyLogin();
         SurveyPage surveyPage = new SurveyPage(driver);
@@ -101,7 +462,7 @@ public class SurveyTest extends BaseTest {
     }
 
 
-    @Test
+    @Test(groups = {"survey","male","maleSurveyWithNoCancer"})
     public void maleSurveyWithNoCancer()  {
 
         ExcelUtils excelUtils = new ExcelUtils();
@@ -149,7 +510,7 @@ public class SurveyTest extends BaseTest {
     }
 
 
-    @Test
+    @Test(groups = {"survey","male","maleGenericWithNoAncestry"})
     public void maleGenericWithNoAncestry()  {
 
         ExcelUtils excelUtils = new ExcelUtils();
@@ -210,7 +571,7 @@ public class SurveyTest extends BaseTest {
                 .clickSubmit();
     }
 
-    @Test
+    @Test(groups = {"survey","male","maleGenericSurveyJewish"})
     public void maleGenericSurveyJewish()  {
 
         ExcelUtils excelUtils = new ExcelUtils();
@@ -268,7 +629,7 @@ public class SurveyTest extends BaseTest {
                 .clickSubmit();
     }
 
-    @Test
+    @Test(groups = {"survey","male","maleGenericSurveyWithNoOneInFamilyHasCancer"})
     public void maleGenericSurveyWithNoOneInFamilyHasCancer()  {
 
         ExcelUtils excelUtils = new ExcelUtils();
@@ -325,7 +686,7 @@ public class SurveyTest extends BaseTest {
                 .clickSubmit();
     }
 
-    @Test
+    @Test(groups = {"survey","male","maleGenericSurveyWithAllNo"})
     public void maleGenericSurveyWithAllNo()  {
 
         ExcelUtils excelUtils = new ExcelUtils();
@@ -378,7 +739,7 @@ public class SurveyTest extends BaseTest {
                 .clickSubmit();
     }
 
-    @Test
+    @Test(groups = {"survey","male","maleGenericSurveyWithNoFamilyNoCancer"})
     public void maleGenericSurveyWithNoFamilyNoCancer()  {
 
         ExcelUtils excelUtils = new ExcelUtils();
@@ -421,7 +782,7 @@ public class SurveyTest extends BaseTest {
                 .clickSubmit();
     }
 
-    @Test
+    @Test(groups = {"survey","male","maleGenericSurveyWithLungCancer"})
     public void maleGenericSurveyWithLungCancer()  {
 
         ExcelUtils excelUtils = new ExcelUtils();
@@ -483,11 +844,11 @@ public class SurveyTest extends BaseTest {
     }
 
 
-    @Test
+    @Test(groups = {"survey","male","maleGenericSurveyWithBreastCancer"})
     public void maleGenericSurveyWithBreastCancer() {
 
         ExcelUtils excelUtils = new ExcelUtils();
-        Map<String, String> data = excelUtils.getData("maleSurvey-14", "male", "./src/test/resources/testdata.xlsx");
+        Map<String, String> data = excelUtils.getData("maleSurvey-13", "male", "./src/test/resources/testdata.xlsx");
 
         WebDriver driver = launchAppAndSurveyLogin();
         SurveyPage surveyPage = new SurveyPage(driver);
@@ -538,7 +899,7 @@ public class SurveyTest extends BaseTest {
 
     /**female survey scenarios*/
 
-    @Test
+    @Test(groups = {"survey","female","feMaleGenericSurvey"})
     public void feMaleGenericSurvey() {
 
         ExcelUtils excelUtils = new ExcelUtils();
@@ -644,7 +1005,7 @@ public class SurveyTest extends BaseTest {
                 .clickSubmit();
     }
 
-    @Test
+    @Test(groups = {"survey","female","feMaleGenericSurveyAdoptedNo"})
     public void feMaleGenericSurveyAdoptedNo() {
 
         ExcelUtils excelUtils = new ExcelUtils();
@@ -742,7 +1103,7 @@ public class SurveyTest extends BaseTest {
                 .clickSubmit();
     }
 
-    @Test
+    @Test(groups = {"survey","female","feMaleGenericSurveyAdoptedNoAncestryNo"})
     public void feMaleGenericSurveyAdoptedNoAncestryNo() {
 
         ExcelUtils excelUtils = new ExcelUtils();
@@ -834,7 +1195,7 @@ public class SurveyTest extends BaseTest {
                 .clickSubmit();
     }
 
-    @Test
+    @Test(groups = {"survey","female","feMaleGenericSurveyNoCancer"})
     public void feMaleGenericSurveyNoCancer() {
 
         ExcelUtils excelUtils = new ExcelUtils();
@@ -896,7 +1257,7 @@ public class SurveyTest extends BaseTest {
                 .clickSubmit();
     }
 
-    @Test
+    @Test(groups = {"survey","female","feMaleGenericSurveyJewish"})
     public void feMaleGenericSurveyJewish() {
 
         ExcelUtils excelUtils = new ExcelUtils();
@@ -998,7 +1359,7 @@ public class SurveyTest extends BaseTest {
     }
 
 
-    @Test
+    @Test(groups = {"survey","female","feMaleGenericSurveyNoMenoPause"})
     public void feMaleGenericSurveyNoMenoPause() {
 
         ExcelUtils excelUtils = new ExcelUtils();
@@ -1094,7 +1455,7 @@ public class SurveyTest extends BaseTest {
                 .clickSubmit();
     }
 
-    @Test
+    @Test(groups = {"survey","female","feMaleGenericSurveyUterineMenoPause"})
     public void feMaleGenericSurveyUterineMenoPause() {
 
         ExcelUtils excelUtils = new ExcelUtils();
@@ -1160,7 +1521,7 @@ public class SurveyTest extends BaseTest {
                 .clickSubmit();
     }
 
-    @Test
+    @Test(groups = {"survey","female","feMaleGenericSurveyUterineCancerMenoPause"})
     public void feMaleGenericSurveyUterineCancerMenoPause() {
 
         ExcelUtils excelUtils = new ExcelUtils();
@@ -1226,7 +1587,7 @@ public class SurveyTest extends BaseTest {
                 .clickSubmit();
     }
 
-    @Test
+    @Test(groups = {"survey","female","feMaleGenericSurveyEndometrialCancerMenoPause"})
     public void feMaleGenericSurveyEndometrialCancerMenoPause() {
 
         ExcelUtils excelUtils = new ExcelUtils();

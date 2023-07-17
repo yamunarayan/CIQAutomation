@@ -19,7 +19,7 @@ public class CIQTest  extends BaseTest {
     @Test
     public void launcCIQ() throws InterruptedException {
         String firstName="cjb";
-        WebDriver driver = launchAppAndLogin();
+        WebDriver driver = launchAppAndLogin("url");
         NavigatorHomePage navigatorHomePage = new NavigatorHomePage(driver);
         ScreeningResultsPage screeningResultsPage = new ScreeningResultsPage(driver);
         Thread.sleep(15000);

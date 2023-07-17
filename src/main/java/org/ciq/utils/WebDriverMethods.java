@@ -7,6 +7,7 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
@@ -186,6 +187,25 @@ public class WebDriverMethods implements DriverActions, ElementActions {
         FluentWait<WebDriver> webDriverWait = new WebDriverWait(driver,
                 Duration.ofSeconds(Integer.parseInt(ConfigLoader.getConfigValue("webDriverWait")))).ignoring(StaleElementReferenceException.class);
         return webDriverWait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(locator)));
+    }
+
+    @Override
+    public void openNextTabNavigateToUrl(String url){
+        try{
+            ((JavascriptExecutor)driver).executeScript("window.open()");
+            ArrayList<String> tabs = new ArrayList<String>(driver.getWindowHandles());
+            driver.switchTo().window(tabs.get(tabs.size()-1));
+            driver.navigate().to(url);
+        }
+        catch (Exception e){
+            System.out.println("Exception has occurred..");
+        }
+
+    }
+
+    public void scrollDown(int x, int y){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("window.scrollBy("+x+","+y+")", "");
     }
 
 

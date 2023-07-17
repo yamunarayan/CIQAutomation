@@ -21,6 +21,7 @@ public class BaseTest {
 
     @Step("launching the browser")
     public WebDriver launchBrowser(){
+        
         ChromeOptions options=new ChromeOptions();
         options.addArguments("--disable-infobars");
         options.addArguments("--disable-notifications");
@@ -43,9 +44,9 @@ public class BaseTest {
         DriverFactory.getInstance().getDriver().close();
     }
 
-    public WebDriver launchAppAndLogin(){
+    public WebDriver launchAppAndLogin(String url){
         WebDriver driver = launchBrowser();
-        driver.get(ConfigLoader.getConfigValue("url"));
+        driver.get(ConfigLoader.getConfigValue(url));
         LoginPage loginPage = new LoginPage(driver);
         NavigatorHomePage navigatorHomePage = new NavigatorHomePage(driver);
         loginPage.enterUserName(ConfigLoader.getConfigValue("userEmail"));
