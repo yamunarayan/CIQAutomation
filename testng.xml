@@ -7,9 +7,10 @@
         <listener class-name="org.ciq.listeners.RetryListener"></listener>
     </listeners>
 
-    <test verbose="2" preserve-order="true" name="test">
+    <test verbose="2" preserve-order="true" name="test" parallel="methods">
         <packages>
-            <package name="tests"></package>
+            <package name="org.ciq.tests.specialist"></package>
+            <package name="org.ciq.tests.surveys"></package>
         </packages>
     </test>
 </suite>

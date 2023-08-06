@@ -1,21 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
-<suite name="All Test Suite" parallel="methods" thread-count="4">
+<suite name="male survey Suite">
     
     <listeners>
         <listener class-name="org.ciq.listeners.ReportListener"></listener>
         <listener class-name="org.ciq.listeners.RetryListener"></listener>
     </listeners>
 
-    <groups>
-        <run>
-            <include name="male"/>
-        </run>
-    </groups>
-
-    <test verbose="2" preserve-order="true" name="test">
+    <test verbose="2" preserve-order="true" name="test" parallel="methods">
+        <groups>
+            <run>
+                <include name="female"/>
+            </run>
+        </groups>
         <packages>
-            <package name="tests"></package>
+            <package name="org.ciq.tests.surveys"></package>
         </packages>
     </test>
 </suite>

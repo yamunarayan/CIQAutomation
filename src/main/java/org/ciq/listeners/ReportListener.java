@@ -14,7 +14,7 @@ public class ReportListener implements ITestListener {
         return iTestResult.getMethod().getConstructorOrMethod().getName();
     }
 
-    @Attachment //(value = "Page screenshot", type = "image/png")
+    @Attachment(value = "Page screenshot", type = "image/png")
     public byte[] saveScreenshot(WebDriver driver) {
         return ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
     }

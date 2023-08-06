@@ -1,7 +1,8 @@
-package org.ciq.tests;
+package org.ciq.tests.surveys;
 
 import com.github.javafaker.Faker;
 import org.ciq.pages.SurveyPage;
+import org.ciq.tests.BaseTest;
 import org.ciq.utils.DataGenerationUtils;
 import org.ciq.utils.ExcelUtils;
 import org.openqa.selenium.WebDriver;
