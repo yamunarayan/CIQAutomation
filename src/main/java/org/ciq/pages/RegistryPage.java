@@ -29,6 +29,7 @@ public class RegistryPage {
         return this;
     }
 
+    @Step("validate patient eligibilities..")
     public RegistryPage validateListOfPatientEligibilities(String eligibilities) {
 
         List<String> list = Arrays.asList(eligibilities.split(","));
