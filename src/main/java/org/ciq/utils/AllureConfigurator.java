@@ -39,10 +39,10 @@ public class AllureConfigurator {
                 System.out.println("Creating new Report Directory");
                 resultsDirectory.mkdir();
             }
-          /*  if(!reportHistoryDirectory.exists()) {
+            if(!reportHistoryDirectory.exists()) {
                 System.out.println("Creating new Report Directory");
                 reportHistoryDirectory.mkdir();
-            }*/
+            }
 
             if(reportHistoryDirectory.exists()) {
                 resultsHistoryDirectory.mkdir();

@@ -52,7 +52,9 @@ public class SpecialistTests extends BaseTest {
                 .clickSaveChanges()
                 .clickPatientNavigationTab("Testing")
                 .navigateToEthicaUrl(ConfigLoader.getConfigValue("registryUrl"))
-                .clickPatientRecord(firstName, lastName);
+                .clickPatientRecord(firstName, lastName)
+                .validateListOfPatientEligibilities(data.get("eligibilities"));
+
 
     }
 

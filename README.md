@@ -11,3 +11,6 @@
     allure generate allure-results -c -o allure-report
     allure open allure-report 
 
+### to generate abd view allure report in one command
+    allure serve ./allure-results
+
