@@ -190,6 +190,13 @@ public class WebDriverMethods implements DriverActions, ElementActions {
     }
 
     @Override
+    public List<WebElement> waitForElementsVisibility(String locator) {
+        FluentWait<WebDriver> webDriverWait = new WebDriverWait(driver,
+                Duration.ofSeconds(Integer.parseInt(ConfigLoader.getConfigValue("webDriverWait")))).ignoring(StaleElementReferenceException.class);
+        return webDriverWait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.xpath(locator)));
+    }
+
+    @Override
     public void openNextTabNavigateToUrl(String url){
         try{
             ((JavascriptExecutor)driver).executeScript("window.open()");

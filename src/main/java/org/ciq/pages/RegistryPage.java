@@ -33,14 +33,14 @@ public class RegistryPage {
     public RegistryPage validateListOfPatientEligibilities(String eligibilities) {
 
         List<String> list = Arrays.asList(eligibilities.split(","));
-        //  List<String> list = Arrays.asList("GENETIC TESTING", "GENETIC REFERRAL", "PROSTATE SCREENING");
-        List<WebElement> eligibilityEle = webDriverMethods.locateElements("xpath", "//div[@class='MuiBox-root jss696']//ul//li//h2");
-        for (WebElement eachEligibilityEle : eligibilityEle) {
-            String text = eachEligibilityEle.getText();
+        List<WebElement> eligibilityEle = webDriverMethods.waitForElementsVisibility( "//div[@class='MuiBox-root jss696']//ul//li//h2");
+        Assert.assertTrue(list.size()== eligibilityEle.size(),"expected and actual eligibilities doesn't match");
+
+        for (int i=0;i<list.size();i++){
+            String text = eligibilityEle.get(i).getText();
             Assert.assertTrue(list.contains(text), "eligibility " + text
                     + " is not present in the expected list of eligibilities");
         }
-        Assert.assertTrue(list.size()== eligibilityEle.size(),"expected and actual eligibilities doesn't match");
-        return this;
+                return this;
     }
 }

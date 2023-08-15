@@ -30,6 +30,8 @@ public interface DriverActions {
     WebElement waitForElementTobeClickable(String element);
     WebElement waitForElementVisibility(String locator);
 
+    List<WebElement> waitForElementsVisibility(String locator);
+
     void openNextTabNavigateToUrl(String url);
 
 
