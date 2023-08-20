@@ -33,7 +33,7 @@ public class RegistryPage {
     public RegistryPage validateListOfPatientEligibilities(String eligibilities) {
 
         List<String> list = Arrays.asList(eligibilities.split(","));
-        List<WebElement> eligibilityEle = webDriverMethods.waitForElementsVisibility( "//div[@class='MuiBox-root jss696']//ul//li//h2");
+        List<WebElement> eligibilityEle = webDriverMethods.waitForElementsVisibility( "//div[starts-with(@class,'MuiBox-root']//ul//li//h2");
         Assert.assertTrue(list.size()== eligibilityEle.size(),"expected and actual eligibilities doesn't match");
 
         for (int i=0;i<list.size();i++){
