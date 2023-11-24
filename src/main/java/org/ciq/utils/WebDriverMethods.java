@@ -1,6 +1,8 @@
 package org.ciq.utils;
 
+import org.ciq.pages.SpecialistPendingDashBoardPage;
 import org.openqa.selenium.*;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
@@ -9,6 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
@@ -215,5 +218,45 @@ public class WebDriverMethods implements DriverActions, ElementActions {
         js.executeScript("window.scrollBy("+x+","+y+")", "");
     }
 
+    public void scrollToView(WebElement element){
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        js.executeScript("arguments[0].click();",element);
+    }
 
+    public void switchToChildWindow(String windowName){
+        Set<String> windowHandles = driver.getWindowHandles();
+        for(String handle : windowHandles){
+            driver.switchTo().window(handle);
+            if(driver.getTitle().contains(windowName)){
+
+            }
+        }
+    }
+
+    public String getParentWindow(){
+        String parentWindow = driver.getWindowHandle();
+        return parentWindow;
+    }
+
+    public void switchToWindow(String parent){
+        driver.switchTo().window(parent);
+    }
+
+    public String getTitle(){
+        String title=driver.getTitle();
+        return title;
+    }
+
+
+    public void performAction(WebElement locator){
+        Actions action= new Actions(driver);
+        action.sendKeys(Keys.ARROW_DOWN).perform();
+
+    }
+
+
+    public String getClass(String locator, String attribute) {
+        String attributeValue = locateElementByXpath(locator).getAttribute(attribute);
+        return attributeValue;
+    }
 }
