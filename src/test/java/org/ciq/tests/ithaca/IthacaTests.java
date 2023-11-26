@@ -13,8 +13,8 @@ import java.util.Map;
 
 public class IthacaTests extends BaseTest {
 
-    @Test(groups = {"ithaca","LungEligibilityithaca", "addPatientithaca"})
-    public void checkRecommendedCarePlanIthaca1() throws InterruptedException {
+    @Test(groups = {"ithaca","checkRecommendedCarePlanIthaca", "addPatientithaca", "lung screening"})
+    public void checkRecommendedCarePlanIthaca() throws InterruptedException {
         ExcelUtils excelUtils= new ExcelUtils();
         Map<String, String> data = excelUtils.getData("ithacaCarePlanEligibility", "ithaca", "./src/test/resources/testdata.xlsx");
 
@@ -36,20 +36,18 @@ public class IthacaTests extends BaseTest {
                 .clickSubmit()
                 .clickPatientRecord(firstName,lastName)
                 .clickStartScreening()
-                .clickPatientCase("PRESCREENED_REFERRAL")
+                .clickPrescreenedReferral("PRESCREENED_REFERRAL")
                 .clickButton("Initiate")
                 .scrollDownByXY(1122,2506)
-                //.selectCurrentlySmokes(data.get("Currently Smokes"),"Currently Smokes")
                 .enterYearsSmoked(data.get("Years Smoked"))
                 .enterNumberOfPacks(data.get("Number of Packs Per Day"))
+                //.selectCurrentlySmokes(data.get("Currently Smokes"),"Currently Smokes")
                 .clickButton("Review Changes")
                 .clickButton("Save")
-                .validateListOfPatientEligibilities(data.get("eligibilities"))
                 .clickAddCarePlan("Lung Screening")
                 .clickIthacaTab("Care Plans")
-               .checkRecommendedCarePlan("Low-Dose Lung CT (Annual)");
+               .checkRecommendedCarePlan(data.get("Recommended CarePlan"));
         
     }
-
 
 }

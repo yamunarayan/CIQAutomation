@@ -53,7 +53,8 @@ public class SpecialistPendingDashBoardPage {
     }
 
     @Step("validate HBOC and HCC test in testing tab")
-    public SpecialistPendingDashBoardPage validateHbocAndHccStatus(String attributeName, String attributeValue1, String attributeValue2) {
+    public SpecialistPendingDashBoardPage validateHbocAndHccStatus(String attributeName, String attributeValue1, String attributeValue2) throws InterruptedException {
+        Thread.sleep(3000);
         List<WebElement> togglestatus = webDriverMethods.locateElements("xpath", "//i[contains(@ng-class,'meetsHBOCTesting')]//ancestor::div//span[contains(@class,'switch ng-valid')]");
         for(WebElement ele: togglestatus){
           String className =  ele.getAttribute(attributeName);
@@ -89,10 +90,7 @@ public class SpecialistPendingDashBoardPage {
 
     @Step("scroll up to the element and click edit button")
     public SpecialistPendingDashBoardPage scrollToElementAndClick(String section) {
-        //span[text()='Specialist-Entered Patient Info']
         WebElement spPatient = webDriverMethods.waitForElementTobeClickable(" //span[text()='"+section+"']//parent::center//parent::div//parent::div//button[text()='Edit']");
-      //  JavascriptExecutor js= (JavascriptExecutor) webDriverMethods;
-       // js.executeScript("arguments[0].scrollIntoView(true);",spPatient);
         spPatient.click();
         return this;
     }
@@ -109,14 +107,14 @@ public class SpecialistPendingDashBoardPage {
         webDriverMethods.selectDropDownByText(cancerType, type);
         return this;
     }
-    @Step("enter age:- {age}")
+    @Step("enter age of diagnosis for cancer{age}")
     public SpecialistPendingDashBoardPage enterAgeOfDiagnosis(String age, int typeCount) {
         WebElement cancerType = webDriverMethods.waitForElementTobeClickable("(//div[text()[normalize-space()='Cancer:']]//ancestor::div[@class='well ng-scope']//div[text()[normalize-space()='Age of Diagnosis:']]//parent::div//div[2]//input[@type='number'])["+typeCount+"]");
         webDriverMethods.enterText(cancerType, age);
         return this;
     }
 
-    @Step("enter age:- {age}")
+    @Step("enter age of diagnosis for all type:- {age}")
     public SpecialistPendingDashBoardPage enterAgeOfDiagnosis( String age, int typeCount, String field) {
         WebElement diagnosisType = webDriverMethods.waitForElementTobeClickable("(//div[text()[normalize-space()='"+field+":']]//ancestor::div[@class='well ng-scope']//div[text()[normalize-space()='Age of Diagnosis:']]//parent::div//div[2]//input[@type='number'])["+typeCount+"]");
         webDriverMethods.enterText(diagnosisType, age);
@@ -146,27 +144,24 @@ public class SpecialistPendingDashBoardPage {
         return this;
     }
 
-
-
-    @Step("choose {field} with option")
+    @Step("validate care plan")
     public SpecialistPendingDashBoardPage ValidateCarePlanEligibilities(String careplan) {
 
         clickPatientNavigationTab("Care Plan");
         String recommendedcareplan=webDriverMethods.waitForElementTobeClickable("//div[@class='panel-heading clearfix recommend_panel_heading']//h3[text()='"+careplan+"']").getText();
-        System.out.println(recommendedcareplan);
         if(recommendedcareplan.contains("Mammogram (Annual) - RECOMMENDED")){
+            clickPatientNavigationTab("Risk Assessment");
             double gailPercentageValue = getGailScore();
             if (!(gailPercentageValue <17 )){
                 Assert.assertEquals(recommendedcareplan,"Mammogram (Annual) - RECOMMENDED");
             }
         } else if (recommendedcareplan.contains("Aromatase Inhibitors (Anastrozole 1 mg/day or Exemestane 25mg/d for 5 years) - RECOMMENDED")) {
                 Assert.assertEquals(recommendedcareplan,"Aromatase Inhibitors (Anastrozole 1 mg/day or Exemestane 25mg/d for 5 years) - RECOMMENDED");
-
         }
-
             return this;
     }
 
+    @Step("capturing gail score")
     public double getGailScore(){
         String gailLifeTypeScore = webDriverMethods.waitForElementTobeClickable("//div[@class='risk_factor col-sm-12']//div[contains(text(),'Gail Lifetime')]").getText();
         Pattern pattern = Pattern.compile("\\b\\d+\\.\\d+\\b");
@@ -180,9 +175,7 @@ public class SpecialistPendingDashBoardPage {
         return gailPercentageValue;
     }
 
-
-
-    @Step("enter age:- {age}")
+    @Step("enter age of menarche:- {age}")
     public SpecialistPendingDashBoardPage enterAgeOfMenarche(String text, String field) {
         WebElement menarche = webDriverMethods.waitForElementTobeClickable("//div[contains(text(),'"+field+":')]//parent::div//div[2]/input[@class='form-control ng-pristine ng-untouched ng-valid ng-valid-min']");
         webDriverMethods.enterText(menarche,text);
@@ -197,9 +190,11 @@ public class SpecialistPendingDashBoardPage {
     }
 
     @Step("select surgery in medical history :- {surgery}")
-    public SpecialistPendingDashBoardPage selectSurgey(String text, String field, int typeCount) {
+    public SpecialistPendingDashBoardPage selectSurgey(String text, String field, int typeCount, String notes) {
         WebElement surgery = webDriverMethods.waitForElementTobeClickable("(//div[contains(text(),'"+field+":')]//parent::div//select[@class='form-control ng-pristine ng-untouched ng-valid'])["+typeCount+"]");
         webDriverMethods.selectDropDownByValue(surgery,text);
+        WebElement notesgc = webDriverMethods.waitForElementTobeClickable("//div[contains(text(),'Notes')]//parent::div//textarea");
+        webDriverMethods.enterText(notesgc,notes);
         return this;
     }
 
@@ -230,22 +225,21 @@ public class SpecialistPendingDashBoardPage {
         return this;
     }
 
-    @Step("choose {field} with option {text}")
+    @Step("choose menopause {field} with option {text}")
     public SpecialistPendingDashBoardPage chooseMenopauseStatus(String text, String field) {
         WebElement menopauseStatus = webDriverMethods.waitForElementTobeClickable("//div[contains(text(),'"+field+":')]//parent::div//select[@class='form-control ng-pristine ng-untouched ng-valid']");
         webDriverMethods.selectDropDownByText(menopauseStatus, text);
         return this;
     }
 
-    @Step("enter {field} with option {text}")
+    @Step("enter breast biopsies {field} with option {text}")
     public SpecialistPendingDashBoardPage enterBreastBiopsies(String text, String field) {
         WebElement breastBiopsies = webDriverMethods.waitForElementTobeClickable("//div[contains(text(),'"+field+":')]//parent::div//div[2]/input[@class='form-control ng-pristine ng-untouched ng-valid ng-valid-min ng-valid-max']");
         webDriverMethods.enterText(breastBiopsies,text);
         return this;
     }
 
-
-    @Step("enter {field} with option {text}")
+    @Step("enter colon polyps {field} with option {text}")
     public SpecialistPendingDashBoardPage enterColonPolyps(String text, String field) {
         WebElement colonpolyps = webDriverMethods.waitForElementTobeClickable("//div[contains(text(),'"+field+":')]//parent::div//div[2]/input[@class='form-control ng-pristine ng-untouched ng-valid ng-valid-min ng-valid-max']");
         webDriverMethods.enterText(colonpolyps,text);
@@ -260,8 +254,8 @@ public class SpecialistPendingDashBoardPage {
     }
     @Step("click on save changes")
     public SpecialistPendingDashBoardPage clickSaveChanges() throws InterruptedException {
-        //Thread.sleep(2000);
         webDriverMethods.waitForElementTobeClickable("//button[contains(text(),'Save Changes')]").click();
+        Thread.sleep(8000);
         return this;
     }
 
@@ -325,13 +319,17 @@ public class SpecialistPendingDashBoardPage {
     public SpecialistPendingDashBoardPage clickNext(){
         webDriverMethods.waitForElementTobeClickable("//button[contains(@ng-click,'next')]").click();
         return this;
-
     }
 
-    @Step("click next button in ordering information")
+    @Step("click button in ordering information popup")
     public SpecialistPendingDashBoardPage clickButton(String field) throws InterruptedException {
         webDriverMethods.waitForElementTobeClickable("//button[contains(text(),'"+field+"')]").click();
+        return this;
+    }
 
+    @Step("click to close pop up")
+    public SpecialistPendingDashBoardPage clickToClosePopup(){
+        webDriverMethods.waitForElementTobeClickable("//div[@modal-window='modal-window']").click();
         return this;
     }
 
@@ -342,58 +340,48 @@ public class SpecialistPendingDashBoardPage {
         return this;
     }
 
-    @Step("enter test result ")
+    @Step("enter test result in testing tab")
     public SpecialistPendingDashBoardPage enterTestResult(String testName, String dropdownValue) throws InterruptedException {
-        webDriverMethods.waitForElementTobeClickable("//span[text()='"+testName+"']//parent::td//following-sibling::td//input").click();
-        webDriverMethods.waitForElementTobeClickable("//span[text()='"+testName+"']//parent::td//following-sibling::td//select").click();
-        WebElement dropdownvalue = webDriverMethods.waitForElementTobeClickable("//span[text()='"+testName+"']//parent::td//following-sibling::td//option");
-        webDriverMethods.selectDropDownByValue(dropdownvalue,dropdownValue);
+        webDriverMethods.waitForElementTobeClickable("(//span[text()='"+testName+"']//parent::td//following-sibling::td//span)[1]").click();
+        WebElement dropdownvalue = webDriverMethods.waitForElementTobeClickable("//span[text()='"+testName+"']//parent::td//following-sibling::td//select");
+        webDriverMethods.selectDropDownByText(dropdownvalue,dropdownValue);
         return this;
     }
 
-    @Step("add additional variant to test ")
+    @Step("add additional variant to test")
     public SpecialistPendingDashBoardPage addAdditionalVariant(String testName, String dropdownValue) throws InterruptedException {
         webDriverMethods.waitForElementTobeClickable("(//span[text()='"+testName+"']//parent::td//following-sibling::td//button[@ng-click='addMutation(gene)'])[1]").click();
-        webDriverMethods.waitForElementTobeClickable("//span[text()='"+testName+"']//parent::td//following-sibling::td//select").click();
-
-        WebElement dropdownvalue = webDriverMethods.waitForElementTobeClickable("//span[text()='"+testName+"']//parent::td//following-sibling::td//option");
-        webDriverMethods.selectDropDownByValue(dropdownvalue,dropdownValue);
+        WebElement dropdownvalue = webDriverMethods.waitForElementTobeClickable("//span[text()='"+testName+"']//parent::td//following-sibling::td//select");
+        webDriverMethods.selectDropDownByText(dropdownvalue,dropdownValue);
         return this;
     }
 
-    @Step("validate saved results")
+    @Step("validate saved test results")
     public SpecialistPendingDashBoardPage validateSavedResults(String testName, String variant) throws InterruptedException {
         String variantType = webDriverMethods.waitForElementTobeClickable("(//td[(text()='"+testName+"')]//following-sibling::td)[1]").getText();
         Assert.assertEquals(variantType,variant);
         return this;
     }
 
-    @Step("validate saved additional results")
-    public SpecialistPendingDashBoardPage validateSavedAdditionalResults(String testName, String variant) throws InterruptedException {
-        String variantType = webDriverMethods.waitForElementTobeClickable("//a[contains(@href,'/risk_asse') and contains(@class,'btn')]").getText();
-        Assert.assertEquals(variantType,variant);
-        return this;
-    }
-
     @Step("click run risk assessment button in testing tab")
     public SpecialistPendingDashBoardPage clickRunRiskAssessmentButton() throws InterruptedException {
-        webDriverMethods.waitForElementTobeClickable("//a[contains(@class,'btn') and contains(@href,'risk')]").click();
-        webDriverMethods.waitForElementTobeClickable("//div[@ng-click='print()']//i").click();
+        webDriverMethods.waitForElementTobeClickable("//a[contains(@href,'/risk_asse') and contains(@class,'btn')]").click();
         return this;
     }
 
     @Step("click print assessment in risk assessment tab")
-    public SpecialistPendingDashBoardPage clickPrintAssessment(String windowName) throws InterruptedException {
+    public SpecialistPendingDashBoardPage clickPrintAssessment(String windowName){
         String parentWindow = webDriverMethods.getParentWindow();
         webDriverMethods.waitForElementTobeClickable("//a[contains(@href,'print')]").click();
-        webDriverMethods.switchToChildWindow(windowName);
-
-
+        //String parentWindow = webDriverMethods.getParentWindow();
+        //webDriverMethods.switchToChildWindow(windowName);
+        //System.out.println(webDriverMethods.getParentWindow());
+        webDriverMethods.waitForElementTobeClickable("//i[contains(@class,'fa fa-print')]").click();
         return this;
     }
 
     @Step("click view completed forms")
-    public SpecialistPendingDashBoardPage clickViewCompletedForms() throws InterruptedException {
+    public SpecialistPendingDashBoardPage clickViewCompletedForms(){
         webDriverMethods.waitForElementTobeClickable("(//a[@ng-click='viewCompletedForms()'])[1]").click();
         return this;
     }
@@ -401,6 +389,7 @@ public class SpecialistPendingDashBoardPage {
     @Step("download forms")
     public SpecialistPendingDashBoardPage downloadForms(String testName) throws InterruptedException {
         webDriverMethods.waitForElementTobeClickable("//button[contains(text(),'"+testName+"')]").click();
+        Thread.sleep(10000);
         return this;
     }
 
@@ -408,7 +397,6 @@ public class SpecialistPendingDashBoardPage {
     public SpecialistPendingDashBoardPage clickSkipAddPatient(){
         webDriverMethods.waitForElementTobeClickable("//button[@ng-click='addPatient();']").click();
         return this;
-
     }
 
     @Step("navigate to ethica portal for patient verification")
@@ -420,6 +408,7 @@ public class SpecialistPendingDashBoardPage {
             return new RegistryPage(driver);
         }
         catch (Exception e){
+            e.printStackTrace();
             System.out.println("Exception has occurred..");
         }
         return new RegistryPage(driver);
@@ -488,8 +477,5 @@ public class SpecialistPendingDashBoardPage {
         webDriverMethods.selectDropDownByText(heightOfPatient, height);
         return this;
     }
-
-
-
 
 }

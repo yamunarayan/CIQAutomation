@@ -1,19 +1,21 @@
 package org.ciq.utils;
 
-import org.ciq.pages.SpecialistPendingDashBoardPage;
-import org.openqa.selenium.*;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-
-import static org.openqa.selenium.support.ui.ExpectedConditions.*;
 
 public class WebDriverMethods implements DriverActions, ElementActions {
 
@@ -22,7 +24,6 @@ public class WebDriverMethods implements DriverActions, ElementActions {
     public WebDriverMethods(WebDriver driver) {
         this.driver = driver;
     }
-
 
     @Override
     public void enterText(WebElement ele, String text) {
@@ -58,9 +59,7 @@ public class WebDriverMethods implements DriverActions, ElementActions {
             System.out.println(ele+" No such element was found");
         } catch (StaleElementReferenceException exception) {
             System.out.println(ele+" stale element reference exception-->element wouldn't have been attached to DOM");
-        } /*catch (Exception e) {
-            System.out.println("unknown exception occurred");
-        }*/
+        }
     }
 
     @Override
@@ -247,16 +246,17 @@ public class WebDriverMethods implements DriverActions, ElementActions {
         return title;
     }
 
-
-    public void performAction(WebElement locator){
+    public void performAction(WebElement locator, String keyaction){
         Actions action= new Actions(driver);
-        action.sendKeys(Keys.ARROW_DOWN).perform();
-
+        action.sendKeys(keyaction).perform();
     }
 
-
-    public String getClass(String locator, String attribute) {
+    public String getAttribute(String locator, String attribute) {
         String attributeValue = locateElementByXpath(locator).getAttribute(attribute);
         return attributeValue;
+    }
+
+    public void switchToFrame(String frameid){
+        driver.switchTo().frame(frameid);
     }
 }

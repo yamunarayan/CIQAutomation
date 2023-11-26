@@ -1,15 +1,15 @@
 package org.ciq.pages;
 
-import io.qameta.allure.Step;
-import org.ciq.utils.WebDriverMethods;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
-import org.testng.Assert;
+        import io.qameta.allure.Step;
+        import org.ciq.utils.WebDriverMethods;
+        import org.openqa.selenium.WebDriver;
+        import org.openqa.selenium.WebElement;
+        import org.openqa.selenium.support.PageFactory;
+        import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
+        import org.testng.Assert;
 
-import java.util.Arrays;
-import java.util.List;
+        import java.util.Arrays;
+        import java.util.List;
 
 public class RegistryPage {
 
@@ -28,14 +28,13 @@ public class RegistryPage {
         try{
             webDriverMethods.openNextTabNavigateToUrl(url);
             Thread.sleep(15000);
-            return new SpecialistPendingDashBoardPage(driver);
         }
         catch (Exception e){
+            e.printStackTrace();
             System.out.println("Exception has occurred..");
         }
         return new SpecialistPendingDashBoardPage(driver);
     }
-
 
     @Step("click on patient record")
     public RegistryPage clickPatientRecord(String firstName, String lastName) {
@@ -48,15 +47,13 @@ public class RegistryPage {
 
         List<String> list = Arrays.asList(eligibilities.split(","));
         List<WebElement> eligibilityEle = webDriverMethods.waitForElementsVisibility( "//div[starts-with(@class,'MuiBox-root')]//ul//li//h2");
-       // Assert.assertTrue(list.size()== eligibilityEle.size(),"expected and actual eligibilities doesn't match");
-        //Adding test
 
         for (int i=0;i<list.size();i++){
             String text = eligibilityEle.get(i).getText();
             Assert.assertTrue(list.contains(text), "eligibility " + text
                     + " is not present in the expected list of eligibilities");
         }
-                return this;
+        return this;
     }
 
     @Step("clicking create new patient")
@@ -112,26 +109,23 @@ public class RegistryPage {
         webDriverMethods.waitForElementTobeClickable("//span[text()='Submit']//ancestor::button").click();
         return this;
     }
-    @Step("click on patient case in ithaca")
+    @Step("click on start screening in ithaca")
     public RegistryPage clickStartScreening() {
         webDriverMethods.waitForElementTobeClickable("//span[text()='Start Screening']//ancestor::button").click();
         return this;
     }
 
     @Step("click on prescreened referral in ithaca")
-    public RegistryPage clickPatientCase(String field) {
+    public RegistryPage clickPrescreenedReferral(String field) {
         webDriverMethods.waitForElementTobeClickable("//button[@data-id='"+field+"']").click();
         return this;
     }
 
     @Step("select currentlysmokes details in ithaca")
     public RegistryPage selectCurrentlySmokes(String option,String field) throws InterruptedException {
-       Thread.sleep(5000);
-       WebElement ele = webDriverMethods.waitForElementTobeClickable("//label[text()='Currently Smokes']/following::div[@id='downshift-14-toggle-button']");
-        //webDriverMethods.scrollToView(ele);
-        ele.click();
-        System.out.println(ele.getText());
-        webDriverMethods.waitForElementTobeClickable("//div[@id='downshift-14-item-0']").click();
+        Thread.sleep(5000);
+        webDriverMethods.waitForElementTobeClickable("//div[@id='downshift-15-toggle-button']").click();
+        webDriverMethods.waitForElementTobeClickable("//div[text()='"+option+"' and contains(@id,'downshift-3-item')]").click();
         return this;
     }
 
@@ -159,7 +153,6 @@ public class RegistryPage {
     public RegistryPage checkPatientEligibility(String eligibilityScreening) {
         String eligibility = webDriverMethods.waitForElementTobeClickable("//h2[text()='"+eligibilityScreening+"']").getText();
         Assert.assertEquals(eligibility, eligibilityScreening);
-
         return this;
     }
 
@@ -169,7 +162,7 @@ public class RegistryPage {
         return this;
     }
 
-    @Step("click care plan tab in ithaca")
+    @Step("click tab in ithaca")
     public RegistryPage clickIthacaTab(String tabName) {
         webDriverMethods.waitForElementTobeClickable("//a[@role='tab' and @title='"+tabName+"']").click();
         return this;
@@ -183,31 +176,28 @@ public class RegistryPage {
     }
 
     @Step("add family member in screening results of ithaca")
-    public RegistryPage addFamilyMember(String field, String type) {
+    public RegistryPage addFamilyMember(String field, String type) throws InterruptedException {
+        Thread.sleep(10000);
         webDriverMethods.waitForElementTobeClickable("//h3[text()='"+field+"']//following::div//button[@data-testid='Button']").click();
         webDriverMethods.waitForElementTobeClickable("//h5[text()='"+type+"']//ancestor::label").click();
         return this;
     }
 
     @Step("select relationshipdetails in ithaca")
-    public RegistryPage addRelationshipCancer(String dropdownName, String option, String age) throws InterruptedException {
-        Thread.sleep(5000);
-        WebElement dropdown = webDriverMethods.waitForElementTobeClickable("//label[text()='"+dropdownName+"']//ancestor::div/div[contains(@class,'default__StyledSelectDefault-sc-3ywncz-9')]");
-        dropdown.click();
-        WebElement dropdownvalueSelection = webDriverMethods.waitForElementTobeClickable("//label[text()='"+dropdownName+"']//parent::div//div[@data-testid='Select__SelectedItem']");
-        webDriverMethods.selectDropDownByValue(dropdownvalueSelection,option);
+    public RegistryPage addRelationshipCancer(String relationshipName, String cancerType, String age) throws InterruptedException {
+        webDriverMethods.waitForElementTobeClickable("//label[text()='Relationship']//ancestor::div/div[contains(@class,'default__StyledSelectDefault')]").click();
+        webDriverMethods.waitForElementTobeClickable("//div[text()='"+relationshipName+"']").click();
+        webDriverMethods.waitForElementTobeClickable("//label[text()='Cancer Type']//ancestor::div/div[contains(@class,'default__StyledSelectDefault')]").click();
+        webDriverMethods.waitForElementTobeClickable("//div[text()='"+cancerType+"']").click();
         WebElement enterAgeOfDx= webDriverMethods.waitForElementVisibility("//input[@placeholder='Age of Dx']");
         webDriverMethods.enterText(enterAgeOfDx, age);
         return this;
     }
-
-
 
     @Step("scrolling down from {x} until {y}")
     public RegistryPage scrollDownByXY(int x, int y){
         webDriverMethods.scrollDown(x,y);
         return this;
     }
-
 
 }
