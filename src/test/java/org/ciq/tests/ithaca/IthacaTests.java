@@ -13,6 +13,7 @@ import java.util.Map;
 
 public class IthacaTests extends BaseTest {
 
+    //TC8
     @Test(groups = {"ithaca","checkRecommendedCarePlanIthaca", "addPatientithaca", "lung screening"})
     public void checkRecommendedCarePlanIthaca() throws InterruptedException {
         ExcelUtils excelUtils= new ExcelUtils();

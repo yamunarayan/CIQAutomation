@@ -259,4 +259,8 @@ public class WebDriverMethods implements DriverActions, ElementActions {
     public void switchToFrame(String frameid){
         driver.switchTo().frame(frameid);
     }
+
+    public void waitforElementToLoad(){
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
+    }
 }

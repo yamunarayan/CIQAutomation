@@ -157,7 +157,8 @@ public class RegistryPage {
     }
 
     @Step("click add to care plan in ithaca")
-    public RegistryPage clickAddCarePlan(String eligibility) {
+    public RegistryPage clickAddCarePlan(String eligibility) throws InterruptedException {
+        Thread.sleep(10000);
         webDriverMethods.waitForElementTobeClickable("//h2[text()='"+eligibility+"']//following-sibling::div/button").click();
         return this;
     }
@@ -197,6 +198,13 @@ public class RegistryPage {
     @Step("scrolling down from {x} until {y}")
     public RegistryPage scrollDownByXY(int x, int y){
         webDriverMethods.scrollDown(x,y);
+        return this;
+    }
+
+    @Step("get MRN number from ithaca encounter view")
+    public RegistryPage getMRNNumber(String field, String mrn) {
+        String mrnValue = webDriverMethods.waitForElementTobeClickable("//p[contains(text(),'"+field+":')]//b").getText();
+        Assert.assertEquals(mrnValue, mrn);
         return this;
     }
 
