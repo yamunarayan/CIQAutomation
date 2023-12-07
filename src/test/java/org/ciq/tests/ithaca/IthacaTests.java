@@ -51,4 +51,30 @@ public class IthacaTests extends BaseTest {
         
     }
 
+    @Test(groups = {"sendEmail"})
+    public void sendEmail() throws InterruptedException {
+        ExcelUtils excelUtils= new ExcelUtils();
+        Map<String, String> data = excelUtils.getData("ithacaCarePlanEligibility", "ithaca", "./src/test/resources/testdata.xlsx");
+
+        WebDriver driver= launchAppAndLogin("registryUrl");
+
+        RegistryPage registryPage = new RegistryPage(driver);
+        DataGenerationUtils dataGenerationUtils=new DataGenerationUtils(new Faker());
+
+        String firstName = dataGenerationUtils.randomFirstName();
+        String lastName = dataGenerationUtils.randomLastName();
+
+        registryPage.clickCreateNewPatient()
+                .enterFirstName(firstName)
+                .enterLastName(lastName)
+                .chooseBirthSex(data.get("Sex"))
+                .enterDay(data.get("DayOfBirth"))
+                .enterMonth(data.get("MonthOfBirth"))
+                .enterYear(data.get("YearOfBirth"))
+                .clickSubmit()
+                .clickPatientRecord(firstName,lastName)
+                .clickStartScreening();
+
+    }
+
 }

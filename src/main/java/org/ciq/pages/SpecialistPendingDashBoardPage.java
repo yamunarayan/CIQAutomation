@@ -1,16 +1,11 @@
 package org.ciq.pages;
-
 import io.qameta.allure.Step;
 import org.ciq.utils.WebDriverMethods;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.testng.Assert;
-
-import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -96,6 +91,13 @@ public class SpecialistPendingDashBoardPage {
     public SpecialistPendingDashBoardPage selectVendors(String field) {
        webDriverMethods.waitForElementTobeClickable("//h4[contains(text(),'Vendors')]//ancestor::div//button[contains(text(),'"+field+"')]").click();
        return this;
+    }
+
+    @Step("get gene names in testing tab")
+    public SpecialistPendingDashBoardPage getTestGeneNames(String field, String TestGene) {
+        String geneNames = webDriverMethods.waitForElementTobeClickable("//h4[contains(text(),'Select Test')]//following::div[contains(text(),'"+field+"')]//following-sibling::div").getText();
+        Assert.assertEquals(geneNames, TestGene);
+        return this;
     }
 
     @Step("select test in testing tab")
@@ -370,6 +372,21 @@ public class SpecialistPendingDashBoardPage {
         return new RegistryPage(driver);
     }
 
+    @Step("navigate to outlook to validate email")
+    public EmailSender navigateToOutlookUrl(String url){
+
+        try{
+            webDriverMethods.openNextTabNavigateToUrl(url);
+            Thread.sleep(15000);
+            return new EmailSender(driver);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            System.out.println("Exception has occurred..");
+        }
+        return new EmailSender(driver);
+    }
+
     @Step("scrolling down from {x} until {y}")
     public SpecialistPendingDashBoardPage scrollDownByXY(int x, int y){
         webDriverMethods.scrollDown(x,y);
@@ -392,6 +409,21 @@ public class SpecialistPendingDashBoardPage {
         webDriverMethods.switchToWindow(parent);
         return this;
     }
+
+    @Step("download reports pdf in  {patientreports}")
+    public SpecialistPendingDashBoardPage downloadReports(String patientreports,String windowName, String field) throws InterruptedException {
+        String parent=webDriverMethods.getParentWindow();
+        webDriverMethods.waitForElementTobeClickable("(//h4[contains(text(),'"+patientreports+"')]//ancestor::div[3]//div)[5]").click();
+        webDriverMethods.switchToChildWindow(windowName);
+        webDriverMethods.waitForElementTobeClickable("//button[@data-cmd='"+field+"']").click();
+
+
+        return this;
+    }
+
+
+
+
     @Step("check saved {reports}")
     public SpecialistPendingDashBoardPage viewSavedReports(String savedReportName){
         String savedreport=webDriverMethods.locateElementByXpath("//span[text()='Saved Reports']//ancestor::div[2]//div/h4[contains(text(),'"+savedReportName+"')]").getText();
@@ -522,5 +554,425 @@ public class SpecialistPendingDashBoardPage {
         webDriverMethods.selectDropDownByValue(surgery,text);
         return this;
     }
+    @Step("select ordering physician in ordering physician/genetic counselor information")
+    public SpecialistPendingDashBoardPage selectOrderingPhysician(String field) {
+        webDriverMethods.waitForElementTobeClickable("//label[text()='Who is the Ordering Physician?']//following::button[contains(text(),'"+field+"')]").click();
+        return this;
+    }
+
+    @Step("select Include self as additional results recipient in ordering physician/genetic counselor information")
+    public SpecialistPendingDashBoardPage selectAdditionalResultsRecipient(String field) {
+        webDriverMethods.waitForElementTobeClickable("//label[text()='Include self as additional results recipient?']//following::button[contains(text(),'"+field+"')]").click();
+        return this;
+    }
+
+    @Step("enter name in ordering physician/genetic counselor information")
+    public SpecialistPendingDashBoardPage enterName(String name) {
+        WebElement nameField = webDriverMethods.waitForElementTobeClickable("//label[text()='Name']//following-sibling::input");
+        webDriverMethods.enterText(nameField,name);
+        return this;
+    }
+    @Step("enter NPI in ordering physician/genetic counselor information")
+    public SpecialistPendingDashBoardPage enterNPI(String npi) {
+        WebElement npiField = webDriverMethods.waitForElementTobeClickable("//label[text()='NPI']//following-sibling::input");
+        webDriverMethods.enterText(npiField,npi);
+        return this;
+    }
+
+    @Step("enter email in ordering physician/genetic counselor information")
+    public SpecialistPendingDashBoardPage enterEmailInPopup(String email) {
+        WebElement emailField = webDriverMethods.waitForElementTobeClickable("//label[text()='Email ']//following-sibling::input");
+        webDriverMethods.enterText(emailField,email);
+        return this;
+    }
+
+    @Step("enter phone in ordering physician/genetic counselor information")
+    public SpecialistPendingDashBoardPage enterPhone(String phone) {
+        WebElement phoneField = webDriverMethods.waitForElementTobeClickable("//label[text()='Phone']//following-sibling::input");
+        webDriverMethods.enterText(phoneField,phone);
+        return this;
+    }
+
+    @Step("enter fax in ordering physician/genetic counselor information")
+    public SpecialistPendingDashBoardPage enterFax(String fax) {
+        WebElement faxField = webDriverMethods.waitForElementTobeClickable("//label[text()='Fax']//following-sibling::input");
+        webDriverMethods.enterText(faxField,fax);
+        return this;
+    }
+
+    @Step("enter street address in ordering physician/genetic counselor information")
+    public SpecialistPendingDashBoardPage enterStreetAddress(String streetAddress) {
+        WebElement streetAddressField = webDriverMethods.waitForElementTobeClickable("//label[text()='Street Address']//following-sibling::input");
+        webDriverMethods.enterText(streetAddressField,streetAddress);
+        return this;
+    }
+
+    @Step("enter city in ordering physician/genetic counselor information")
+    public SpecialistPendingDashBoardPage enterCity(String city) {
+        WebElement cityField = webDriverMethods.waitForElementTobeClickable("//label[text()='City']//following-sibling::input");
+        webDriverMethods.enterText(cityField,city);
+        return this;
+    }
+    @Step("enter state in ordering physician/genetic counselor information")
+    public SpecialistPendingDashBoardPage enterState(String state) {
+        WebElement stateField = webDriverMethods.waitForElementTobeClickable("//label[text()='State']//following-sibling::input");
+        webDriverMethods.enterText(stateField,state);
+        return this;
+    }
+
+    @Step("enter zip in ordering physician/genetic counselor information")
+    public SpecialistPendingDashBoardPage enterZip(String zip) {
+        WebElement zipField = webDriverMethods.waitForElementTobeClickable("//label[text()='Zip']//following-sibling::input");
+        webDriverMethods.enterText(zipField,zip);
+        return this;
+    }
+    @Step("select Populate From CancerIQ in ordering physician/genetic counselor information")
+    public SpecialistPendingDashBoardPage selectPopulateFromCIQValue(String populateFromCIQValue) {
+        WebElement npiField = webDriverMethods.waitForElementTobeClickable("//label[text()='NPI']//following-sibling::input");
+        webDriverMethods.selectDropDownByText(npiField,populateFromCIQValue);
+        return this;
+    }
+    @Step("select provide signature in ordering physician/genetic counselor information")
+    public SpecialistPendingDashBoardPage selectProvideSignature() {
+        webDriverMethods.waitForElementTobeClickable("//label[text()='Provide Signature?']//following::input").click();
+        return this;
+    }
+    @Step("enter Patient Mailing Address1 in demographic information")
+    public SpecialistPendingDashBoardPage enterPatientMailingAddress1(String text) {
+        WebElement mailingAddress1 = webDriverMethods.waitForElementTobeClickable("//label[text()='Patient Mailing Address']//following::input[@ng-model='store.formData.patient_street_address_1']");
+        webDriverMethods.enterText(mailingAddress1,text);
+        return this;
+    }
+
+    @Step("enter Patient Mailing Address2 in demographic information")
+    public SpecialistPendingDashBoardPage enterPatientMailingAddress2(String text) {
+        WebElement mailingAddress2 = webDriverMethods.waitForElementTobeClickable("//label[text()='Patient Mailing Address']//following::input[@ng-model='store.formData.patient_street_address_2']");
+        webDriverMethods.enterText(mailingAddress2,text);
+        return this;
+    }
+
+    @Step("enter patient city in demographic information")
+    public SpecialistPendingDashBoardPage enterPatientCity(String text) {
+        WebElement patientCity = webDriverMethods.waitForElementTobeClickable("//label[text()='Patient City']//following::input[@ng-model='store.formData.patient_city']");
+        webDriverMethods.enterText(patientCity,text);
+        return this;
+    }
+
+    @Step("enter patient state in demographic information")
+    public SpecialistPendingDashBoardPage enterPatientState(String text) {
+        WebElement patientState = webDriverMethods.waitForElementTobeClickable("//label[text()='Patient State']//following::input[@ng-model='store.formData.patient_state']");
+        webDriverMethods.enterText(patientState,text);
+        return this;
+    }
+    @Step("enter patient zip in demographic information")
+    public SpecialistPendingDashBoardPage enterPatientZip(String text) {
+        WebElement patientZip = webDriverMethods.waitForElementTobeClickable("//label[text()='Patient Zip']//following::input[@ng-model='store.formData.patient_zip']");
+        webDriverMethods.enterText(patientZip,text);
+        return this;
+    }
+    @Step("select patient race in demographic information")
+    public SpecialistPendingDashBoardPage selectPatientRace(String text) {
+        WebElement patientRace = webDriverMethods.waitForElementTobeClickable("//label[text()='Patient Race ']//following::select");
+        webDriverMethods.selectDropDownByText(patientRace,text);
+        return this;
+    }
+    @Step("select Patient Ethnicity in demographic information")
+    public SpecialistPendingDashBoardPage selectPatientEthnicity(String field) {
+        webDriverMethods.waitForElementTobeClickable("//label[text()='Patient Ethnicity']//following::button[text()[normalize-space()='"+field+"']]").click();
+        return this;
+    }
+    @Step("select bill Type in billing information")
+    public SpecialistPendingDashBoardPage selectBillType(String field) {
+        webDriverMethods.waitForElementTobeClickable("//label[text()='Bill Type?']//following::button[contains(text(),'"+field+"')]").click();
+        return this;
+    }
+
+    @Step("select patient Relationship To Policy Holder in billing information")
+    public SpecialistPendingDashBoardPage selectRelationshipToPolicyHolder(String field) {
+        webDriverMethods.waitForElementTobeClickable("//label[text()='Patient Relationship To Policy Holder']//following::button[contains(text(),'"+field+"')]").click();
+        return this;
+    }
+
+    @Step("enter primary Insurance in billing information")
+    public SpecialistPendingDashBoardPage selectPrimaryInsurance(String text) {
+        WebElement primaryInsurance = webDriverMethods.waitForElementTobeClickable("//label[text()='Primary Insurance']//following::input[@ng-model='store.formData.insurance_company']");
+        webDriverMethods.enterText(primaryInsurance,text);
+        return this;
+    }
+
+    @Step("enter policy Insurance in billing information")
+    public SpecialistPendingDashBoardPage enterPolicy(String text) {
+        WebElement policy = webDriverMethods.waitForElementTobeClickable("//label[text()='Policy #']//following::input[@ng-model='store.formData.member_id']");
+        webDriverMethods.enterText(policy,text);
+        return this;
+    }
+
+    @Step("enter group in billing information")
+    public SpecialistPendingDashBoardPage enterGroup(String text) {
+        WebElement group = webDriverMethods.waitForElementTobeClickable("//label[text()='Group #']//following::input[@ng-model='store.formData.group_id']");
+        webDriverMethods.enterText(group,text);
+        return this;
+    }
+
+    @Step("select hospital inpatient in billing information")
+    public SpecialistPendingDashBoardPage selectHospitalInpatient(String field) {
+        webDriverMethods.waitForElementTobeClickable("//label[text()='Hospital Inpatient']//following::button[contains(text(),'"+field+"')]").click();
+        return this;
+    }
+
+    @Step("select date of discharge in billing information")
+    public SpecialistPendingDashBoardPage selectDateOfDischarge(String field) {
+        webDriverMethods.waitForElementTobeClickable("//label[text()='Date of Discharge']//following::input").click();
+        return this;
+    }
+
+    @Step("select sample type in specimen retrieval")
+    public SpecialistPendingDashBoardPage selectSampleType(String field) {
+        webDriverMethods.waitForElementTobeClickable("//label[text()='Sample Type? ']//following::button[contains(text(),'"+field+"')]").click();
+        return this;
+    }
+
+    @Step("choose mobile phlebotomy in specimen retrieval")
+    public SpecialistPendingDashBoardPage chooseMobilePhlebotomy(String field) {
+        webDriverMethods.waitForElementTobeClickable("//label[text()='Are you using mobile phlebotomy?']//following::button[contains(text(),'"+field+"')]").click();
+        return this;
+    }
+    @Step("choose buccal swab kit to the patient in specimen retrieval")
+    public SpecialistPendingDashBoardPage chooseBuccalSwabKit(String field) {
+        webDriverMethods.waitForElementTobeClickable("//label[text()='Are you sending the buccal swab kit to the patient?']//following::button[contains(text(),'"+field+"')]").click();
+        return this;
+    }
+
+    @Step("choose Has the patient ever received an allogenic bone marrow or peripheral stem cell transplant in clinical history")
+    public SpecialistPendingDashBoardPage chooseCellTransplant(String field) {
+        webDriverMethods.waitForElementTobeClickable("//label[contains(text(),'cell transplant?')]//following::button[contains(text(),'"+field+"')]").click();
+        return this;
+    }
+
+    @Step("select ICD-10 Primary Diagnosis Codes in clinical history")
+    public SpecialistPendingDashBoardPage chooseICD10(String option) {
+        List<WebElement> icd10list = webDriverMethods.locateElements("xpath", "//label[contains(text(),'ICD-10')]//following::label");
+        for(WebElement e : icd10list){
+            if((e.getText()).contains(option)){
+                e.click();
+            }
+        }
+        return this;
+    }
+
+    @Step("choose Has the patient, or any member of their family, ever had Somatic/Tumor testing in prior personal or family history or genetic testing")
+    public SpecialistPendingDashBoardPage chooseTumorTesting(String field) {
+        webDriverMethods.waitForElementTobeClickable("(//label[contains(text(),'Tumor testing?')]//following::button[contains(text(),'"+field+"')])[1]").click();
+        return this;
+    }
+    @Step("choose Has the patient, or any member of their family, ever had Germline testing in prior personal or family history or genetic testing")
+    public SpecialistPendingDashBoardPage chooseGermlineTesting(String field) {
+        webDriverMethods.waitForElementTobeClickable("(//label[contains(text(),'Tumor testing?')]//following::button[contains(text(),'"+field+"')])[2]").click();
+        return this;
+    }
+
+    @Step("validate text in the ordering physician or genetic counselor signature ")
+    public SpecialistPendingDashBoardPage verifyCounselorSignatureText(String text) {
+        String signatureText = webDriverMethods.waitForElementTobeClickable("//div[@ng-switch-when='ATTESTATION']//p").getText();
+        Assert.assertEquals(text, signatureText);
+        return this;
+    }
+
+    @Step("validate test name text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationTestNameText(String text) {
+        String testNameText = webDriverMethods.waitForElementTobeClickable("//td[contains(text(),'Test Name')]//following-sibling::td").getText();
+        Assert.assertEquals(text, testNameText);
+        return this;
+    }
+
+    @Step("validate genes text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationGenesText(String ConfirmGene) {
+        String genesText = webDriverMethods.waitForElementTobeClickable("//td[contains(text(),'Genes')]//following-sibling::td").getText();
+        Assert.assertEquals(genesText, ConfirmGene);
+        return this;
+    }
+
+    @Step("validate relationship text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationRelationshipText(String text) {
+        String relationshipText = webDriverMethods.waitForElementTobeClickable("//td[contains(text(),'  Relationship')]//following-sibling::td").getText();
+        Assert.assertEquals(text, relationshipText);
+        return this;
+    }
+
+    @Step("validate name text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationNameText(String text) {
+        String nameText = webDriverMethods.waitForElementTobeClickable("//td[text()='Name']//following-sibling::td").getText();
+        Assert.assertEquals(text, nameText);
+        return this;
+    }
+
+    @Step("validate NPI text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationNPIText(String text) {
+        String npiText = webDriverMethods.waitForElementTobeClickable("//td[text()='NPI']//following-sibling::td").getText();
+        Assert.assertEquals(text, npiText);
+        return this;
+    }
+
+    @Step("validate provide signature text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationSignatureText(String text) {
+        String provideSignatureText = webDriverMethods.waitForElementTobeClickable("//td[text()='Provide Signature?']//following-sibling::td").getText();
+        Assert.assertEquals(text, provideSignatureText);
+        return this;
+    }
+
+    @Step("validate address1 text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationAddress1Text(String text) {
+        String addressText = webDriverMethods.waitForElementTobeClickable("//td[text()='Address']//following-sibling::td").getText();
+        Assert.assertEquals(text, addressText);
+        return this;
+    }
+
+    @Step("validate address text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationAddress2Text(String text) {
+        String addressText = webDriverMethods.waitForElementTobeClickable("//td[text()='Address 2']//following-sibling::td").getText();
+        Assert.assertEquals(text, addressText);
+        return this;
+    }
+
+    @Step("validate city text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationCityText(String text) {
+        String cityText = webDriverMethods.waitForElementTobeClickable("//td[text()='City']//following-sibling::td").getText();
+        Assert.assertEquals(text, cityText);
+        return this;
+    }
+
+    @Step("validate state text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationStateText(String text) {
+        String stateText = webDriverMethods.waitForElementTobeClickable("//td[text()='State']//following-sibling::td").getText();
+        Assert.assertEquals(text, stateText);
+        return this;
+    }
+
+    @Step("validate postalcode text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationPostalCodeText(String text) {
+        String postalCodeText = webDriverMethods.waitForElementTobeClickable("//td[text()='Postal Code']//following-sibling::td").getText();
+        Assert.assertEquals(text, postalCodeText);
+        return this;
+    }
+
+    @Step("validate race text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationRaceText(String text) {
+        String raceText = webDriverMethods.waitForElementTobeClickable("//td[text()='Race']//following-sibling::td").getText();
+        Assert.assertEquals(text, raceText);
+        return this;
+    }
+
+    @Step("validate ethnicity text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationEthnicityext(String text) {
+        String ethnicityText = webDriverMethods.waitForElementTobeClickable("//td[text()='Ethnicity']//following-sibling::td").getText();
+        Assert.assertEquals(text, ethnicityText);
+        return this;
+    }
+
+    @Step("validate How will the test be paid for text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationHowTestPaidText(String text) {
+        String howTestPaidText = webDriverMethods.waitForElementTobeClickable("//td[text()='How will the test be paid for?']//following-sibling::td").getText();
+        Assert.assertEquals(text, howTestPaidText);
+        return this;
+    }
+
+    @Step("validate Policy Holder Name text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationPolicyHolderText(String text) {
+        String policyHolderText = webDriverMethods.waitForElementTobeClickable("//td[text()='Policy Holder Name']//following-sibling::td[contains(text(),'"+text+"')]").getText();
+        Assert.assertEquals(text, policyHolderText);
+        return this;
+    }
+
+    @Step("validate Policy Holder DOB text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationPolicyHolderDOBText(String text) {
+        String policyHolderDOBText = webDriverMethods.waitForElementTobeClickable("//td[text()='Policy Holder DOB']//following-sibling::td").getText();
+       String outputdate = webDriverMethods.dateConversion(text);
+       Assert.assertEquals(outputdate, policyHolderDOBText);
+        return this;
+    }
+
+    @Step("validate Patient Relationship to Policy Holder text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationRelationshipToPolicyHolderText(String text) {
+        String relationshipToPolicyHolderText = webDriverMethods.waitForElementTobeClickable("//td[text()='Patient Relationship to Policy Holder']//following-sibling::td").getText();
+        Assert.assertEquals(text, relationshipToPolicyHolderText);
+        return this;
+    }
+
+    @Step("validate Primary Insurance Company text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationPrimaryInsuranceCompanyText(String text) {
+        String primaryInsuranceCompanyText = webDriverMethods.waitForElementTobeClickable("//td[text()='Primary Insurance Company']//following-sibling::td").getText();
+        Assert.assertEquals(text, primaryInsuranceCompanyText);
+        return this;
+    }
+
+    @Step("validate Primary Insurance Policy Number text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationInsurancePolicyNumberText(String text) {
+        String insurancePolicyNumberText = webDriverMethods.waitForElementTobeClickable("//td[text()='Primary Insurance Policy Number']//following-sibling::td").getText();
+        Assert.assertEquals(text, insurancePolicyNumberText);
+        return this;
+    }
+
+    @Step("validate Primary Insurance Group Number text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationInsuranceGroupNumberText(String text) {
+        String insuranceGroupNumberText = webDriverMethods.waitForElementTobeClickable("//td[text()='Primary Insurance Group Number']//following-sibling::td").getText();
+        Assert.assertEquals(text, insuranceGroupNumberText);
+        return this;
+    }
+
+    @Step("validate sample type text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationSampleTypeText(String text) {
+        String sampleTypeText = webDriverMethods.waitForElementTobeClickable("//td[text()='Sample Type']//following-sibling::td").getText();
+        Assert.assertEquals(text, sampleTypeText);
+        return this;
+    }
+
+    @Step("validate Are you using mobile phlebotomy? text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationMobilePhlebotomyText(String text) {
+        String mobilePhlebotomyText = webDriverMethods.waitForElementTobeClickable("//td[text()='Are you using mobile phlebotomy?']//following-sibling::td").getText();
+        Assert.assertEquals(text, mobilePhlebotomyText);
+        return this;
+    }
+
+    @Step("validate Date Collected text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationDateCollectedText(String text) {
+        String dateCollectedText = webDriverMethods.waitForElementTobeClickable("//td[text()='Date Collected']//following-sibling::td").getText();
+        Assert.assertEquals(text, dateCollectedText);
+        return this;
+    }
+
+    @Step("validate Primary Diagnosis Codes text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationPrimaryDiagnosisCodeText(String text) {
+        String primaryDiagnosisCodeText = webDriverMethods.waitForElementTobeClickable("//td[text()='Primary Diagnosis Codes']//following-sibling::td").getText();
+        String[] spt = webDriverMethods.regexUsingSpace(text);
+        Assert.assertEquals(primaryDiagnosisCodeText, spt[0]);
+        return this;
+    }
+    @Step("get provider name text")
+    public SpecialistPendingDashBoardPage getProviderName(String text) {
+        String loggedInUserName= webDriverMethods.getLoggedInUserName("//div[@ng-show='!fromUrl']//button[@data-toggle='dropdown']");
+        Assert.assertEquals(loggedInUserName,text);
+        return this;
+    }
+
+    @Step("validate provider name text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationOrderingProviderName(String text) {
+        String confirmLoggedInUserName = webDriverMethods.waitForElementTobeClickable("//td[text()='Name']//following-sibling::td").getText();
+        Assert.assertEquals(confirmLoggedInUserName,text);
+        return this;
+    }
+    @Step("validate provider name")
+    public SpecialistPendingDashBoardPage verifyGeneName(String actual, String expected){
+        Assert.assertEquals(actual,expected);
+        return this;
+    }
+
+
+    @Step("validate integration text in confirmation")
+    public SpecialistPendingDashBoardPage verifyConfirmationIntegrationText(String text) {
+        String integrationText = webDriverMethods.waitForElementTobeClickable("//td[text()='Integration']//following-sibling::td").getText();
+        Assert.assertEquals(text, integrationText);
+        return this;
+    }
+
 
 }

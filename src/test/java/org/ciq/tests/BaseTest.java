@@ -41,7 +41,7 @@ public class BaseTest {
     @AfterMethod(alwaysRun = true)
     @Step("closing the browser")
     public void tearDownBrowser(){
-        DriverFactory.getInstance().getDriver().quit();
+       // DriverFactory.getInstance().getDriver().quit();
     }
 
     public WebDriver launchAppAndLogin(String url){
