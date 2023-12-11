@@ -508,8 +508,6 @@ public class SpecialistTests extends BaseTest {
                 .clickPrintAssessment("CIQ|Specialist");
     }
 
-
-
     @Test(groups = {"sendEmail"})
     public void email() throws InterruptedException {
         data =excelUtils.getData("addSpecialist-1", "specialist", path);
@@ -573,6 +571,7 @@ public class SpecialistTests extends BaseTest {
                 .chooseReports("For Patients")
                 .downloadReports(data.get("ReportName"),"PDF","download");
     }
+
 
 
 }
