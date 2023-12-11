@@ -1,0 +1,1 @@
+{"uuid":"c97245ae-c65d-4b42-a2a3-085567b4f755","name":"All Test Suite","children":["edb14ce8-1f55-4b03-a650-ef8f5de4bfbd"],"befores":[{"name":"configuringLog4j","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1701011268524,"stop":1701011268624}],"afters":[],"start":1701011268500,"stop":1701011708100}

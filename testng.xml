@@ -7,10 +7,12 @@
         <listener class-name="org.ciq.listeners.RetryListener"></listener>
     </listeners>
 
-    <test verbose="2" preserve-order="true" name="test" parallel="methods">
+    <test verbose="2" preserve-order="true" name="All Test" parallel="methods"  thread-count="2">
         <packages>
             <package name="org.ciq.tests.specialist"></package>
-            <package name="org.ciq.tests.surveys"></package>
+            <package name="org.ciq.tests.ithaca"></package>
+
+            <!--<package name="org.ciq.tests.surveys"></package>-->
         </packages>
     </test>
 </suite>

@@ -1,0 +1,1 @@
+{"uuid":"06a674b8-b15e-4a7f-bb89-ad65af03eb53","name":"Default Suite","children":["54b122c8-0f3d-4f54-a049-862cb7ec2cb1"],"befores":[{"name":"configuringLog4j","status":"passed","stage":"finished","description":"","steps":[],"attachments":[],"parameters":[],"start":1701874070927,"stop":1701874071054}],"afters":[],"start":1701874070900,"stop":1701874257002}
