@@ -21,7 +21,7 @@ public class ReadPDF {
         webDriverMethods = new WebDriverMethods(driver);
     }
 
-    public String readPDFContent(String pdfFilePath) throws IOException {
+    public static String readPDFContent(String pdfFilePath) throws IOException {
 
         PDDocument document = null;
         try {
