@@ -1,11 +1,13 @@
 package org.ciq.pages;
 import io.qameta.allure.Step;
+import org.ciq.utils.ConfigLoader;
 import org.ciq.utils.WebDriverMethods;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.testng.Assert;
+import java.io.IOException;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -14,6 +16,8 @@ public class SpecialistPendingDashBoardPage {
 
     WebDriver driver;
     WebDriverMethods webDriverMethods;
+    ReadPDF readPDF;
+
 
 
     public SpecialistPendingDashBoardPage(WebDriver driver) {
@@ -249,7 +253,6 @@ public class SpecialistPendingDashBoardPage {
 
     @Step("choose patient's location in survey")
     public SpecialistPendingDashBoardPage chooseLocation(String location) throws InterruptedException {
-        Thread.sleep(6000);
         WebElement loc = webDriverMethods.waitForElementTobeClickable("//select[@id='location']");
         webDriverMethods.selectDropDownByText(loc,location);
         return this;
@@ -411,17 +414,31 @@ public class SpecialistPendingDashBoardPage {
     }
 
     @Step("download reports pdf in  {patientreports}")
-    public SpecialistPendingDashBoardPage downloadReports(String patientreports,String windowName, String field) throws InterruptedException {
+    public SpecialistPendingDashBoardPage downloadReports(String patientreports,String windowName, String field) throws InterruptedException, IOException {
         String parent=webDriverMethods.getParentWindow();
         webDriverMethods.waitForElementTobeClickable("(//h4[contains(text(),'"+patientreports+"')]//ancestor::div[3]//div)[5]").click();
         webDriverMethods.switchToChildWindow(windowName);
         webDriverMethods.waitForElementTobeClickable("//button[@data-cmd='"+field+"']").click();
-
-
+        String pdfFilePath = "./src/main/resources/testdoc.pdf";
+        String pdfContent = ReadPDF.readPDFContent(pdfFilePath);
+        System.out.println("PDF Content:\n" + pdfContent);
         return this;
     }
 
 
+    public SpecialistPendingDashBoardPage reportLogin(){
+        WebElement userName = webDriverMethods.waitForElementTobeClickable("//input[@name = 'email']");
+        webDriverMethods.enterText(userName,ConfigLoader.getConfigValue("userEmail"));
+
+        WebElement password = webDriverMethods.waitForElementTobeClickable("//input[@name = 'password']");
+        webDriverMethods.enterText(password,ConfigLoader.getConfigValue("password"));
+
+
+
+        webDriverMethods.waitForElementTobeClickable("//button[@class='auth0-lock-submit']").click();
+
+        return this;
+    }
 
 
     @Step("check saved {reports}")
@@ -973,6 +990,7 @@ public class SpecialistPendingDashBoardPage {
         Assert.assertEquals(text, integrationText);
         return this;
     }
+
 
 
 }

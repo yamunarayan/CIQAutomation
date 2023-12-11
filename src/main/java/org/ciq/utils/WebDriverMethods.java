@@ -291,4 +291,16 @@ public class WebDriverMethods implements DriverActions, ElementActions {
         String loggedInUserName = driver.findElement(By.xpath(locator)).getText();
                 return loggedInUserName;
     }
+
+    public String getCurrentUrl(){
+        String currentUrl = driver.getCurrentUrl();
+        return currentUrl;
+    }
+
+    public void explicitWait(WebElement element){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+
+    }
+
 }
