@@ -1,11 +1,13 @@
 package org.ciq.utils;
 
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.remote.RemoteWebDriver;
 
 public class DriverFactory {
 
     private static DriverFactory driverFactory;
     public static ThreadLocal<WebDriver> tlWebDriver=new ThreadLocal<>();
+
 
     private DriverFactory(){
 
@@ -23,4 +25,6 @@ public class DriverFactory {
     public static WebDriver getDriver(){
         return tlWebDriver.get();
     }
+
+
 }

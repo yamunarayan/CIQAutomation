@@ -543,7 +543,7 @@ public class SpecialistTests extends BaseTest {
     }
 
     @Test(groups = {"specialist","reportsRead", "CarePlan", "mammogram", "GenerateReports"})
-    public void reportsRead() throws InterruptedException {
+    public void reportsRead() throws InterruptedException, IOException {
 
         ExcelUtils excelUtils = new ExcelUtils();
         Map<String, String> data = excelUtils.getData("readReports", "specialist", "./src/test/resources/testdata.xlsx");
