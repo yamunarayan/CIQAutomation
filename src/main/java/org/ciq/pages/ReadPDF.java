@@ -21,7 +21,7 @@ public class ReadPDF {
         webDriverMethods = new WebDriverMethods(driver);
     }
 
-    public static String readPDFContent(String pdfFilePath) throws IOException {
+    public String readPDFContent(String pdfFilePath) throws IOException {
 
         PDDocument document = null;
         try {
@@ -35,17 +35,8 @@ public class ReadPDF {
         }
     }
 
-    public static String readPDFContentWithFileName(String pdfFilePath) throws IOException {
-        String folderToDownloadPdf = "./src/test/resources/downloadedReports";
-        String fieldName = "filename";
-        try {
-            String pdfContent = readPDFContent(folderToDownloadPdf);
-
-        } catch (Exception e) {
-
-        }
-        PDDocument document = null;
-        try {
+    /*public static String readPDFContentWithFileName(String pdfFilePath) throws IOException {
+        String url =driver.getCurrentUrl();
             document = PDDocument.load(new File(pdfFilePath));
             PDFTextStripper pdfStripper = new PDFTextStripper();
             return pdfStripper.getText(document);
@@ -53,6 +44,6 @@ public class ReadPDF {
             if (document != null) {
                 document.close();
             }
-        }
+        }*/
     }
-}
+
