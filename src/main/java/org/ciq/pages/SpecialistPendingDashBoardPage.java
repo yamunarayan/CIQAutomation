@@ -422,6 +422,8 @@ public class SpecialistPendingDashBoardPage {
         String pdfFilePath = "./src/main/resources/testdoc.pdf";
         String pdfContent = ReadPDF.readPDFContent(pdfFilePath);
         System.out.println("PDF Content:\n" + pdfContent);
+        Assert.assertTrue(pdfContent.contains("Herbert Debbi"));
+        //System.out.println(pdfContent.);
         return this;
     }
 
