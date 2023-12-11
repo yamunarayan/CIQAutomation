@@ -4,17 +4,25 @@ import io.qameta.allure.Step;
 import org.ciq.pages.LoginPage;
 import org.ciq.pages.NavigatorHomePage;
 import org.ciq.utils.ConfigLoader;
+import org.openqa.selenium.*;
+import org.openqa.selenium.devtools.DevTools;
+import org.openqa.selenium.devtools.v117.network.Network;
+import org.openqa.selenium.devtools.v117.network.model.Headers;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.BeforeSuite;
 import org.ciq.utils.AllureConfigurator;
 import org.ciq.utils.DriverFactory;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.AfterMethod;
 
 import java.io.IOException;
 import java.time.Duration;
+import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
 
 public class BaseTest {
 
@@ -41,7 +49,7 @@ public class BaseTest {
     @AfterMethod(alwaysRun = true)
     @Step("closing the browser")
     public void tearDownBrowser(){
-        DriverFactory.getInstance().getDriver().quit();
+       // DriverFactory.getInstance().getDriver().quit();
     }
 
     public WebDriver launchAppAndLogin(String url){
@@ -66,4 +74,24 @@ public class BaseTest {
         loginPage.submit();
         return driver;
     }
+
+    public WebDriver launchAppAndDelphiLogin(String url){
+        ChromeDriver driver= new ChromeDriver();
+        driver.manage().window().maximize();
+        String username = ConfigLoader.getConfigValue("delphiUserName");
+        String password = ConfigLoader.getConfigValue("delphiPassword");
+        DevTools devTools = driver.getDevTools();
+        devTools.createSession();
+        devTools.send(Network.enable(Optional.empty(), Optional.empty(), Optional.empty()));
+        String auth = username + ":" + password;
+        String encodeToString = Base64.getEncoder().encodeToString(auth.getBytes());
+        Map<String, Object> headers = new HashMap<>();
+        headers.put("Authorization", "Basic " + encodeToString);
+        devTools.send(Network.setExtraHTTPHeaders(new Headers(headers)));
+        driver.get(ConfigLoader.getConfigValue(url));
+        return driver;
+    }
+
+
+
 }

@@ -12,8 +12,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -75,6 +78,8 @@ public class WebDriverMethods implements DriverActions, ElementActions {
                     return driver.findElement(By.className(value));
                 case "linktext":
                     return driver.findElement(By.linkText(value));
+                case "partiallinktext":
+                    return driver.findElement(By.partialLinkText(value));
                 case "css":
                     return driver.findElement(By.cssSelector(value));
                 default:
@@ -263,4 +268,39 @@ public class WebDriverMethods implements DriverActions, ElementActions {
     public void waitforElementToLoad(){
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(15));
     }
+
+    public String[] regexUsingSpace(String text){
+       String[] splittedArray = text.split("\s");
+       return splittedArray;
+    }
+
+    public String dateConversion(String inputDate){
+        SimpleDateFormat inputDateFormat = new SimpleDateFormat("MM/dd/yyyy");
+        Date date;
+        try{
+        date=inputDateFormat.parse(inputDate);
+         }catch (Exception e){
+            e.printStackTrace();
+            return null;
+        }
+        SimpleDateFormat outputDateFormat = new SimpleDateFormat("MMMM d, yyyy");
+        return outputDateFormat.format(date);
+    }
+
+    public String getLoggedInUserName(String locator){
+        String loggedInUserName = driver.findElement(By.xpath(locator)).getText();
+                return loggedInUserName;
+    }
+
+    public String getCurrentUrl(){
+        String currentUrl = driver.getCurrentUrl();
+        return currentUrl;
+    }
+
+    public void explicitWait(WebElement element){
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
+        wait.until(ExpectedConditions.elementToBeClickable(element));
+
+    }
+
 }

@@ -36,6 +36,20 @@ public class RegistryPage {
         return new SpecialistPendingDashBoardPage(driver);
     }
 
+    @Step("navigate to outlook to validate email")
+    public EmailSender navigateToOutlookUrl(String url){
+
+        try{
+            webDriverMethods.openNextTabNavigateToUrl(url);
+            Thread.sleep(15000);
+            return new EmailSender(driver);
+        }
+        catch (Exception e){
+            e.printStackTrace();
+            System.out.println("Exception has occurred..");
+        }
+        return new EmailSender(driver);
+    }
     @Step("click on patient record")
     public RegistryPage clickPatientRecord(String firstName, String lastName) {
         webDriverMethods.waitForElementTobeClickable("//div[text()[normalize-space()='" + firstName + "'] and text()[normalize-space()='" + lastName + "']]").click();
@@ -144,7 +158,8 @@ public class RegistryPage {
     }
 
     @Step("click button in ithaca")
-    public RegistryPage clickButton(String buttonName) {
+    public RegistryPage clickButton(String buttonName) throws InterruptedException {
+        Thread.sleep(10000);
         webDriverMethods.waitForElementTobeClickable("//span[text()='"+buttonName+"']//ancestor::button").click();
         return this;
     }
@@ -208,4 +223,27 @@ public class RegistryPage {
         return this;
     }
 
+    @Step("click start screening")
+    public RegistryPage clickStartScreening(String field) {
+        webDriverMethods.waitForElementTobeClickable("//span[text()='"+field+"']").click();
+        return this;
+    }
+    @Step("click online screening")
+    public RegistryPage clickOnlineScreening(String field) {
+        webDriverMethods.waitForElementTobeClickable("//h5[text()='"+field+"']//ancestor::button").click();
+        return this;
+    }
+    @Step("enter patient's email in ithaca")
+    public RegistryPage enterEmail(String email){
+        WebElement emailEle = webDriverMethods.waitForElementTobeClickable("//input[@id='patient-email-input']");
+        webDriverMethods.enterText(emailEle,email);
+        return this;
+    }
+
+    @Step("enter patient's confirm email in ithaca")
+    public RegistryPage enterConfirmEmail(String email) {
+        WebElement confirmEmailEle = webDriverMethods.waitForElementTobeClickable("//input[@id='patient-confirm-email-input']");
+        webDriverMethods.enterText(confirmEmailEle, email);
+        return this;
+    }
 }
