@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="9a935487-67bb-4f8b-82c8-56ac744ccc62" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="develop" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2OdQ0JmqwPhXXfhlmkFLm7O4Juv" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;master&quot;,
+    &quot;last_opened_file_path&quot;: &quot;E:/CIQ-Workspace/CIQAutomation/src/main/resources&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.2&quot;
+  }
+}</component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\CIQ-Workspace\CIQAutomation\src\main\resources" />
+    </key>
+  </component>
+  <component name="RunManager" selected="TestNG.SpecialistTests.reportsRead">
+    <configuration name="DelphiTests.delphiNavigation" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="CIQAutomation" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.ciq.tests.delphi.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.ciq.tests.delphi" />
+      <option name="MAIN_CLASS_NAME" value="org.ciq.tests.delphi.DelphiTests" />
+      <option name="METHOD_NAME" value="delphiNavigation" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SpecialistTests.pdf" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="CIQAutomation" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.ciq.tests.specialist.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.ciq.tests.specialist" />
+      <option name="MAIN_CLASS_NAME" value="org.ciq.tests.specialist.SpecialistTests" />
+      <option name="METHOD_NAME" value="pdf" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SpecialistTests.reportsRead" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="CIQAutomation" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.ciq.tests.specialist.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.ciq.tests.specialist" />
+      <option name="MAIN_CLASS_NAME" value="org.ciq.tests.specialist.SpecialistTests" />
+      <option name="METHOD_NAME" value="reportsRead" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SpecialistTests.specialistCarePlanCheck" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="CIQAutomation" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.ciq.tests.specialist.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.ciq.tests.specialist" />
+      <option name="MAIN_CLASS_NAME" value="org.ciq.tests.specialist.SpecialistTests" />
+      <option name="METHOD_NAME" value="specialistCarePlanCheck" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SpecialistTests.validatWithTempusVendorE2E" type="TestNG" temporary="true" nameIsGenerated="true">
+      <module name="CIQAutomation" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.ciq.tests.specialist.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="org.ciq.tests.specialist" />
+      <option name="MAIN_CLASS_NAME" value="org.ciq.tests.specialist.SpecialistTests" />
+      <option name="METHOD_NAME" value="validatWithTempusVendorE2E" />
+      <option name="TEST_OBJECT" value="METHOD" />
+      <properties />
+      <listeners />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="TestNG.SpecialistTests.reportsRead" />
+        <item itemvalue="TestNG.DelphiTests.delphiNavigation" />
+        <item itemvalue="TestNG.SpecialistTests.validatWithTempusVendorE2E" />
+        <item itemvalue="TestNG.SpecialistTests.specialistCarePlanCheck" />
+        <item itemvalue="TestNG.SpecialistTests.pdf" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="9a935487-67bb-4f8b-82c8-56ac744ccc62" name="Changes" comment="" />
+      <created>1681887756382</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1681887756382</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/CIQAutomation$SpecialistTests_validatWithTempusVendorE2E.ic" NAME="SpecialistTests.validatWithTempusVendorE2E Coverage Results" MODIFIED="1701948854187" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false">
+      <FILTER>org.ciq.tests.specialist.*</FILTER>
+    </SUITE>
+  </component>
+</project>
