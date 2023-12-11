@@ -8,8 +8,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.devtools.DevTools;
 import org.openqa.selenium.devtools.v117.network.Network;
 import org.openqa.selenium.devtools.v117.network.model.Headers;
-import org.openqa.selenium.remote.RemoteWebDriver;
-import org.testng.annotations.BeforeMethod;
+
 import org.testng.annotations.BeforeSuite;
 import org.ciq.utils.AllureConfigurator;
 import org.ciq.utils.DriverFactory;
