@@ -143,13 +143,13 @@ public class DelphiPage {
         selectOptioninMultiSelectBox();
         clickAddNewItem();
         checkSelectedOptionInMultiSelect();
-        clickCancel();
+        clickCancelWithScroll();
         clickEdit();
         WebElement surveyEditModuleSearch = webDriverMethods.waitForElementTobeClickable("(//div[@id='question_survey_module_ids_field']//child::div//input)[3]");
         webDriverMethods.enterText(surveyEditModuleSearch, surveyModuleText);
         Thread.sleep(3000);
         clickChooseAll();
-        clickCancel();
+        clickCancelWithScroll();
         return this;
     }
 
