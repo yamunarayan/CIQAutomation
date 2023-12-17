@@ -419,11 +419,11 @@ public class SpecialistPendingDashBoardPage {
         webDriverMethods.waitForElementTobeClickable("(//h4[contains(text(),'"+patientreports+"')]//ancestor::div[3]//div)[5]").click();
         webDriverMethods.switchToChildWindow(windowName);
         webDriverMethods.waitForElementTobeClickable("//button[@data-cmd='"+field+"']").click();
+        //after adding pdf class remove this
         String pdfFilePath = "./src/main/resources/testdoc.pdf";
         String pdfContent = ReadPDF.readPDFContent(pdfFilePath);
         System.out.println("PDF Content:\n" + pdfContent);
         Assert.assertTrue(pdfContent.contains("Herbert Debbi"));
-        //System.out.println(pdfContent.);
         return this;
     }
 
@@ -992,6 +992,71 @@ public class SpecialistPendingDashBoardPage {
         Assert.assertEquals(text, integrationText);
         return this;
     }
+
+    @Step("select include self as additional results recipient")
+    public SpecialistPendingDashBoardPage selectAdditionalResultRecipient(String field) {
+        webDriverMethods.waitForElementTobeClickable("//label[text()='Include self as additional results recipient?']//following::button[contains(text(),'"+field+"')]").click();
+        return this;
+    }
+
+    @Step("enter Clinic or Organization")
+    public SpecialistPendingDashBoardPage enterClinicOrOrganization(String clininvalue) {
+        WebElement clinicOrOrganizationField = webDriverMethods.waitForElementTobeClickable("//label[text()='Clinic or Organization']//following-sibling::input");
+        webDriverMethods.enterText(clinicOrOrganizationField,clininvalue);
+
+        return this;
+    }
+
+    @Step("enter referring physician name")
+    public SpecialistPendingDashBoardPage enterreferringPhysician(String referringPhysicianName) {
+        WebElement referringPhysicianNameField = webDriverMethods.waitForElementTobeClickable("//label[text()='Name']//following-sibling::input");
+        webDriverMethods.enterText(referringPhysicianNameField,referringPhysicianName);
+        return this;
+    }
+
+    @Step("select populate from cancerIQ")
+    public SpecialistPendingDashBoardPage selectPopulateFromCancerIQ(String populateFromCancerIQValue) {
+        WebElement populateFromCancerIQ =  webDriverMethods.waitForElementTobeClickable("//label[contains(text(),'Populate')]//child::select");
+        webDriverMethods.selectDropDownByText(populateFromCancerIQ,populateFromCancerIQValue);
+        return this;
+    }
+    @Step("select in patient")
+    public SpecialistPendingDashBoardPage selectInPatient(String field) {
+        webDriverMethods.waitForElementTobeClickable("//label[text()='Hospital Inpatient']//following::button[contains(text(),'"+field+"')]").click();
+        return this;
+    }
+    @Step("enter somatic/tumor tests performed")
+    public SpecialistPendingDashBoardPage enterTumorTestPerformed(String tumorTestPerformed ) {
+        WebElement tumorTestPerformedField = webDriverMethods.waitForElementTobeClickable("//label[text()='Somatic/Tumor Tests Performed']//following::input");
+        webDriverMethods.enterText(tumorTestPerformedField,tumorTestPerformed);
+        return this;
+    }
+
+    @Step("enter somatic/tumor Test results")
+    public SpecialistPendingDashBoardPage enterTumorTestresults(String entertumorTestresults) {
+        WebElement tumorTestresultsField = webDriverMethods.waitForElementTobeClickable("//label[text()='Somatic/Tumor Test Results']//following::input");
+        webDriverMethods.enterText(tumorTestresultsField,entertumorTestresults);
+        return this;
+    }
+
+    @Step("enter germline tests performed")
+    public SpecialistPendingDashBoardPage enterGermlineTestPerformed(String tumorTestPerformed ) {
+        WebElement tumorTestPerformedField = webDriverMethods.waitForElementTobeClickable("//label[text()='Germline Tests Performed']//following::input");
+        webDriverMethods.enterText(tumorTestPerformedField,tumorTestPerformed);
+        return this;
+    }
+
+    @Step("enter germline Test results")
+    public SpecialistPendingDashBoardPage enterGermlineTestresults(String entertumorTestresults) {
+        WebElement tumorTestresultsField = webDriverMethods.waitForElementTobeClickable("//label[text()='Germline Test Results']//following::input");
+        webDriverMethods.enterText(tumorTestresultsField,entertumorTestresults);
+        return this;
+    }
+
+
+
+
+
 
 
 
