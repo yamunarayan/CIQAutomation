@@ -19,7 +19,6 @@ public class SpecialistTests extends BaseTest {
     WebDriver driver;
     String path = "./src/test/resources/testdata.xlsx";
     SpecialistPendingDashBoardPage specialistPendingDashBoardPage;
-
     DataGenerationUtils dataGenerationUtils=new DataGenerationUtils(new Faker());
     String firstName = dataGenerationUtils.randomFirstName();
     String lastName = dataGenerationUtils.randomLastName();
@@ -86,7 +85,7 @@ public class SpecialistTests extends BaseTest {
                 .validateListOfPatientEligibilities(data.get("eligibilities"));
     }
 
-    //TC1 : CIQ-3582, TC7
+    //TC1 : CIQ-3582, TC7 // can remove after e2e
     @Test(groups = {"specialist","specialistCarePlanCheck", "CarePlan", "mammogram", "GenerateReports"})
     public void specialistCarePlanCheck() throws InterruptedException {
 
