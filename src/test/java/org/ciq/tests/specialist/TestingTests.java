@@ -13,6 +13,95 @@ import java.util.Map;
 
 public class TestingTests extends BaseTest {
 
+    //TC3, TC5 , TC6
+    @Test(groups = {"specialist","specialistHBOCAndHCC", "HBOC", "HCC", "updateTestResult", "printAssessment"})
+    public void specialistHBOCAndHCC() throws InterruptedException {
+
+        ExcelUtils excelUtils = new ExcelUtils();
+        Map<String, String> data = excelUtils.getData("SpecialistHBOCAndHCCCheck", "specialist", "./src/test/resources/testdata.xlsx");
+
+        WebDriver driver = launchAppAndLogin("specialistUrl");
+
+        SpecialistPendingDashBoardPage specialistPendingDashBoardPage = new SpecialistPendingDashBoardPage(driver);
+        DataGenerationUtils dataGenerationUtils=new DataGenerationUtils(new Faker());
+
+        String firstName = dataGenerationUtils.randomFirstName();
+        String lastName = dataGenerationUtils.randomLastName();
+
+        specialistPendingDashBoardPage.clickCreatePatientButton()
+                .enterFirstName(firstName)
+                .enterLastName(lastName)
+                .chooseGender(data.get("Sex"))
+                .enterDob(data.get("DOB"))
+                .chooseLocation(data.get("Location"))
+                .enterEmail(firstName+lastName+"@email.com")
+                .enterConfirmEmail(firstName+lastName+"@email.com")
+                .chooseStatPatient(data.get("STAT patient"))
+                .clickNext()
+                .clickSkipAddPatient()
+                .clickPatientRecord(firstName)
+                .clickReviewPatient()
+                .scrollDownByXY(0,1200)
+                .scrollToElementAndClick("Medical History")
+                .enterWeight(data.get("Weight(lb)"),"Weight(lb)")
+                .enterHeight(data.get("Height"),"Height")
+                .addComorbidity(data.get("Comorbidity"),"Comorbidity")
+                .enterAgeOfDiagnosis(data.get("Age of Diagnosis"),1,"Comorbidity")
+                .selectSurgey(data.get("Surgery"),"Surgery",1)
+                .clickSaveChanges()
+                .scrollDownByXY(0,600)
+                .scrollToElementAndClick("Basic Information")
+                .chooseRace(data.get("Race"),"Race")
+                .chooseSubRace(data.get("Sub Race"),"Sub Race")
+                .selectGeneticTestResult(data.get("Has Had Genetic Testing"),"Has Had Genetic Testing")
+                .clickSaveChanges()
+                .scrollDownByXY(0,900)
+                .scrollToElementAndClick("Reproductive History")
+                .chooseMenopauseStatus(data.get("Menopausal Status"),"Menopausal Status")
+                .enterGravida(data.get("Gravida"),"Gravida")
+                .enterParity(data.get("Parity"),"Parity")
+                .enterAgeOfFirstBirth(data.get("Age of First Birth"),"Age of First Birth")
+                .clickSaveChanges()
+                .navigateToEthicaUrl(ConfigLoader.getConfigValue("registryUrl"))
+                .clickPatientRecord(firstName, lastName)
+                .addFamilyMember("Family Cancer History", data.get("Family Grouping1"))
+                .addRelationshipCancer(data.get("Relationship1"),data.get("Cancer Type1"),data.get("Age Of Diagnosis1"))
+                .clickButton("Submit")
+                .addFamilyMember("Family Cancer History", data.get("Family Grouping2"))
+                .addRelationshipCancer(data.get("Relationship2"),data.get("Cancer Type2"),data.get("Age Of Diagnosis2"))
+                .clickButton("Submit")
+                .navigateToSpecialistUrl(ConfigLoader.getConfigValue("specialistUrl"))
+                .clickPatientRecord(firstName)
+                .clickReviewPatient()
+                .clickPatientNavigationTab("Testing")
+                .validateHbocAndHccStatus("class","switch ng-valid checked","fa check-icon fa-check-circle bg-green")
+                .testSelectionPanelEligibilities("Primary","HBOC")
+                .testSelectionPanelEligibilities("Secondary","Lynch Syndrome")
+                .selectVendors(data.get("Vendors"))
+                .selecttest(data.get("Test"))
+                .clickButton("Next")
+                .clickButton("Next")
+                .clickButton("Next")
+                .clickButton("Next")
+                .clickButton("Next")
+                .clickButton("Print")
+                .checkTestResultPanel(data.get("Test Result"))
+                .enterTestResult(data.get("TestName1"),data.get("TestResultOption1"))
+                .enterTestResult(data.get("TestName2"),data.get("TestResultOption2"))
+                .clickButton("Save Test Results")
+                .validateSavedResults(data.get("TestName1"),data.get("TestResultOption1"))
+                .validateSavedResults(data.get("TestName2"),data.get("TestResultOption2"))
+                .clickViewCompletedForms()
+                .downloadForms(data.get("FormNames"))
+                .clickToClosePopup()
+                .clickButton("Update Test Results")
+                .enterTestResult(data.get("TestName3"),data.get("TestResultOption3"))
+                .addAdditionalVariant(data.get("TestName3"),data.get("AdditionalTestResultOption"))
+                .clickButton("Save Test Results")
+                .validateSavedResults(data.get("TestName3"),data.get("AdditionalTestResultOption"))
+                .clickRunRiskAssessmentButton()
+                .clickPrintAssessment("CIQ|Specialist");
+    }
     @Test(groups = {"specialist","Tempus", "updateTestResult", "regression", "validatWithTempusVendorWithMandatoryCheck"})
     public void validatWithTempusVendorWithMandatoryCheck() throws InterruptedException {
 

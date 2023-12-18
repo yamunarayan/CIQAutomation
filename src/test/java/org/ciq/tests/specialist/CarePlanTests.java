@@ -21,19 +21,13 @@ public class CarePlanTests extends BaseTest {
     String firstName = dataGenerationUtils.randomFirstName();
     String lastName = dataGenerationUtils.randomLastName();
 
+    //TC1 : CIQ-3582, TC7
     @Test(groups = {"specialist","specialistCarePlanCheck", "CarePlan", "mammogram", "GenerateReports"})
     public void specialistCarePlanCheck() throws InterruptedException {
 
-        ExcelUtils excelUtils = new ExcelUtils();
-        Map<String, String> data = excelUtils.getData("SpecialistMamogramCheck", "specialist", "./src/test/resources/testdata.xlsx");
-
-        WebDriver driver = launchAppAndLogin("specialistUrl");
-
-        SpecialistPendingDashBoardPage specialistPendingDashBoardPage = new SpecialistPendingDashBoardPage(driver);
-        DataGenerationUtils dataGenerationUtils=new DataGenerationUtils(new Faker());
-
-        String firstName = dataGenerationUtils.randomFirstName();
-        String lastName = dataGenerationUtils.randomLastName();
+        data = excelUtils.getData("SpecialistMamogramCheck", "specialist", path);
+        driver = launchAppAndLogin("specialistUrl");
+        specialistPendingDashBoardPage = new SpecialistPendingDashBoardPage(driver);
 
         specialistPendingDashBoardPage.clickCreatePatientButton()
                 .enterFirstName(firstName)
@@ -68,19 +62,14 @@ public class CarePlanTests extends BaseTest {
 
 
     //TC2 : CIQ-3350
+
     @Test(groups = {"specialist","specialistAromatasePlanCheck", "Aromatase","CarePlan"})
     public void specialistAromatasePlanCheck() throws InterruptedException {
 
-        ExcelUtils excelUtils = new ExcelUtils();
-        Map<String, String> data = excelUtils.getData("SpecialistAromataseCheck", "specialist", "./src/test/resources/testdata.xlsx");
+        data = excelUtils.getData("SpecialistAromataseCheck", "specialist", path);
+        driver = launchAppAndLogin("specialistUrl");
+        specialistPendingDashBoardPage = new SpecialistPendingDashBoardPage(driver);
 
-        WebDriver driver = launchAppAndLogin("specialistUrl");
-
-        SpecialistPendingDashBoardPage specialistPendingDashBoardPage = new SpecialistPendingDashBoardPage(driver);
-        DataGenerationUtils dataGenerationUtils=new DataGenerationUtils(new Faker());
-
-        String firstName = dataGenerationUtils.randomFirstName();
-        String lastName = dataGenerationUtils.randomLastName();
 
         specialistPendingDashBoardPage.clickCreatePatientButton()
                 .enterFirstName(firstName)

@@ -77,6 +77,12 @@ public class SurveyPage {
         return this;
     }
 
+    @Step("click begin assessment")
+    public SurveyPage clickBeginAssessment() {
+        webDriverMethods.waitForElementTobeClickable("//button[contains(text(),'Begin Assessment')]").click();
+        return this;
+    }
+
     @Step("entering first name")
     public SurveyPage enterFirstName(String fName) {
         webDriverMethods.enterText(firstName, fName);
@@ -398,6 +404,24 @@ public class SurveyPage {
         return this;
     }
 
+    @Step("You or your family had genetic test for hereditary cancer syndromes")
+    public SurveyPage hereditaryCancerSyndrome(String hereditaryCancerSyndrome) {
+        webDriverMethods.waitForElementTobeClickable( "//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='" + hereditaryCancerSyndrome + "']]").click();
+        return this;
+    }
+
+    @Step("You or your family tested positive for BRCA1 or BRCA2 gene mutation")
+    public SurveyPage testedForBRCA1Or2(String testedForBRCA1Or2) {
+        webDriverMethods.waitForElementTobeClickable( "//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='" + testedForBRCA1Or2 + "']]").click();
+        return this;
+    }
+
+    @Step("You or your family tested positive for lynch syndrome")
+    public SurveyPage testedForLynchSyndrome(String testedForLynch) {
+        webDriverMethods.waitForElementTobeClickable( "//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='" + testedForLynch + "']]").click();
+        return this;
+    }
+
     @Step("Did you develop breast cancer in both breasts?")
     public SurveyPage cancerInBothBreasts(String lastPsatest) {
         webDriverMethods.waitForElementTobeClickable( "//div[@class='col-md-6 col-xs-12']//div[text()[normalize-space()='" + lastPsatest + "']]").click();
@@ -487,6 +511,20 @@ public class SurveyPage {
     @Step("Click submit")
     public void clickSubmit() {
         webDriverMethods.click(submit);
+    }
+
+    @Step("enter email")
+    public SurveyPage enterEmail(String emailValue) {
+        WebElement email = webDriverMethods.waitForElementTobeClickable("//input[@ng-model='email']");
+        webDriverMethods.enterText(email,emailValue);
+        return this;
+    }
+
+    @Step("enter confirm email")
+    public SurveyPage enterConfirmEmail(String confirmEmailValue) {
+        WebElement confirmEmail = webDriverMethods.waitForElementTobeClickable("//input[@ng-model='email_confirmation']");
+        webDriverMethods.enterText(confirmEmail,confirmEmailValue);
+        return this;
     }
 
 }

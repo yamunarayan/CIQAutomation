@@ -74,6 +74,17 @@ public class BaseTest {
         return driver;
     }
 
+    public WebDriver launchAppAndAmericanCancerSocietySurveyLogin(){
+        WebDriver driver = launchBrowser();
+        driver.get(ConfigLoader.getConfigValue("americanCancerSocietyUrl"));
+        /*LoginPage loginPage = new LoginPage(driver);
+        NavigatorHomePage navigatorHomePage = new NavigatorHomePage(driver);
+        loginPage.enterUserName(ConfigLoader.getConfigValue("surveyUser"));
+        loginPage.enterPassWord(ConfigLoader.getConfigValue("surveyPwd"));
+        loginPage.submit();*/
+        return driver;
+    }
+
     public WebDriver launchAppAndDelphiLogin(String url){
         ChromeDriver driver= new ChromeDriver();
         driver.manage().window().maximize();
